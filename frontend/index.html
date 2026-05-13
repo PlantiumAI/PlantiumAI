@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PlantiuIA — Sistema Inteligente de IA para Agricultura">
+    <title>PlantiuIA — Agricultura Inteligente</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ========== SIDEBAR ========== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">🌱</div>
+                <div>
+                    <div class="sidebar-title">PlantiuIA</div>
+                    <div class="sidebar-subtitle">Agricultura Inteligente</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Principal</div>
+                <div class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
+                    <span class="nav-icon">📊</span> Dashboard
+                </div>
+                <div class="nav-item" data-page="analysis" onclick="navigateTo('analysis')">
+                    <span class="nav-icon">🔬</span> Análise de Saúde
+                </div>
+                <div class="nav-item" data-page="irrigation" onclick="navigateTo('irrigation')">
+                    <span class="nav-icon">💧</span> Irrigação
+                </div>
+                <div class="nav-item" data-page="plants" onclick="navigateTo('plants')">
+                    <span class="nav-icon">🌿</span> Minhas Plantas
+                </div>
+
+                <div class="nav-section-label">Sistema</div>
+                <div class="nav-item" data-page="consult" onclick="navigateTo('consult')">
+                    <span class="nav-icon">🤖</span> Consultar IA
+                </div>
+                <div class="nav-item" data-page="settings" onclick="navigateTo('settings')">
+                    <span class="nav-icon">⚙️</span> Configurações
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="ai-status-badge" id="ai-status-badge">
+                    <div class="ai-status-dot" id="ai-status-dot"></div>
+                    <span id="ai-status-text">IA: Conectando...</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ========== MAIN CONTENT ========== -->
+        <main class="main-content">
+            <header class="main-header">
+                <h1 class="page-title" id="page-title">Dashboard</h1>
+                <div class="header-actions">
+                    <button class="btn btn-sm btn-secondary" onclick="simulateSensors()" title="Simular leitura de sensores">📡 Simular Sensores</button>
+                    <button class="btn btn-sm btn-primary" onclick="openAddPlantModal()">+ Nova Planta</button>
+                </div>
+            </header>
+
+            <div class="main-body">
+                <!-- ===== DASHBOARD ===== -->
+                <section class="page-section active" id="page-dashboard">
+                    <div class="stats-grid" id="stats-grid">
+                        <div class="stat-card green">
+                            <div class="stat-label">Plantas Monitoradas</div>
+                            <div class="stat-value" id="stat-plants">0</div>
+                            <div class="stat-sub" id="stat-plants-sub">Nenhuma planta cadastrada</div>
+                            <div class="stat-icon">🌿</div>
+                        </div>
+                        <div class="stat-card blue">
+                            <div class="stat-label">Análises Realizadas</div>
+                            <div class="stat-value" id="stat-analyses">0</div>
+                            <div class="stat-sub">Total de diagnósticos</div>
+                            <div class="stat-icon">🔬</div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="stat-label">Irrigações</div>
+                            <div class="stat-value" id="stat-irrigations">0</div>
+                            <div class="stat-sub">Total de irrigações</div>
+                            <div class="stat-icon">💧</div>
+                        </div>
+                        <div class="stat-card orange">
+                            <div class="stat-label">Alertas</div>
+                            <div class="stat-value" id="stat-alerts">0</div>
+                            <div class="stat-sub">Não lidos</div>
+                            <div class="stat-icon">🔔</div>
+                        </div>
+                    </div>
+
+                    <div class="content-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">📈 Análises Recentes</h3>
+                            </div>
+                            <div id="recent-analyses">
+                                <div class="empty-state">
+                                    <div class="empty-icon">🔬</div>
+                                    <div class="empty-text">Nenhuma análise realizada ainda</div>
+                                    <button class="btn btn-primary btn-sm" onclick="navigateTo('analysis')">Fazer Análise</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">🧠 Status da IA</h3>
+                            </div>
+                            <div id="ai-status-detail">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== ANALYSIS ===== -->
+                <section class="page-section" id="page-analysis">
+                    <div class="content-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">📸 Enviar Imagem para Análise</h3>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Planta</label>
+                                <select class="form-select form-input" id="analysis-plant-select">
+                                    <option value="">Selecione uma planta...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tipo de Análise</label>
+                                <select class="form-select form-input" id="analysis-type-select">
+                                    <option value="leaf">🍃 Folha Individual</option>
+                                    <option value="full_plant">🌱 Planta Inteira</option>
+                                    <option value="soil">🟫 Solo</option>
+                                    <option value="fruit">🍅 Fruto</option>
+                                    <option value="root">🌿 Raiz</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Informações Adicionais (opcional)</label>
+                                <textarea class="form-input" id="analysis-extra" rows="2" placeholder="Ex: folhas amarelando nas pontas..."></textarea>
+                            </div>
+                            <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+                                <div class="upload-icon">📷</div>
+                                <div class="upload-text">Clique ou arraste uma imagem aqui</div>
+                                <div class="upload-hint">JPEG, PNG — máx 10MB</div>
+                                <img class="upload-preview" id="upload-preview" style="display:none" alt="Preview">
+                            </div>
+                            <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
+                            <br>
+                            <button class="btn btn-primary btn-lg" id="btn-analyze" onclick="submitAnalysis()" style="width:100%" disabled>
+                                🔬 Analisar com IA
+                            </button>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">📋 Resultado da Análise</h3>
+                            </div>
+                            <div id="analysis-result">
+                                <div class="empty-state">
+                                    <div class="empty-icon">🔍</div>
+                                    <div class="empty-text">Envie uma imagem para ver o diagnóstico</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== IRRIGATION ===== -->
+                <section class="page-section" id="page-irrigation">
+                    <div class="content-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">💧 Controle de Irrigação</h3>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Planta</label>
+                                <select class="form-select form-input" id="irrigation-plant-select">
+                                    <option value="">Selecione uma planta...</option>
+                                </select>
+                            </div>
+                            <div id="irrigation-sensors" style="margin-bottom:var(--space-lg)">
+                                <div class="empty-state">
+                                    <div class="empty-text" style="font-size:0.85rem">Selecione uma planta para ver os sensores</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:var(--space-md)">
+                                <button class="btn btn-primary" onclick="askAIIrrigation()" style="flex:1">🤖 Consultar IA</button>
+                                <button class="btn btn-secondary" onclick="triggerManualIrrigation()" style="flex:1">💧 Irrigar Manual</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">🤖 Decisão da IA</h3>
+                            </div>
+                            <div id="irrigation-decision">
+                                <div class="empty-state">
+                                    <div class="empty-icon">💧</div>
+                                    <div class="empty-text">Consulte a IA para uma recomendação de irrigação</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== PLANTS ===== -->
+                <section class="page-section" id="page-plants">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">🌿 Minhas Plantas</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openAddPlantModal()">+ Nova Planta</button>
+                        </div>
+                        <div id="plants-list">
+                            <div class="empty-state">
+                                <div class="empty-icon">🌱</div>
+                                <div class="empty-text">Nenhuma planta cadastrada</div>
+                                <button class="btn btn-primary" onclick="openAddPlantModal()">Cadastrar Primeira Planta</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== CONSULT ===== -->
+                <section class="page-section" id="page-consult">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">🤖 Consultar Assistente Agrícola</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Sua dúvida</label>
+                            <textarea class="form-input" id="consult-question" rows="4" placeholder="Ex: Qual a melhor época para plantar tomate no Sudeste?"></textarea>
+                        </div>
+                        <button class="btn btn-primary btn-lg" onclick="submitConsultation()" style="width:100%">🧠 Perguntar à IA</button>
+                        <div id="consult-result" style="margin-top:var(--space-lg)"></div>
+                    </div>
+                </section>
+
+                <!-- ===== SETTINGS ===== -->
+                <section class="page-section" id="page-settings">
+                    <div class="content-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">🧠 Modo de IA</h3>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Modo de Operação</label>
+                                <select class="form-select form-input" id="settings-ai-mode" onchange="changeAIMode(this.value)">
+                                    <option value="local_only">🖥️ Apenas Local (Ollama)</option>
+                                    <option value="api_only">☁️ Apenas API (Cloud)</option>
+                                    <option value="hybrid_prefer_api">☁️→🖥️ Híbrido (prioriza API)</option>
+                                    <option value="hybrid_prefer_local">🖥️→☁️ Híbrido (prioriza Local)</option>
+                                    <option value="smart_failover">🔄 Smart Failover (recomendado)</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" onclick="resetCircuitBreakers()">🔁 Reset Circuit Breakers</button>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">📡 Provedores de IA</h3>
+                            </div>
+                            <div id="providers-status">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== MODAL: Add Plant ===== -->
+    <div class="modal-overlay" id="modal-add-plant">
+        <div class="modal">
+            <div class="modal-title">🌱 Cadastrar Nova Planta</div>
+            <div class="form-group">
+                <label class="form-label">Nome *</label>
+                <input class="form-input" id="plant-name" placeholder="Ex: Tomateiro da Estufa">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Espécie</label>
+                <input class="form-input" id="plant-species" placeholder="Ex: Solanum lycopersicum">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Estágio</label>
+                <select class="form-select form-input" id="plant-stage">
+                    <option value="seed">Semente</option>
+                    <option value="germination">Germinação</option>
+                    <option value="seedling">Muda</option>
+                    <option value="vegetative" selected>Vegetativo</option>
+                    <option value="flowering">Floração</option>
+                    <option value="fruiting">Frutificação</option>
+                    <option value="harvest">Colheita</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Localização</label>
+                <input class="form-input" id="plant-location" placeholder="Ex: Estufa 1, Canteiro Norte">
+            </div>
+            <div style="display:flex;gap:var(--space-md);justify-content:flex-end;margin-top:var(--space-lg)">
+                <button class="btn btn-secondary" onclick="closeModal('modal-add-plant')">Cancelar</button>
+                <button class="btn btn-primary" onclick="createPlant()">Salvar Planta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

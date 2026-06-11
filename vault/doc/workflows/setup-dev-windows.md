@@ -31,6 +31,7 @@ Preparar ambiente dev do PlantiumAI desktop nesta máquina Windows.
 - Credencial do Windows Credential Manager: ThyagoToledo (auth correta)
 - Histórico remoto antigo (backend na raiz) foi mesclado com `-s ours --allow-unrelated-histories`; legado preservado em SistemaLegado/
 - .gitignore exclui: .env, *.gguf (modelo 2GB), *.db, venv/, node_modules/, target/
+- REDE DO LAB: DNS sequestrado (api.github.com → 4.228.31.149 bloqueado, até via 8.8.8.8). Workaround: `curl --resolve api.github.com:443:140.82.112.6` (IP real funciona). github.com normal funciona para git push.
 
 ## Troubleshooting
 

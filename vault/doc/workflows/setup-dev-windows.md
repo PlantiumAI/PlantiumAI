@@ -24,6 +24,15 @@ Preparar ambiente dev do PlantiumAI desktop nesta máquina Windows.
 4. Build nativo: `npm run tauri build`
 5. Testes Rust: `cargo test --manifest-path src-tauri/Cargo.toml`
 
+## Git / GitHub
+
+- Remoto: https://github.com/ThyagoToledo/PlantiumAI.git
+- Identidade GLOBAL da máquina é de outra pessoa (kkraties13) — usar config LOCAL do repo: ThyagoToledo / thyago10a2007@gmail.com (já configurado)
+- Credencial do Windows Credential Manager: ThyagoToledo (auth correta)
+- Histórico remoto antigo (backend na raiz) foi mesclado com `-s ours --allow-unrelated-histories`; legado preservado em SistemaLegado/
+- .gitignore exclui: .env, *.gguf (modelo 2GB), *.db, venv/, node_modules/, target/
+- REDE DO LAB: DNS sequestrado (api.github.com → 4.228.31.149 bloqueado, até via 8.8.8.8). Workaround: `curl --resolve api.github.com:443:140.82.112.6` (IP real funciona). github.com normal funciona para git push.
+
 ## Troubleshooting
 
 - Print UTF-8 no Python/Windows falha (cp1252) → `sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')`

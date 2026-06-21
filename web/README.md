@@ -55,9 +55,16 @@ Veja **[DEPLOY.md](./DEPLOY.md)** — guia manual completo (Vercel + Neon + coma
 - **empresa** — admin: gerencia locais, sensores, tokens e usuários da empresa.
 - **cliente** — acesso de leitura aos dados (a ser refinado nas próximas rodadas).
 
+## Implementado
+
+- Landing + auth (signup cria empresa) + painel protegido.
+- Geração/revogação de tokens de firmware; ingestão em `/api/ingest`.
+- **CRUD de locais e sensores** pela UI.
+- **Dashboards por tipo de sensor** (gráficos recharts, valor atual e status).
+
 ## Roadmap (próximas rodadas)
 
-- CRUD de locais/sensores/usuários pela UI.
-- Dashboards específicos por tipo de sensor (gráficos adequados a cada métrica).
-- Convite de clientes por e-mail; OAuth Google.
+- CRUD/convite de usuários (clientes) por e-mail; OAuth Google.
+- Acesso de leitura para o papel `cliente`.
+- Alertas e histórico com filtros de período.
 - Decisão de irrigação por IA (portar gateway multi-provider do legado).

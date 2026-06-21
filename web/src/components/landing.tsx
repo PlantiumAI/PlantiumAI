@@ -37,14 +37,14 @@ const HTML = `
           <span class="plf-sun" style="align-items:center; justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.5 5.5l1.4 1.4M17.1 17.1l1.4 1.4M18.5 5.5l-1.4 1.4M6.9 17.1l-1.4 1.4"/></svg></span>
           <span class="plf-moon" style="align-items:center; justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A7.5 7.5 0 1 1 10.5 4 6 6 0 0 0 20 14.5z"/></svg></span>
         </button>
-        <a href="/login" class="plf-btn-primary" style="padding:10px 18px; border-radius:999px; border:none; background:var(--brand-green); color:#06120b; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 4px 14px rgba(52,217,119,0.3); transition:transform .15s, background .2s;">Falar com a equipe</a>
+        <a href="/login" class="plf-btn-primary" style="padding:10px 18px; border-radius:999px; border:none; background:var(--brand-green); color:#06120b; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 4px 14px rgba(52,217,119,0.3); transition:transform .15s, background .2s;">Login</a>
       </div>
     </nav>
   </div>
 
   <!-- HERO -->
   <header id="topo" style="position:relative; z-index:1; overflow:hidden;">
-    <div style="position:absolute; inset:0; background-image:url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1600'); background-size:cover; background-position:center; opacity:0.5;"></div>
+    <div style="position:absolute; inset:0; background-image:url('/landing/hero.jpg'); background-size:cover; background-position:center; opacity:0.9;"></div>
     <div style="position:absolute; inset:0; background:var(--hero-veil);"></div>
     <div style="position:relative; max-width:1180px; margin:0 auto; padding:72px 24px 48px; display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:center;" class="plf-hero">
       <div id="solucao">

@@ -33,6 +33,35 @@ export function classifyMoisture(
   return "saturated";
 }
 
+/**
+ * Faixas ideais (verde) e de atenção (amarelo) por métrica. Fora da faixa de
+ * atenção → crítico (vermelho). Usado nos chips dos cards de sensor.
+ */
+const IDEAL: Partial<Record<Metric, { ideal: [number, number]; warn: [number, number] }>> = {
+  soilMoisture: { ideal: [35, 65], warn: [20, 80] },
+  airTemperature: { ideal: [18, 30], warn: [10, 38] },
+  airHumidity: { ideal: [45, 80], warn: [30, 92] },
+  soilTemperature: { ideal: [15, 28], warn: [8, 35] },
+  co2Level: { ideal: [350, 1000], warn: [300, 1400] },
+  phLevel: { ideal: [5.8, 7.2], warn: [5.2, 7.8] },
+  lightLevel: { ideal: [8000, 45000], warn: [2000, 60000] },
+};
+
+/** Classifica uma métrica em ok/warn/bad com rótulo pt-BR para o chip. */
+export function classifyMetric(
+  metric: Metric,
+  value: number | null,
+): { status: "ok" | "warn" | "bad"; label: string } {
+  if (value === null || Number.isNaN(value)) return { status: "warn", label: "Sem dado" };
+  const cfg = IDEAL[metric];
+  if (!cfg) return { status: "ok", label: "Normal" };
+  const [imin, imax] = cfg.ideal;
+  const [wmin, wmax] = cfg.warn;
+  if (value >= imin && value <= imax) return { status: "ok", label: "Normal" };
+  if (value >= wmin && value <= wmax) return { status: "warn", label: "Atenção" };
+  return { status: "bad", label: "Crítico" };
+}
+
 /** Decisão de irrigação por regra (fallback sem IA). Portado do legado. */
 export function ruleBasedIrrigation(
   soilMoisture: number,

@@ -30,7 +30,7 @@
   --danger: #f87171;
   --danger-tint: rgba(248, 113, 113, 0.15);
   --info: #38bdf8;
-  --hero-veil: linear-gradient(180deg, rgba(8, 15, 11, 0.72) 0%, rgba(8, 15, 11, 0.88) 100%);
+  --hero-veil: linear-gradient(100deg, rgba(8, 15, 11, 0.9) 0%, rgba(8, 15, 11, 0.58) 52%, rgba(8, 15, 11, 0.78) 100%);
   --photo-1: linear-gradient(135deg, #16281e 0%, #1c3a28 50%, #0f1f16 100%);
   --photo-2: linear-gradient(160deg, #0c1812 0%, #16281e 100%);
 }
@@ -54,7 +54,7 @@
   --warning-tint: #fef3c7;
   --danger: #ef4444;
   --danger-tint: #fee2e2;
-  --hero-veil: linear-gradient(180deg, rgba(246, 250, 246, 0.55) 0%, rgba(231, 240, 234, 0.82) 100%);
+  --hero-veil: linear-gradient(100deg, rgba(246, 250, 246, 0.86) 0%, rgba(246, 250, 246, 0.5) 52%, rgba(231, 240, 234, 0.78) 100%);
   --photo-1: linear-gradient(135deg, #dff0e2 0%, #bfe0c8 50%, #9ed3ab 100%);
   --photo-2: linear-gradient(160deg, #cfe8d6 0%, #a7d6b4 100%);
 }

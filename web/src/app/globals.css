@@ -11,6 +11,7 @@
   --glass-border: rgba(31, 71, 46, 0.12);
   --text: #152a1f;
   --text-muted: #4b665a;
+  --text-faint: #7c9488;
   --accent: #22c55e;
 }
 
@@ -21,6 +22,7 @@
   --glass-border: rgba(255, 255, 255, 0.08);
   --text: #eaf3ee;
   --text-muted: #9fb6a8;
+  --text-faint: #6c8478;
   --accent: #34d977;
 }
 
@@ -48,4 +50,8 @@ body {
 
 .text-muted {
   color: var(--text-muted);
+}
+
+.text-faint {
+  color: var(--text-faint);
 }

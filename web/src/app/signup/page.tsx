@@ -121,7 +121,7 @@ export default function SignupPage() {
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
                   aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-                  className="absolute right-3 text-muted transition hover:text-base"
+                  className="absolute right-3 text-muted transition hover:opacity-70"
                 >
                   {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
                 </button>

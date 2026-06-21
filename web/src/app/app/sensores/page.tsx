@@ -1,116 +1,60 @@
-import Link from "next/link";
-import { desc, eq } from "drizzle-orm";
-import { Pencil } from "lucide-react";
-import { auth } from "@/auth";
-import { db } from "@/db";
-import { deviceTokens, locations, sensors } from "@/db/schema";
-import { SensorForm } from "@/components/sensor-form";
-import { DeleteForm } from "@/components/delete-form";
-import { SENSOR_TYPE_META, type SensorTypeKey } from "@/lib/sensor-types";
-import { createSensor, deleteSensor } from "./actions";
+"use client";
 
-export default async function SensoresPage() {
-  const session = await auth();
-  const companyId = session!.user.companyId;
-  const isManager = session!.user.role === "empresa";
+import { useState } from "react";
+import { useDemo } from "@/components/app/demo-state";
+import { senStatus } from "@/lib/plantium-demo";
 
-  const [rows, locs, toks] = companyId
-    ? await Promise.all([
-        db
-          .select({
-            id: sensors.id,
-            name: sensors.name,
-            type: sensors.type,
-            active: sensors.active,
-            location: locations.name,
-          })
-          .from(sensors)
-          .leftJoin(locations, eq(sensors.locationId, locations.id))
-          .where(eq(sensors.companyId, companyId))
-          .orderBy(desc(sensors.createdAt)),
-        db
-          .select({ id: locations.id, name: locations.name })
-          .from(locations)
-          .where(eq(locations.companyId, companyId)),
-        db
-          .select({ id: deviceTokens.id, label: deviceTokens.label, prefix: deviceTokens.prefix })
-          .from(deviceTokens)
-          .where(eq(deviceTokens.companyId, companyId)),
-      ])
-    : [[], [], []];
+export default function SensoresPage() {
+  const { sensores } = useDemo();
+  const [filter, setFilter] = useState("todos");
+  const [search, setSearch] = useState("");
+
+  const rows = sensores
+    .filter((se) => {
+      if (filter === "online" && !se.online) return false;
+      if (filter === "atencao" && se.status !== "atencao") return false;
+      if (filter === "offline" && se.online) return false;
+      const q = search.toLowerCase();
+      if (q && !(se.name + " " + se.local + " " + se.type).toLowerCase().includes(q)) return false;
+      return true;
+    })
+    .map((se) => { const ss = senStatus(se.status); return { ...se, chip: ss.c, state: ss.l }; });
 
   return (
-    <div className="flex flex-col gap-6">
-      <header>
-        <h1 className="font-display text-2xl font-700">Sensores</h1>
-        <p className="text-sm text-muted">
-          Dispositivos instalados, seu tipo e local. Clique para ver o dashboard.
-        </p>
-      </header>
-
-      {isManager && (
-        <section className="rounded-2xl glass p-5">
-          <h2 className="mb-3 font-display text-base font-600">Novo sensor</h2>
-          <SensorForm action={createSensor} locations={locs} tokens={toks} />
-        </section>
-      )}
-
-      <section className="overflow-hidden rounded-2xl glass">
-        <table className="w-full text-sm">
-          <thead className="border-b border-black/5 text-left text-muted dark:border-white/10">
-            <tr>
-              <th className="px-4 py-3 font-500">Sensor</th>
-              <th className="px-4 py-3 font-500">Tipo</th>
-              <th className="px-4 py-3 font-500">Local</th>
-              <th className="px-4 py-3 font-500">Status</th>
-              <th className="px-4 py-3" />
-            </tr>
-          </thead>
-          <tbody>
-            {rows.length === 0 && (
-              <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-muted">
-                  Nenhum sensor cadastrado ainda.
-                </td>
-              </tr>
-            )}
-            {rows.map((s) => (
-              <tr key={s.id} className="border-b border-black/5 last:border-0 dark:border-white/10">
-                <td className="px-4 py-3 font-500">
-                  <Link href={`/app/sensores/${s.id}`} className="hover:text-brand">
-                    {s.name}
-                  </Link>
-                </td>
-                <td className="px-4 py-3 text-muted">
-                  {SENSOR_TYPE_META[s.type as SensorTypeKey]?.label ?? s.type}
-                </td>
-                <td className="px-4 py-3 text-muted">{s.location ?? "—"}</td>
-                <td className="px-4 py-3">
-                  {s.active ? (
-                    <span className="rounded-full bg-brand/10 px-2 py-0.5 text-xs text-brand">ativo</span>
-                  ) : (
-                    <span className="rounded-full bg-black/10 px-2 py-0.5 text-xs text-muted dark:bg-white/10">inativo</span>
-                  )}
-                </td>
-                <td className="px-4 py-3">
-                  {isManager && (
-                    <div className="flex items-center justify-end gap-1">
-                      <Link
-                        href={`/app/sensores/${s.id}/editar`}
-                        aria-label="Editar"
-                        className="grid h-8 w-8 place-items-center rounded-lg text-muted transition hover:bg-black/5 hover:text-brand dark:hover:bg-white/10"
-                      >
-                        <Pencil size={15} />
-                      </Link>
-                      <DeleteForm action={deleteSensor} id={s.id} confirmLabel={`Excluir "${s.name}"?`} />
-                    </div>
-                  )}
-                </td>
-              </tr>
+    <section style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 16 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <h1 className="pl-font-display pl-page-title" style={{ margin: 0, fontSize: 28, fontWeight: 700, letterSpacing: "-.01em" }}>Sensores</h1>
+          <p style={{ margin: 0, fontSize: 14, color: "var(--pl-text-muted)" }}>Leituras a cada 5s · ESP32 → borda → API</p>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--pl-text-faint)" strokeWidth="2" strokeLinecap="round" style={{ position: "absolute", left: 12 }}><circle cx="11" cy="11" r="7" /><path d="M20 20l-3-3" /></svg>
+            <input className="pl-input" placeholder="Buscar sensor ou local…" value={search} onChange={(e) => setSearch(e.target.value)} style={{ paddingLeft: 36, borderRadius: 999, minWidth: 200, width: "auto" }} />
+          </div>
+          <div className="pl-period" role="tablist">
+            {[["todos", "Todos"], ["online", "Online"], ["atencao", "Atenção"], ["offline", "Offline"]].map(([k, l]) => (
+              <button key={k} className={"pl-period__item " + (filter === k ? "pl-period__item--active" : "")} onClick={() => setFilter(k)}>{l}</button>
             ))}
-          </tbody>
-        </table>
-      </section>
-    </div>
+          </div>
+        </div>
+      </div>
+      <div className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 0, overflowX: "auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.7fr 1.3fr 1.1fr .9fr .8fr 1fr", gap: 10, minWidth: 680, fontSize: 12, color: "var(--pl-text-faint)", textTransform: "uppercase", letterSpacing: ".04em", padding: "6px 4px 12px", borderBottom: "1px solid var(--pl-border-subtle)" }}>
+          <span>Sensor</span><span>Local</span><span>Leitura</span><span>Estado</span><span>Sinal</span><span style={{ textAlign: "right" }}>Atualizado</span>
+        </div>
+        {rows.map((se) => (
+          <div key={se.id} className="pl-srow" style={{ display: "grid", gridTemplateColumns: "1.7fr 1.3fr 1.1fr .9fr .8fr 1fr", gap: 10, minWidth: 680, alignItems: "center", padding: "13px 4px", borderBottom: "1px solid var(--pl-border-subtle)", fontSize: 14, transition: "background .15s" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 2 }}><span style={{ fontWeight: 600 }}>{se.name}</span><span style={{ fontSize: 12, color: "var(--pl-text-faint)" }}>{se.type}</span></div>
+            <span style={{ color: "var(--pl-text-muted)" }}>{se.local}</span>
+            <span style={{ fontWeight: 600 }}>{se.reading}</span>
+            <span><span className={"pl-chip " + se.chip}>{se.state}</span></span>
+            <span style={{ color: "var(--pl-text-muted)" }}>{se.signal}</span>
+            <span style={{ textAlign: "right", color: "var(--pl-text-faint)", fontSize: 13 }}>{se.updated}</span>
+          </div>
+        ))}
+        {rows.length === 0 && <div style={{ padding: 30, textAlign: "center", color: "var(--pl-text-faint)", fontSize: 14 }}>Nenhum sensor encontrado para este filtro.</div>}
+      </div>
+    </section>
   );
 }

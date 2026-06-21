@@ -1,354 +1,237 @@
-import { and, count, desc, eq, gte, inArray } from "drizzle-orm";
-import {
-  Bell,
-  Cpu,
-  Droplet,
-  Droplets,
-  FlaskConical,
-  MapPinned,
-  Sun,
-  Thermometer,
-  Wifi,
-  WifiOff,
-  Wind,
-} from "lucide-react";
-import { auth } from "@/auth";
-import { db } from "@/db";
-import { companies, locations, readings, sensors } from "@/db/schema";
-import {
-  classifyMetric,
-  classifyMoisture,
-  ruleBasedIrrigation,
-  type Metric,
-} from "@/lib/sensor-rules";
-import { KpiCard } from "@/components/kpi-card";
-import { WeatherCard } from "@/components/weather-card";
-import { HealthGauge } from "@/components/health-gauge";
-import { SensorCard } from "@/components/sensor-card";
-import { OverviewTrend, type TrendRow } from "@/components/overview-trend";
+"use client";
 
-const ONLINE_WINDOW_MS = 15 * 60 * 1000; // sensor "online" = leitura nos últimos 15 min
-const HOUR_MS = 60 * 60 * 1000;
+import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useDemo } from "@/components/app/demo-state";
+import { EChart } from "@/components/app/echart";
+import { buildChartOptions, readThemeColors } from "@/lib/plantium-charts";
+import { buildSensor, buildStats, genData, healthInfo } from "@/lib/plantium-demo";
 
-// Pontuação de saúde por leitura de umidade do solo (faixa ideal 35–65).
-function moistureScore(value: number): number {
-  const c = classifyMoisture(value);
-  if (c === "optimal") return 100;
-  if (c === "low" || c === "high") return 65;
-  return 25; // dry / saturated
-}
+const ICONS: Record<string, ReactNode> = {
+  soil: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"><path d="M12 3c4 4.5 6.5 7.7 6.5 11A6.5 6.5 0 0 1 5.5 14C5.5 10.7 8 7.5 12 3z" /></svg>,
+  airT: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M10 13.5V5a2 2 0 0 1 4 0v8.5a4 4 0 1 1-4 0z" /></svg>,
+  airH: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"><path d="M12 3c4 4.5 6.5 7.7 6.5 11A6.5 6.5 0 0 1 5.5 14C5.5 10.7 8 7.5 12 3z" /></svg>,
+  co2: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 14a4 4 0 0 1 .5-7.9A5 5 0 0 1 14 5.5 3.5 3.5 0 0 1 17 14z" /><path d="M8 18h.01M12 19h.01M16 18h.01" /></svg>,
+  ph: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4v9a4 4 0 0 0 8 0V4" /><path d="M3 4h12" /><path d="M19 5v6M16 8h6" /></svg>,
+  lux: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" /></svg>,
+};
 
-// Métricas exibidas como cards de sensor (espelham o design do Claude Design).
-type MetricField =
-  | "soilMoisture"
-  | "airTemperature"
-  | "airHumidity"
-  | "co2Level"
-  | "phLevel"
-  | "lightLevel";
-
-const METRICS: {
-  key: Metric;
-  field: MetricField;
-  label: string;
-  icon: typeof Droplet;
-  unit?: string;
-  decimals: number;
-}[] = [
-  { key: "soilMoisture", field: "soilMoisture", label: "Umidade do solo", icon: Droplet, unit: "%", decimals: 0 },
-  { key: "airTemperature", field: "airTemperature", label: "Temperatura do ar", icon: Thermometer, unit: "°C", decimals: 1 },
-  { key: "airHumidity", field: "airHumidity", label: "Umidade do ar", icon: Droplets, unit: "%", decimals: 0 },
-  { key: "co2Level", field: "co2Level", label: "CO₂", icon: Wind, unit: " ppm", decimals: 0 },
-  { key: "phLevel", field: "phLevel", label: "pH do solo", icon: FlaskConical, decimals: 1 },
-  { key: "lightLevel", field: "lightLevel", label: "Luminosidade", icon: Sun, unit: " lux", decimals: 0 },
-];
-
-function fmt(value: number, decimals: number): string {
-  return value.toLocaleString("pt-BR", {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  });
-}
-
-export default async function DashboardPage() {
-  const session = await auth();
-  const firstName = (session!.user.name ?? "").split(" ")[0] || "produtor";
-  const companyId = session!.user.companyId;
-
-  if (!companyId) {
-    return (
-      <div className="flex flex-col gap-6">
-        <header>
-          <h1 className="font-display text-2xl font-700">Olá, {firstName}</h1>
-          <p className="text-sm text-muted">Resumo dos sensores e locais.</p>
-        </header>
-        <section className="rounded-2xl glass p-8 text-center text-sm text-muted">
-          Sua conta ainda não está vinculada a uma empresa com dados. Assim que
-          houver locais e sensores, o painel aparece aqui.
-        </section>
+function SensorCard({ id, label, val, unit, sensor }: { id: string; label: string; val: string; unit: string; sensor: ReturnType<typeof buildSensor> }) {
+  return (
+    <div className="pl-card pl-card--solid pl-sensor" style={{ padding: 18, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <span className="pl-kpi__icon" style={{ width: 34, height: 34, background: sensor.tint, color: sensor.col }}>{ICONS[id]}</span>
+        <span className={"pl-chip " + sensor.chip}>{sensor.status}</span>
       </div>
-    );
-  }
+      <span style={{ fontSize: 13, color: "var(--pl-text-muted)" }}>{label}</span>
+      <span className="pl-font-display" style={{ fontSize: 34, fontWeight: 700, lineHeight: 1 }}>{val}{unit && <span style={{ fontSize: 16, color: "var(--pl-text-faint)", fontWeight: 600 }}> {unit}</span>}</span>
+      <svg viewBox="0 0 120 30" preserveAspectRatio="none" style={{ width: "100%", height: 26 }}><polyline points={sensor.spark} fill="none" stroke={sensor.col} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      <div style={{ height: 6, borderRadius: 999, background: "var(--pl-surface-raised)", overflow: "hidden" }}><div style={{ height: "100%", borderRadius: 999, background: sensor.col, width: sensor.pctW, transition: "width .6s ease" }} /></div>
+    </div>
+  );
+}
 
-  // Contagens, lista de sensores e local representativo da empresa.
-  const [sensorRows, locationRows, [company]] = await Promise.all([
-    db.select({ id: sensors.id }).from(sensors).where(eq(sensors.companyId, companyId)),
-    db
-      .select({ name: locations.name, type: locations.type })
-      .from(locations)
-      .where(eq(locations.companyId, companyId))
-      .orderBy(desc(locations.createdAt)),
-    db
-      .select({ name: companies.name, lat: companies.latitude, lng: companies.longitude })
-      .from(companies)
-      .where(eq(companies.id, companyId))
-      .limit(1),
-  ]);
+export default function DashboardPage() {
+  const { name, period, setPeriod, view, setView, r, health, secsAgo, theme, alertList, setPanel, showToast } = useDemo();
 
-  const sensorIds = sensorRows.map((s) => s.id);
-  const sensorCount = sensorIds.length;
-  const locationCount = locationRows.length;
-  const primaryLocation = locationRows[0]?.name ?? company?.name ?? "Sua operação";
+  const So = buildSensor("soil", r.soil, "%", false);
+  const AT = buildSensor("airT", r.airT, "°C", true);
+  const AH = buildSensor("airH", r.airH, "%", false);
+  const CO = buildSensor("co2", r.co2, "ppm", false);
+  const PH = buildSensor("ph", r.ph, "", true);
+  const LX = buildSensor("lux", r.lux, "lux", false);
+  const hi = healthInfo(health);
+  const ringOffset = 484 * (1 - health / 100);
+  const ringColor = health >= 85 ? "#34d977" : health >= 65 ? "#f59e0b" : "#ef4444";
+  const irrigWidth = 38 + (secsAgo / 8) * 52;
 
-  // Leituras das últimas 24 h para os sensores da empresa.
-  const since = new Date(Date.now() - 24 * HOUR_MS);
-  const recent = sensorIds.length
-    ? await db
-        .select({
-          sensorId: readings.sensorId,
-          soilMoisture: readings.soilMoisture,
-          airTemperature: readings.airTemperature,
-          airHumidity: readings.airHumidity,
-          co2Level: readings.co2Level,
-          phLevel: readings.phLevel,
-          lightLevel: readings.lightLevel,
-          ts: readings.ts,
-        })
-        .from(readings)
-        .where(and(inArray(readings.sensorId, sensorIds), gte(readings.ts, since)))
-        .orderBy(readings.ts)
-    : [];
+  const stats = useMemo(() => buildStats(genData(period)), [period]);
+  const recent = alertList.filter((a) => !a.resolved).slice(0, 3);
 
-  // Última leitura por sensor → online/offline e valores atuais.
-  const latest = new Map<string, (typeof recent)[number]>();
-  for (const r of recent) latest.set(r.sensorId, r); // ordenado asc → fica a mais recente
-
-  const now = Date.now();
-  let online = 0;
-  const moistures: number[] = [];
-  for (const r of latest.values()) {
-    if (now - new Date(r.ts).getTime() <= ONLINE_WINDOW_MS) online += 1;
-    if (typeof r.soilMoisture === "number") moistures.push(r.soilMoisture);
-  }
-  const offline = Math.max(0, sensorCount - online);
-
-  // Health score a partir da umidade do solo dos sensores.
-  const health =
-    moistures.length > 0
-      ? Math.round(moistures.reduce((a, m) => a + moistureScore(m), 0) / moistures.length)
-      : null;
-  const healthStatus =
-    health === null
-      ? { label: "Sem leituras", tone: "info" as const }
-      : health >= 80
-        ? { label: "Saúde ótima", tone: "brand" as const }
-        : health >= 55
-          ? { label: "Atenção", tone: "warn" as const }
-          : { label: "Crítico", tone: "danger" as const };
-
-  // Valor atual (média das últimas leituras) e série horária por métrica.
-  const hourly = new Map<number, Record<string, number[]>>();
-  for (const r of recent) {
-    const key = Math.floor(new Date(r.ts).getTime() / HOUR_MS);
-    const b = hourly.get(key) ?? {};
-    for (const m of METRICS) {
-      const v = r[m.field];
-      if (typeof v === "number") (b[m.field] ??= []).push(v);
-    }
-    hourly.set(key, b);
-  }
-  const hourKeys = [...hourly.keys()].sort((a, b) => a - b).slice(-24);
-  const avg = (a: number[]) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : null);
-
-  const metricCards = METRICS.map((m) => {
-    const currentValues: number[] = [];
-    for (const r of latest.values()) {
-      const v = r[m.field];
-      if (typeof v === "number") currentValues.push(v);
-    }
-    const current = avg(currentValues);
-    const trend = hourKeys.map((k) => avg(hourly.get(k)?.[m.field] ?? []));
-    const cls = classifyMetric(m.key, current);
-    return {
-      ...m,
-      value: current === null ? "—" : fmt(current, m.decimals),
-      status: cls.status,
-      statusLabel: current === null ? "Sem dado" : cls.label,
-      trend,
-    };
-  });
-
-  // Alertas ativos = métricas fora da faixa ideal (atenção/crítico).
-  const activeAlerts =
-    metricCards.filter((c) => c.value !== "—" && c.status !== "ok").length;
-
-  // Irrigação: avalia o sensor mais seco pela regra local (fallback sem IA).
-  const driest = moistures.length > 0 ? Math.min(...moistures) : null;
-  const irrigation = driest !== null ? ruleBasedIrrigation(driest) : null;
-  const irrigationTone =
-    irrigation === null
-      ? "info"
-      : irrigation.urgency === "critical"
-        ? "danger"
-        : irrigation.urgency === "medium"
-          ? "warn"
-          : "brand";
-  const irrigationLabel =
-    irrigation === null
-      ? "aguardando"
-      : irrigation.urgency === "critical"
-        ? "urgência alta"
-        : irrigation.urgency === "medium"
-          ? "urgência média"
-          : "sem urgência";
-
-  // Tendência geral (umidade do solo × temperatura do ar) por hora.
-  const trend: TrendRow[] = hourKeys.map((k) => ({
-    label: `${new Date(k * HOUR_MS).getHours().toString().padStart(2, "0")}h`,
-    soilMoisture: avg(hourly.get(k)?.soilMoisture ?? []) === null ? null : Math.round(avg(hourly.get(k)!.soilMoisture)! * 10) / 10,
-    airTemperature: avg(hourly.get(k)?.airTemperature ?? []) === null ? null : Math.round(avg(hourly.get(k)!.airTemperature)! * 10) / 10,
-  }));
-
-  const chipTone = (tone: "brand" | "warn" | "danger" | "info") =>
-    tone === "brand"
-      ? "bg-brand/10 text-brand"
-      : tone === "warn"
-        ? "bg-warn/10 text-warn"
-        : tone === "danger"
-          ? "bg-danger/10 text-danger"
-          : "bg-info/10 text-info";
+  // Opções dos gráficos (client-side; lê CSS vars). Recalcula em período/tema/visão.
+  const [opts, setOpts] = useState<Record<string, object>>({});
+  useEffect(() => {
+    setOpts(buildChartOptions(period, r, readThemeColors()));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [period, theme, view]);
 
   return (
-    <div className="flex flex-col gap-6">
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="font-display text-2xl font-700">Olá, {firstName}</h1>
-          <p className="text-sm text-muted">
-            {primaryLocation} · {locationCount} {locationCount === 1 ? "local" : "locais"} —{" "}
-            <span className="inline-flex items-center gap-1 text-brand">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand" /> ao vivo
-            </span>
-          </p>
+    <section style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      {/* HEADER + VIEW SWITCH */}
+      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 16 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <h1 className="pl-font-display pl-page-title" style={{ margin: 0, fontSize: 30, fontWeight: 700, letterSpacing: "-.01em" }}>Olá, {name}</h1>
+          <p style={{ margin: 0, fontSize: 14, color: "var(--pl-text-muted)" }}>Estufa Central · Unidade SP — <span className="pl-chip pl-chip--ideal" style={{ fontSize: 11 }}><span className="pl-chip__dot" style={{ animation: "pl-pulse 1.6s infinite" }} />ao vivo · atualizado há {secsAgo}s</span></p>
         </div>
-        <div className="inline-flex rounded-full glass p-1 text-xs font-600">
-          {["12h", "24h", "Semana"].map((p) => (
-            <span
-              key={p}
-              className={`rounded-full px-3 py-1.5 ${
-                p === "24h" ? "bg-brand/15 text-brand" : "text-muted"
-              }`}
-            >
-              {p}
-            </span>
-          ))}
+        <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
+          <div className="pl-period" role="tablist">
+            <button className={"pl-period__item " + (view === "geral" ? "pl-period__item--active" : "")} onClick={() => setView("geral")} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="8" /><path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" /></svg>Visão geral
+            </button>
+            <button className={"pl-period__item " + (view === "tecnica" ? "pl-period__item--active" : "")} onClick={() => setView("tecnica")} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 18V9M9 18V5M14 18v-6M19 18V8" /></svg>Visão técnica
+            </button>
+          </div>
+          <div className="pl-period" role="tablist">
+            {(["12h", "24h", "Semana"] as const).map((p) => (
+              <button key={p} className={"pl-period__item " + (period === p ? "pl-period__item--active" : "")} onClick={() => setPeriod(p)}>{p}</button>
+            ))}
+          </div>
         </div>
-      </header>
+      </div>
 
-      {/* Painel de saúde + cards de sensor */}
-      <section className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)]">
-        {/* Saúde da estufa */}
-        <div className="flex flex-col gap-4 rounded-2xl glass p-6">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-600 uppercase tracking-wide text-muted">
-              Saúde da estufa
-            </span>
-            <span className={`rounded-full px-2.5 py-1 text-xs font-600 ${chipTone(healthStatus.tone)}`}>
-              {healthStatus.label}
-            </span>
+      {/* HERO */}
+      <div id="pl-hero" className="pl-anim" style={{ display: "grid", gridTemplateColumns: "minmax(330px,0.85fr) 1.15fr", gap: 18, alignItems: "stretch" }}>
+        {/* HEALTH CARD */}
+        <div className="pl-card pl-card--feature" style={{ background: "linear-gradient(155deg,#10241a 0%,#0b1812 100%)", border: "1px solid rgba(255,255,255,.06)", display: "flex", flexDirection: "column", gap: 18, color: "#eaf3ee" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+            <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: ".05em", textTransform: "uppercase", color: "#9fb4a8" }}>Saúde da estufa</span>
+            <span className={"pl-chip " + hi.c}><span className="pl-chip__dot" />{hi.l}</span>
           </div>
-          <div className="flex items-center justify-center py-1">
-            <HealthGauge value={health} size={156} label="Índice geral" />
-          </div>
-          <div className="flex flex-col divide-y divide-black/5 text-sm dark:divide-white/10">
-            <div className="flex items-center justify-between py-2.5">
-              <span className="flex items-center gap-2 text-muted"><Wifi size={15} /> Sensores online</span>
-              <span className="font-600">{online}/{sensorCount}</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
+            <div className="pl-gauge" style={{ width: 168, height: 168, flexShrink: 0 }}>
+              <svg width="168" height="168" style={{ transform: "rotate(-90deg)" }}>
+                <circle cx="84" cy="84" r="77" fill="none" stroke="rgba(255,255,255,.10)" strokeWidth="14" />
+                <circle cx="84" cy="84" r="77" fill="none" stroke={ringColor} strokeWidth="14" strokeLinecap="round" strokeDasharray="484" strokeDashoffset={ringOffset} style={{ transition: "stroke-dashoffset .9s cubic-bezier(.4,0,.2,1),stroke .4s ease" }} />
+              </svg>
+              <div className="pl-gauge__center">
+                <span className="pl-gauge__value" style={{ fontSize: 48, color: "#eaf3ee" }}>{health}<span style={{ fontSize: 22, color: "#9fb4a8" }}>%</span></span>
+                <span className="pl-gauge__label" style={{ color: "#9fb4a8" }}>Índice geral</span>
+              </div>
             </div>
-            <div className="flex items-center justify-between py-2.5">
-              <span className="flex items-center gap-2 text-muted"><WifiOff size={15} /> Offline</span>
-              <span className={`rounded-full px-2 py-0.5 text-xs font-600 ${offline > 0 ? "bg-danger/10 text-danger" : "bg-brand/10 text-brand"}`}>
-                {offline} {offline === 1 ? "nó" : "nós"}
-              </span>
-            </div>
-            <div className="flex items-center justify-between py-2.5">
-              <span className="flex items-center gap-2 text-muted"><Bell size={15} /> Alertas ativos</span>
-              <span className={`rounded-full px-2 py-0.5 text-xs font-600 ${activeAlerts > 0 ? "bg-warn/10 text-warn" : "bg-brand/10 text-brand"}`}>
-                {activeAlerts}
-              </span>
+            <div style={{ display: "flex", flexDirection: "column", gap: 11, flex: 1, minWidth: 140 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}><span style={{ fontSize: 13, color: "#9fb4a8" }}>Sensores online</span><span className="pl-font-display" style={{ fontSize: 18, fontWeight: 700 }}>25<span style={{ color: "#6c8478", fontSize: 13 }}>/28</span></span></div>
+              <div style={{ height: 1, background: "rgba(255,255,255,.08)" }} />
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}><span style={{ fontSize: 13, color: "#9fb4a8" }}>Offline</span><span className="pl-chip pl-chip--critico">3 nós</span></div>
+              <div style={{ height: 1, background: "rgba(255,255,255,.08)" }} />
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}><span style={{ fontSize: 13, color: "#9fb4a8" }}>Alertas ativos</span><span className="pl-chip pl-chip--atencao">{alertList.filter((a) => !a.resolved).length}</span></div>
             </div>
           </div>
-          <div className="rounded-xl bg-black/[0.03] p-4 dark:bg-white/[0.04]">
-            <div className="flex items-center justify-between">
-              <span className="flex items-center gap-2 text-sm font-600">
-                <Droplet size={15} className="text-brand" /> Irrigação · decisão na borda
+          <div style={{ borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 14, display: "flex", flexDirection: "column", gap: 9 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+              <span style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 600, color: "#eaf3ee" }}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34d977" strokeWidth="2" strokeLinejoin="round"><path d="M12 3c4 4.5 6.5 7.7 6.5 11A6.5 6.5 0 0 1 5.5 14C5.5 10.7 8 7.5 12 3z" /></svg>
+                Irrigação · decisão na borda
               </span>
-              <span className={`rounded-full px-2 py-0.5 text-xs font-600 ${chipTone(irrigationTone)}`}>
-                {irrigationLabel}
-              </span>
+              <span className="pl-chip pl-chip--atencao">urgência média</span>
             </div>
-            <p className="mt-2 text-xs text-muted">
-              {irrigation === null
-                ? "Regra local pronta — aguardando leituras."
-                : `${irrigation.reasoning} · regra local`}
-            </p>
+            <div style={{ height: 8, borderRadius: 999, background: "rgba(255,255,255,.08)", overflow: "hidden" }}>
+              <div style={{ height: "100%", width: irrigWidth + "%", borderRadius: 999, background: "linear-gradient(90deg,#22c55e,#34d977)", transition: "width .9s ease" }} />
+            </div>
           </div>
         </div>
 
-        {/* Cards de sensor */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {metricCards.map((c) => (
-            <SensorCard
-              key={c.key}
-              icon={c.icon}
-              label={c.label}
-              value={c.value}
-              unit={c.value === "—" ? undefined : c.unit}
-              status={c.status}
-              statusLabel={c.statusLabel}
-              trend={c.trend}
-            />
-          ))}
+        {/* SENSOR CARDS */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(168px,1fr))", gap: 14, alignContent: "start" }}>
+          <SensorCard id="soil" label="Umidade do solo" val={So.val} unit={So.unit} sensor={So} />
+          <SensorCard id="airT" label="Temperatura do ar" val={AT.val} unit={AT.unit} sensor={AT} />
+          <SensorCard id="airH" label="Umidade do ar" val={AH.val} unit={AH.unit} sensor={AH} />
+          <SensorCard id="co2" label="CO₂" val={CO.val} unit={CO.unit} sensor={CO} />
+          <SensorCard id="ph" label="pH do solo" val={PH.val} unit="" sensor={PH} />
+          <SensorCard id="lux" label="Luminosidade" val={LX.val} unit={LX.unit} sensor={LX} />
         </div>
-      </section>
+      </div>
 
-      {/* Frota */}
-      <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <KpiCard icon={Cpu} label="Sensores" value={sensorCount} hint="instalados" />
-        <KpiCard icon={Wifi} label="Online" value={online} status="ativos" tone="brand" />
-        <KpiCard icon={WifiOff} label="Offline" value={offline} tone={offline > 0 ? "danger" : "brand"} hint="sem leitura recente" />
-        <KpiCard icon={MapPinned} label="Locais" value={locationCount} hint="monitorados" />
-      </section>
+      {/* GERAL */}
+      {view === "geral" && (
+        <div className="pl-stack2" style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 18 }}>
+          <div className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 2 }}><span className="pl-font-display" style={{ fontSize: 16, fontWeight: 600 }}>Índice de saúde — {period}</span><span style={{ fontSize: 12, color: "var(--pl-text-muted)" }}>% das condições dentro da faixa ideal</span></div>
+              <span className="pl-chip pl-chip--ideal">↑ estável</span>
+            </div>
+            <EChart option={opts.trend ?? {}} height={240} />
+          </div>
+          <div className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: 6 }}><span className="pl-font-display" style={{ fontSize: 16, fontWeight: 600 }}>Alertas recentes</span><span className="pl-login__link" style={{ cursor: "default" }}>Ver todos</span></div>
+            {recent.map((al, i) => (
+              <div key={al.id} style={{ display: "flex", alignItems: "center", gap: 12, padding: "13px 0", borderTop: i === 0 ? "none" : "1px solid var(--pl-border-subtle)" }}>
+                <span className={"pl-chip " + (al.sev === "Crítico" ? "pl-chip--critico" : "pl-chip--atencao")} style={{ flexShrink: 0 }}>{al.sev}</span>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2, flex: 1, minWidth: 0 }}><span style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.3 }}>{al.title}</span><span style={{ fontSize: 12, color: "var(--pl-text-faint)" }}>{al.cat} · {al.time}</span></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
-      {/* Tendência */}
-      <OverviewTrend data={trend} />
+      {/* TÉCNICA */}
+      {view === "tecnica" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+          <div className="pl-card pl-card--solid" style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", padding: "16px 20px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, flex: 1, minWidth: 200 }}>
+              <span className="pl-kpi__icon" style={{ width: 38, height: 38, background: "rgba(56,189,248,.15)", color: "var(--pl-info)" }}>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"><path d="M4 7h16M4 12h16M4 17h10" /></svg>
+              </span>
+              <div style={{ display: "flex", flexDirection: "column" }}><span style={{ fontSize: 14, fontWeight: 600 }}>Dados &amp; relatórios</span><span style={{ fontSize: 12, color: "var(--pl-text-muted)" }}>Importar planilhas · exportar · Power BI</span></div>
+            </div>
+            <button className="pl-btn pl-btn--secondary pl-btn--sm" onClick={() => setPanel("data")} style={{ gap: 7 }}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 16V4M8 8l4-4 4 4" /><path d="M5 20h14" /></svg>Importar</button>
+            <button className="pl-btn pl-btn--secondary pl-btn--sm" onClick={() => showToast("Relatório Excel gerado (.xlsx)")} style={{ gap: 7 }}><span style={{ width: 8, height: 8, borderRadius: 2, background: "#16a34a" }} /> Excel</button>
+            <button className="pl-btn pl-btn--secondary pl-btn--sm" onClick={() => showToast("Arquivo CSV exportado")} style={{ gap: 7 }}><span style={{ width: 8, height: 8, borderRadius: 2, background: "var(--pl-info)" }} /> CSV</button>
+            <button className="pl-btn pl-btn--secondary pl-btn--sm" onClick={() => showToast("PDF profissional gerado")} style={{ gap: 7 }}><span style={{ width: 8, height: 8, borderRadius: 2, background: "#ef4444" }} /> PDF</button>
+            <button className="pl-btn pl-btn--primary pl-btn--sm" onClick={() => setPanel("data")} style={{ gap: 7 }}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="8" height="8" rx="1" /><rect x="13" y="3" width="8" height="8" rx="1" /><rect x="3" y="13" width="8" height="8" rx="1" /><rect x="13" y="13" width="8" height="8" rx="1" /></svg>Power BI</button>
+          </div>
 
-      {/* Clima + próximos passos */}
-      <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <WeatherCard
-          station={process.env.INMET_STATION}
-          lat={company?.lat ?? null}
-          lng={company?.lng ?? null}
-        />
-        <section className="rounded-2xl glass p-6">
-          <h2 className="font-display text-base font-600">Próximos passos</h2>
-          <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-muted">
-            <li>Cadastre seus locais em <strong>Locais</strong> (estufa, vertical ou container).</li>
-            <li>Gere um <strong>token</strong> e grave no firmware do ESP32.</li>
-            <li>Registre seus <strong>sensores</strong> e vincule ao local e token.</li>
-            <li>As leituras chegam via <code className="font-mono">/api/ingest</code> e atualizam este painel.</li>
-          </ul>
-        </section>
-      </section>
-    </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12.5, color: "var(--pl-text-muted)", padding: "2px 2px 0" }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7" /><path d="M11 8v6M8 11h6M20 20l-3.2-3.2" /></svg>
+            <span>Use o <strong>scroll</strong> para aproximar/afastar · <strong>clique e arraste</strong> para mover no tempo · <strong>duplo-clique</strong> para resetar.</span>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(360px,1fr))", gap: 18 }}>
+            {[
+              { t: "Temperatura", s: "°C · scroll/arraste", k: "temp" },
+              { t: "Umidade", s: "% · solo e ar", k: "hum" },
+              { t: "CO₂", s: "ppm · faixa 200–2.000", k: "co2" },
+              { t: "pH do solo", s: "faixa ideal 5,5–7,5", k: "ph" },
+            ].map((ch) => (
+              <div key={ch.k} className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}><span className="pl-font-display" style={{ fontSize: 16, fontWeight: 600 }}>{ch.t}</span><span style={{ fontSize: 12, color: "var(--pl-text-muted)" }}>{ch.s}</span></div>
+                <EChart option={opts[ch.k] ?? {}} height={250} resetZoom />
+              </div>
+            ))}
+          </div>
+
+          <div className="pl-stack2" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 18 }}>
+            <div className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}><span className="pl-font-display" style={{ fontSize: 16, fontWeight: 600 }}>Comparação de sensores</span><span style={{ fontSize: 12, color: "var(--pl-text-muted)" }}>% do ideal</span></div>
+              <EChart option={opts.radar ?? {}} height={280} />
+            </div>
+            <div className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <span className="pl-font-display" style={{ fontSize: 16, fontWeight: 600 }}>Comparação entre períodos</span>
+                <div style={{ display: "flex", gap: 12, fontSize: 12, color: "var(--pl-text-muted)" }}>
+                  <span style={{ display: "flex", alignItems: "center", gap: 5 }}><span style={{ width: 9, height: 9, borderRadius: 2, background: "#22c55e" }} />Hoje</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: 5 }}><span style={{ width: 9, height: 9, borderRadius: 2, background: "#14b8a6" }} />Ontem</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: 5 }}><span style={{ width: 9, height: 9, borderRadius: 2, background: "#38bdf8" }} />Semana</span>
+                </div>
+              </div>
+              <EChart option={opts.compare ?? {}} height={280} />
+            </div>
+          </div>
+
+          <div className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}><span className="pl-font-display" style={{ fontSize: 16, fontWeight: 600 }}>Mapa de calor — leituras por hora</span><span style={{ fontSize: 12, color: "var(--pl-text-muted)" }}>verde = ideal · vermelho = fora da faixa</span></div>
+            <EChart option={opts.heat ?? {}} height={300} />
+          </div>
+
+          <div className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 4, overflowX: "auto" }}>
+            <span className="pl-font-display" style={{ fontSize: 16, fontWeight: 600, paddingBottom: 8 }}>Estatísticas por sensor — {period}</span>
+            <div style={{ display: "grid", gridTemplateColumns: "1.4fr repeat(4,1fr) 1.2fr", gap: 0, minWidth: 560, fontSize: 12, color: "var(--pl-text-faint)", textTransform: "uppercase", letterSpacing: ".04em", padding: "8px 0", borderBottom: "1px solid var(--pl-border-subtle)" }}>
+              <span>Sensor</span><span style={{ textAlign: "right" }}>Mín</span><span style={{ textAlign: "right" }}>Máx</span><span style={{ textAlign: "right" }}>Média</span><span style={{ textAlign: "right" }}>Desvio</span><span style={{ textAlign: "right" }}>Estado</span>
+            </div>
+            {stats.map((st, i) => (
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "1.4fr repeat(4,1fr) 1.2fr", gap: 0, minWidth: 560, alignItems: "center", padding: "11px 0", borderBottom: "1px solid var(--pl-border-subtle)", fontSize: 14 }}>
+                <span style={{ fontWeight: 500 }}>{st.name}</span>
+                <span style={{ textAlign: "right", color: "var(--pl-text-muted)" }}>{st.min}</span>
+                <span style={{ textAlign: "right", color: "var(--pl-text-muted)" }}>{st.max}</span>
+                <span style={{ textAlign: "right", fontWeight: 600 }}>{st.avg}</span>
+                <span style={{ textAlign: "right", color: "var(--pl-text-faint)" }}>{st.std}</span>
+                <span style={{ textAlign: "right" }}><span className={"pl-chip " + st.chip}>{st.state}</span></span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <p style={{ margin: 0, fontSize: 12, color: "var(--pl-text-faint)", textAlign: "center" }}>Dados ao vivo via API REST (WebSocket planejado) · fluxo ESP32 → borda (Rust) → API → banco → dashboard · importação Excel/CSV/PDF e Power BI processados em módulos Python.</p>
+    </section>
   );
 }

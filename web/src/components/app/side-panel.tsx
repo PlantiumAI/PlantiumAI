@@ -3,7 +3,7 @@
 import { useDemo } from "./demo-state";
 
 export function SidePanel() {
-  const { panel, closeAll, showToast, addLocal, signOut } = useDemo();
+  const { panel, closeAll, showToast, addLocal, signOut, fullName, email, role, initials } = useDemo();
   const title = panel === "profile" ? "Meu perfil" : panel === "addLocal" ? "Adicionar local" : panel === "data" ? "Dados & relatórios" : "Guia rápido";
 
   const genApiKey = () => { const el = document.getElementById("al-apikey") as HTMLInputElement | null; if (el) el.value = "pl_live_" + Math.random().toString(16).slice(2, 10) + Math.random().toString(16).slice(2, 6); };
@@ -111,19 +111,19 @@ export function SidePanel() {
         {panel === "profile" && (
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
-              <div id="pf-avatar" style={{ width: 88, height: 88, borderRadius: "50%", background: "var(--pl-brand-green-tint)", color: "var(--pl-brand-green)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Sora,sans-serif", fontWeight: 700, fontSize: 30, backgroundSize: "cover", backgroundPosition: "center" }}>JM</div>
+              <div id="pf-avatar" style={{ width: 88, height: 88, borderRadius: "50%", background: "var(--pl-brand-green-tint)", color: "var(--pl-brand-green)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Sora,sans-serif", fontWeight: 700, fontSize: 30, backgroundSize: "cover", backgroundPosition: "center" }}>{initials}</div>
               <label className="pl-btn pl-btn--secondary pl-btn--sm" style={{ cursor: "pointer", gap: 7 }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7h4l2-2h6l2 2h4v12H3z" /><circle cx="12" cy="13" r="3.4" /></svg>Alterar foto
                 <input type="file" accept="image/*" onChange={onProfilePhoto} style={{ display: "none" }} />
               </label>
             </div>
-            <div className="pl-field"><label className="pl-field__label">Nome</label><input className="pl-input" defaultValue="João Mendes" /></div>
-            <div className="pl-field"><label className="pl-field__label">Email</label><input className="pl-input" defaultValue="joao@plantium.ai" /></div>
-            <div className="pl-field"><label className="pl-field__label">Função</label><input className="pl-input" defaultValue="Produtor" /></div>
+            <div className="pl-field"><label className="pl-field__label">Nome</label><input className="pl-input" defaultValue={fullName} key={"n" + fullName} /></div>
+            <div className="pl-field"><label className="pl-field__label">Email</label><input className="pl-input" defaultValue={email} key={"e" + email} /></div>
+            <div className="pl-field"><label className="pl-field__label">Função</label><input className="pl-input" defaultValue={role} disabled /></div>
             <div style={{ height: 1, background: "var(--pl-border-subtle)" }} />
             <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: ".04em", textTransform: "uppercase", color: "var(--pl-text-muted)" }}>Segurança</div>
-            <div className="pl-field"><label className="pl-field__label">Senha atual</label><input className="pl-input" type="password" defaultValue="demo1234" /></div>
-            <div className="pl-field"><label className="pl-field__label">Nova senha</label><input className="pl-input" type="password" placeholder="Mínimo 8 caracteres" /></div>
+            <div className="pl-field"><label className="pl-field__label">Senha atual</label><input className="pl-input" type="password" placeholder="Senha atual" autoComplete="current-password" /></div>
+            <div className="pl-field"><label className="pl-field__label">Nova senha</label><input className="pl-input" type="password" placeholder="Mínimo 8 caracteres" autoComplete="new-password" /></div>
             <button className="pl-btn pl-btn--primary pl-btn--block" onClick={() => showToast("Perfil atualizado")}>Salvar alterações</button>
             <div style={{ height: 1, background: "var(--pl-border-subtle)" }} />
             <form action={signOut}>

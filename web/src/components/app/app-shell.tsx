@@ -8,16 +8,18 @@ import { SidePanel } from "./side-panel";
 export function AppShell({
   name,
   email,
+  role,
   signOut,
   children,
 }: {
   name: string;
   email: string;
+  role?: string;
   signOut: () => void;
   children: React.ReactNode;
 }) {
   return (
-    <DemoProvider name={name} email={email} signOut={signOut}>
+    <DemoProvider name={name} email={email} role={role} signOut={signOut}>
       <ShellInner>{children}</ShellInner>
     </DemoProvider>
   );

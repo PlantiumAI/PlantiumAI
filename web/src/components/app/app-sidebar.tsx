@@ -1,15 +1,20 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useDemo } from "./demo-state";
 
+// Ícone oficial do PlantiumAI (web/public/logo-plantiumai.png).
 const PlantLogo = () => (
-  <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style={{ width: 38, height: 38, borderRadius: "50%", flexShrink: 0, boxShadow: "0 2px 10px rgba(0,0,0,.3)" }}>
-    <circle cx="19" cy="19" r="19" fill="#22c55e" />
-    <path d="M19 8c-2 4-6 8-6 13a6 6 0 0012 0c0-5-4-9-6-13z" fill="#fff" opacity=".9" />
-    <path d="M19 14c2 3 4 5 4 8a4 4 0 01-8 0c0-3 2-5 4-8z" fill="#16a34a" opacity=".6" />
-  </svg>
+  <Image
+    src="/logo-plantiumai.png"
+    alt="PlantiumAI"
+    width={38}
+    height={38}
+    priority
+    style={{ width: 38, height: 38, borderRadius: "50%", flexShrink: 0, objectFit: "cover", boxShadow: "0 2px 10px rgba(0,0,0,.3)" }}
+  />
 );
 
 const navBtnStyle: React.CSSProperties = {
@@ -28,7 +33,7 @@ const NAV = [
 ];
 
 export function AppSidebar() {
-  const { collapsed, setCollapsed, drawer, setPanel, initials, name } = useDemo();
+  const { collapsed, setCollapsed, drawer, setPanel, initials, fullName } = useDemo();
   const pathname = usePathname();
   const isActive = (href: string, exact?: boolean) => (exact ? pathname === href : pathname.startsWith(href));
 
@@ -68,7 +73,7 @@ export function AppSidebar() {
         <span style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--pl-brand-green-tint)", color: "var(--pl-brand-green)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 13, flexShrink: 0 }}>{initials}</span>
         {!collapsed && (
           <div className="pl-sidefoot-meta" style={{ display: "flex", flexDirection: "column", gap: 3, minWidth: 0 }}>
-            <span style={{ fontSize: 13, fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{name}</span>
+            <span style={{ fontSize: 13, fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{fullName}</span>
             <span className="pl-chip pl-chip--ideal" style={{ alignSelf: "flex-start" }}><span className="pl-chip__dot" style={{ animation: "pl-pulse 1.6s infinite" }} />Conectado · demo</span>
           </div>
         )}

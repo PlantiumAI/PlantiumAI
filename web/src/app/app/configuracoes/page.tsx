@@ -4,7 +4,7 @@ import { useDemo } from "@/components/app/demo-state";
 import type { Settings } from "@/lib/plantium-demo";
 
 export default function ConfiguracoesPage() {
-  const { settings, toggleSetting, isDark, toggleTheme, showToast } = useDemo();
+  const { settings, toggleSetting, isDark, toggleTheme, showToast, fullName, email, role } = useDemo();
   const notif: { k: keyof Settings; t: string; d: string }[] = [
     { k: "notifEmail", t: "Alertas por email", d: "Resumo enviado ao seu email" },
     { k: "notifPush", t: "Notificações push", d: "No app e no celular" },
@@ -21,9 +21,9 @@ export default function ConfiguracoesPage() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: 18, alignItems: "start" }}>
         <div className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <span className="pl-font-display" style={{ fontSize: 16, fontWeight: 600 }}>Perfil</span>
-          <div className="pl-field"><label className="pl-field__label">Nome</label><input className="pl-input" defaultValue="João Mendes" /></div>
-          <div className="pl-field"><label className="pl-field__label">Email</label><input className="pl-input" defaultValue="joao@plantium.ai" /></div>
-          <div className="pl-field"><label className="pl-field__label">Função</label><input className="pl-input" defaultValue="Produtor" /></div>
+          <div className="pl-field"><label className="pl-field__label">Nome</label><input className="pl-input" defaultValue={fullName} key={"cn" + fullName} /></div>
+          <div className="pl-field"><label className="pl-field__label">Email</label><input className="pl-input" defaultValue={email} key={"ce" + email} /></div>
+          <div className="pl-field"><label className="pl-field__label">Função</label><input className="pl-input" defaultValue={role} disabled /></div>
         </div>
         <div className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <span className="pl-font-display" style={{ fontSize: 16, fontWeight: 600 }}>Propriedade</span>

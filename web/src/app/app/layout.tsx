@@ -14,9 +14,10 @@ export default async function AppLayout({
 
   const name = session.user.name ?? "Produtor";
   const email = session.user.email ?? "voce@plantium.ai";
+  const role = session.user.role === "empresa" ? "Empresa" : "Produtor";
 
   return (
-    <AppShell name={name} email={email} signOut={signOutAction}>
+    <AppShell name={name} email={email} role={role} signOut={signOutAction}>
       {children}
     </AppShell>
   );

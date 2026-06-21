@@ -31,7 +31,7 @@ type DemoCtx = {
   sensores: typeof INITIAL_SENSORES;
   alertList: Alert[]; activeAlerts: number; resolveAlert: (id: number) => void;
   settings: Settings; toggleSetting: (k: keyof Settings) => void;
-  name: string; email: string; initials: string; signOut: () => void;
+  name: string; fullName: string; email: string; role: string; initials: string; signOut: () => void;
 };
 
 const Ctx = createContext<DemoCtx | null>(null);
@@ -44,11 +44,13 @@ export const useDemo = () => {
 export function DemoProvider({
   name,
   email,
+  role = "Produtor",
   signOut,
   children,
 }: {
   name: string;
   email: string;
+  role?: string;
   signOut: () => void;
   children: React.ReactNode;
 }) {
@@ -150,7 +152,7 @@ export function DemoProvider({
     sensores: INITIAL_SENSORES,
     alertList, activeAlerts, resolveAlert,
     settings, toggleSetting,
-    name: firstName, email, initials, signOut,
+    name: firstName, fullName: name, email, role, initials, signOut,
   };
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

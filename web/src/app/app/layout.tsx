@@ -24,7 +24,7 @@ export default async function AppLayout({
           <Logo />
           <ThemeToggle />
         </div>
-        <AppSidebar />
+        <AppSidebar role={role} />
         <div className="mt-auto hidden flex-col gap-2 border-t border-black/5 pt-3 md:flex dark:border-white/10">
           <div className="px-1 text-sm">
             <p className="font-600">{name}</p>

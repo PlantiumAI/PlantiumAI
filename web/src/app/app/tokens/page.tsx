@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { desc, eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import { db } from "@/db";
@@ -6,6 +7,7 @@ import { TokenGenerator } from "@/components/token-generator";
 
 export default async function TokensPage() {
   const session = await auth();
+  if (session!.user.role !== "empresa") redirect("/app");
   const companyId = session!.user.companyId;
 
   const tokens = companyId

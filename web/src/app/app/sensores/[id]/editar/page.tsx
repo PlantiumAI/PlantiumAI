@@ -17,7 +17,7 @@ export default async function EditSensorPage({
   const session = await auth();
   const companyId = session!.user.companyId;
 
-  if (!companyId) notFound();
+  if (!companyId || session!.user.role !== "empresa") notFound();
 
   const [[sensor], locs, toks] = await Promise.all([
     db

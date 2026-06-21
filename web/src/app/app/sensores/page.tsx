@@ -12,6 +12,7 @@ import { createSensor, deleteSensor } from "./actions";
 export default async function SensoresPage() {
   const session = await auth();
   const companyId = session!.user.companyId;
+  const isManager = session!.user.role === "empresa";
 
   const [rows, locs, toks] = companyId
     ? await Promise.all([
@@ -47,10 +48,12 @@ export default async function SensoresPage() {
         </p>
       </header>
 
-      <section className="rounded-2xl glass p-5">
-        <h2 className="mb-3 font-display text-base font-600">Novo sensor</h2>
-        <SensorForm action={createSensor} locations={locs} tokens={toks} />
-      </section>
+      {isManager && (
+        <section className="rounded-2xl glass p-5">
+          <h2 className="mb-3 font-display text-base font-600">Novo sensor</h2>
+          <SensorForm action={createSensor} locations={locs} tokens={toks} />
+        </section>
+      )}
 
       <section className="overflow-hidden rounded-2xl glass">
         <table className="w-full text-sm">
@@ -90,16 +93,18 @@ export default async function SensoresPage() {
                   )}
                 </td>
                 <td className="px-4 py-3">
-                  <div className="flex items-center justify-end gap-1">
-                    <Link
-                      href={`/app/sensores/${s.id}/editar`}
-                      aria-label="Editar"
-                      className="grid h-8 w-8 place-items-center rounded-lg text-muted transition hover:bg-black/5 hover:text-brand dark:hover:bg-white/10"
-                    >
-                      <Pencil size={15} />
-                    </Link>
-                    <DeleteForm action={deleteSensor} id={s.id} confirmLabel={`Excluir "${s.name}"?`} />
-                  </div>
+                  {isManager && (
+                    <div className="flex items-center justify-end gap-1">
+                      <Link
+                        href={`/app/sensores/${s.id}/editar`}
+                        aria-label="Editar"
+                        className="grid h-8 w-8 place-items-center rounded-lg text-muted transition hover:bg-black/5 hover:text-brand dark:hover:bg-white/10"
+                      >
+                        <Pencil size={15} />
+                      </Link>
+                      <DeleteForm action={deleteSensor} id={s.id} confirmLabel={`Excluir "${s.name}"?`} />
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}

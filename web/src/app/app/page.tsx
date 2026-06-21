@@ -2,8 +2,9 @@ import { count, eq } from "drizzle-orm";
 import { Cpu, KeyRound, MapPinned, Users } from "lucide-react";
 import { auth } from "@/auth";
 import { db } from "@/db";
-import { deviceTokens, locations, sensors, users } from "@/db/schema";
+import { companies, deviceTokens, locations, sensors, users } from "@/db/schema";
 import { KpiCard } from "@/components/kpi-card";
+import { WeatherCard } from "@/components/weather-card";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -19,6 +20,14 @@ export default async function DashboardPage() {
       ]).then((rows) => rows.map((r) => r[0]?.n ?? 0))
     : [0, 0, 0, 0];
 
+  const [company] = companyId
+    ? await db
+        .select({ lat: companies.latitude, lng: companies.longitude })
+        .from(companies)
+        .where(eq(companies.id, companyId))
+        .limit(1)
+    : [];
+
   return (
     <div className="flex flex-col gap-6">
       <header>
@@ -33,6 +42,23 @@ export default async function DashboardPage() {
         <KpiCard icon={MapPinned} label="Locais" value={locationCount} hint="estufas, vertical, containers" />
         <KpiCard icon={Users} label="Usuários" value={userCount} hint="da empresa" />
         <KpiCard icon={KeyRound} label="Tokens" value={tokenCount} hint="de dispositivo" />
+      </section>
+
+      <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <WeatherCard
+          station={process.env.INMET_STATION}
+          lat={company?.lat ?? null}
+          lng={company?.lng ?? null}
+        />
+        <div className="rounded-2xl glass p-5">
+          <h2 className="font-display text-base font-600">Irrigação</h2>
+          <p className="mt-3 text-sm text-muted">
+            As recomendações de irrigação combinam as leituras dos sensores com o
+            clima. A decisão assistida por IA entra em uma próxima rodada; por ora,
+            cada sensor de umidade mostra seu status (seco/ideal/encharcado) no
+            dashboard.
+          </p>
+        </div>
       </section>
 
       <section className="rounded-2xl glass p-6">

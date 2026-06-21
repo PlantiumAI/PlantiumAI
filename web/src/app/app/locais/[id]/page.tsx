@@ -15,6 +15,7 @@ export default async function EditLocationPage({
 }) {
   const { id } = await params;
   const session = await auth();
+  if (session!.user.role !== "empresa") notFound();
   const companyId = session!.user.companyId;
 
   const [loc] = companyId

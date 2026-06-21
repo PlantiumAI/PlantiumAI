@@ -14,15 +14,16 @@ const nav = [
   { href: "/app", label: "Visão geral", icon: LayoutDashboard },
   { href: "/app/locais", label: "Locais", icon: MapPinned },
   { href: "/app/sensores", label: "Sensores", icon: Cpu },
-  { href: "/app/tokens", label: "Tokens", icon: KeyRound },
+  { href: "/app/tokens", label: "Tokens", icon: KeyRound, managerOnly: true },
   { href: "/app/usuarios", label: "Usuários", icon: Users },
 ];
 
-export function AppSidebar() {
+export function AppSidebar({ role }: { role: "empresa" | "cliente" }) {
   const pathname = usePathname();
+  const items = nav.filter((i) => role === "empresa" || !i.managerOnly);
   return (
     <nav className="flex gap-1 overflow-x-auto md:flex-col md:gap-1.5 md:overflow-visible">
-      {nav.map((item) => {
+      {items.map((item) => {
         const active =
           item.href === "/app"
             ? pathname === "/app"

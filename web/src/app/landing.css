@@ -1,0 +1,107 @@
+/* Landing institucional PlantiumAI — design importado do Claude Design.
+   Tokens escopados em .plf-root para não colidir com o restante do app
+   (login/app usam os tokens de globals.css). Tema escuro é o padrão;
+   [data-theme="light"] no <html> ativa a paleta clara. */
+
+.plf-root {
+  --brand-green: #22c55e;
+  --brand-green-deep: #16a34a;
+  --brand-green-soft: #34d977;
+  --brand-lime: #84cc16;
+  --brand-teal: #14b8a6;
+  --brand-gold: #bef264;
+  --accent: #34d977;
+  --bg-base: #0a120d;
+  --bg-gradient: linear-gradient(160deg, #0c1812 0%, #080f0b 60%, #0a120d 100%);
+  --surface-glass: rgba(20, 38, 28, 0.55);
+  --surface-solid: #12211a;
+  --surface-raised: #16281e;
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  --border-glass: rgba(120, 200, 150, 0.14);
+  --text-base: #eaf3ee;
+  --text-muted: #9fb4a8;
+  --text-faint: #6c8478;
+  --shadow-soft: 0 8px 28px rgba(0, 0, 0, 0.42);
+  --shadow-float: 0 22px 60px rgba(0, 0, 0, 0.6);
+  --brand-green-tint: rgba(52, 217, 119, 0.14);
+  --success-tint: rgba(52, 217, 119, 0.14);
+  --warning: #f59e0b;
+  --warning-tint: rgba(245, 158, 11, 0.16);
+  --danger: #f87171;
+  --danger-tint: rgba(248, 113, 113, 0.15);
+  --info: #38bdf8;
+  --hero-veil: linear-gradient(180deg, rgba(8, 15, 11, 0.72) 0%, rgba(8, 15, 11, 0.88) 100%);
+  --photo-1: linear-gradient(135deg, #16281e 0%, #1c3a28 50%, #0f1f16 100%);
+  --photo-2: linear-gradient(160deg, #0c1812 0%, #16281e 100%);
+}
+
+[data-theme="light"] .plf-root {
+  --accent: #16a34a;
+  --bg-base: #eef3ee;
+  --bg-gradient: linear-gradient(135deg, #f6faf6 0%, #e7f0ea 100%);
+  --surface-glass: rgba(255, 255, 255, 0.66);
+  --surface-solid: #ffffff;
+  --surface-raised: #f1f6f2;
+  --border-subtle: rgba(20, 40, 30, 0.08);
+  --border-glass: rgba(255, 255, 255, 0.7);
+  --text-base: #152a1f;
+  --text-muted: #5b6b61;
+  --text-faint: #8a978f;
+  --shadow-soft: 0 8px 24px rgba(31, 71, 46, 0.1);
+  --shadow-float: 0 16px 48px rgba(31, 71, 46, 0.16);
+  --brand-green-tint: #dcfce7;
+  --success-tint: #dcfce7;
+  --warning-tint: #fef3c7;
+  --danger: #ef4444;
+  --danger-tint: #fee2e2;
+  --hero-veil: linear-gradient(180deg, rgba(246, 250, 246, 0.55) 0%, rgba(231, 240, 234, 0.82) 100%);
+  --photo-1: linear-gradient(135deg, #dff0e2 0%, #bfe0c8 50%, #9ed3ab 100%);
+  --photo-2: linear-gradient(160deg, #cfe8d6 0%, #a7d6b4 100%);
+}
+
+.plf-root { background: var(--bg-base); color: var(--text-base); }
+.plf-root ::selection { background: var(--brand-green); color: #06120b; }
+.plf-root a { color: inherit; text-decoration: none; }
+.plf-root :focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(52, 217, 119, 0.5); border-radius: 8px; }
+
+@keyframes plf-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes plf-spin { to { transform: rotate(360deg); } }
+@keyframes plf-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes plf-scan { 0% { opacity: 0.35; } 50% { opacity: 1; } 100% { opacity: 0.35; } }
+@keyframes plf-glow { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* Hover (substitui o style-hover do canvas do Claude Design) */
+.plf-root .plf-tabs a:hover { color: var(--text-base); background: var(--surface-raised); }
+.plf-root .plf-btn-primary:hover { background: var(--brand-green-deep); transform: translateY(-1px); }
+.plf-root .plf-btn-ghost:hover { transform: translateY(-1px); }
+.plf-root .plf-icon-btn:hover { background: var(--surface-solid); }
+.plf-root .plf-card-hover { transition: transform 0.2s, box-shadow 0.2s; }
+.plf-root .plf-card-hover:hover { transform: translateY(-3px); box-shadow: var(--shadow-float); }
+.plf-root .plf-team-card { transition: transform 0.2s, box-shadow 0.2s; }
+.plf-root .plf-team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-float); }
+.plf-root .plf-footer a:hover { color: var(--text-base); }
+
+/* Alternância dos ícones sol/lua conforme o tema (padrão: escuro → mostra sol) */
+.plf-root .plf-moon { display: none; }
+.plf-root .plf-sun { display: inline-flex; }
+[data-theme="light"] .plf-root .plf-sun { display: none; }
+[data-theme="light"] .plf-root .plf-moon { display: inline-flex; }
+
+/* Responsivo */
+@media (max-width: 960px) {
+  .plf-root .plf-hero { grid-template-columns: 1fr !important; }
+  .plf-root .plf-2col { grid-template-columns: 1fr !important; }
+  .plf-root .plf-pillars { grid-template-columns: 1fr !important; }
+  .plf-root .plf-tam { grid-template-columns: 1fr !important; }
+  .plf-root .plf-flow { grid-template-columns: repeat(2, 1fr) !important; }
+  .plf-root .plf-kpis { grid-template-columns: repeat(2, 1fr) !important; }
+  .plf-root .plf-team { grid-template-columns: repeat(2, 1fr) !important; }
+  .plf-root .plf-footer { grid-template-columns: 1fr !important; }
+  .plf-root .plf-tabs { display: none !important; }
+}
+
+@media (max-width: 560px) {
+  .plf-root .plf-flow { grid-template-columns: 1fr !important; }
+  .plf-root .plf-kpis { grid-template-columns: 1fr !important; }
+  .plf-root .plf-team { grid-template-columns: 1fr !important; }
+}

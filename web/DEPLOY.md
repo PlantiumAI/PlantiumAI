@@ -8,6 +8,35 @@ Postgres**. Inclui **todos os comandos**, inclusive o SQL a rodar no Neon.
 
 ---
 
+## ⚡ Estado atual (já feito)
+
+O site **já está no ar** na Vercel:
+
+- **Produção:** https://web-chi-steel-vkvjxysg1y.vercel.app
+- Projeto Vercel: `thyagos-projects-2a538c0c/web` (Next.js, deploy de `web/`).
+- `AUTH_SECRET` e `DEVICE_TOKEN_PEPPER` já configurados (production/preview/development).
+
+A **landing e as telas públicas funcionam**. Para habilitar login/cadastro e os
+dashboards, falta **conectar o banco Neon** (passos abaixo). Resumo do que falta:
+
+1. Criar o banco no Neon (passo 1) e copiar as connection strings.
+2. Aplicar o schema (passo 3) — `0000_init.sql`.
+3. Adicionar `DATABASE_URL` (e `DATABASE_URL_UNPOOLED`) na Vercel:
+   ```bash
+   cd web
+   printf '%s' "<sua DATABASE_URL pooled>"   | npx vercel env add DATABASE_URL production
+   printf '%s' "<sua DATABASE_URL unpooled>" | npx vercel env add DATABASE_URL_UNPOOLED production
+   npx vercel deploy --prod --yes   # redeploy para pegar as novas envs
+   ```
+   (repita o `env add` para `preview`/`development` se quiser previews com banco.)
+4. (Opcional) Clima: `npx vercel env add INMET_STATION production` com o código da
+   estação (ex.: `A652`).
+
+> O CLI já está autenticado como `thyago10a2007-3550`. Os IDs do projeto ficam em
+> `web/.vercel/` (gitignorado).
+
+---
+
 ## 0. Pré-requisitos
 
 - Conta no **GitHub** com este repositório enviado (push).

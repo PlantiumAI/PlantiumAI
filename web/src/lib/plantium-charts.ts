@@ -18,11 +18,11 @@ export function readThemeColors(): ThemeColors {
 const area = (col: string) => ({ color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: hexA(col, 0.28) }, { offset: 1, color: hexA(col, 0) }]) });
 const ser = (name: string, data: number[], col: string, fill: boolean, extra?: object) => Object.assign({ name, type: "line", smooth: true, showSymbol: false, lineStyle: { width: 2.4, color: col }, itemStyle: { color: col }, areaStyle: fill ? area(col) : null, data }, extra || {});
 
-function baseOpt(d: GenData, c: ThemeColors, series: object[], yExtra?: object, extra?: object) {
+function baseOpt(d: GenData, c: ThemeColors, series: object[], yExtra?: object, extra?: object, unit?: string) {
   return Object.assign({
     grid: { left: 6, right: 14, top: 30, bottom: 6, containLabel: true },
     legend: { top: 0, right: 0, icon: "circle", itemWidth: 8, itemHeight: 8, textStyle: { color: c.text, fontSize: 11 } },
-    tooltip: { trigger: "axis", backgroundColor: c.surf, borderWidth: 1, borderColor: c.grid, textStyle: { color: c.base, fontSize: 12 }, padding: 10, axisPointer: { type: "line", snap: true, lineStyle: { color: hexA("#22c55e", 0.55), width: 1 }, label: { show: true, backgroundColor: "#22c55e", color: "#fff", fontSize: 11, fontWeight: 600 } } },
+    tooltip: { trigger: "axis", backgroundColor: c.surf, borderWidth: 1, borderColor: c.grid, textStyle: { color: c.base, fontSize: 12 }, padding: 10, valueFormatter: unit ? (v: number) => `${v}${unit}` : undefined, axisPointer: { type: "line", snap: true, lineStyle: { color: hexA("#22c55e", 0.55), width: 1 }, label: { show: true, backgroundColor: "#22c55e", color: "#fff", fontSize: 11, fontWeight: 600 } } },
     xAxis: { type: "category", data: d.labels, boundaryGap: false, axisLine: { lineStyle: { color: c.grid } }, axisTick: { show: false }, axisLabel: { color: c.text, fontSize: 11, hideOverlap: true } },
     yAxis: Object.assign({ type: "value", scale: true, splitLine: { lineStyle: { color: c.grid } }, axisLabel: { color: c.text, fontSize: 11 } }, yExtra || {}),
     series,
@@ -39,10 +39,10 @@ export function buildChartOptions(period: Period, r: Reading, c: ThemeColors): R
   ];
 
   const trend = baseOpt(d, c, [ser("Saúde %", d.health, "#22c55e", true)], { min: 0, max: 100, axisLabel: { color: c.text, fontSize: 11, formatter: "{value}%" } }, { legend: { show: false }, grid: { left: 6, right: 14, top: 12, bottom: 6, containLabel: true } });
-  const temp = baseOpt(d, c, [ser("Ar", d.airT, "#22c55e", true), ser("Solo", d.soilT, "#14b8a6", false)], { axisLabel: { color: c.text, fontSize: 11, formatter: "{value}°" } }, { dataZoom: dz, grid: gz });
-  const hum = baseOpt(d, c, [ser("Solo", d.soilH, "#22c55e", true), ser("Ar", d.airH, "#38bdf8", false)], { min: 0, max: 100, axisLabel: { color: c.text, fontSize: 11, formatter: "{value}%" } }, { dataZoom: dz, grid: gz });
-  const co2 = baseOpt(d, c, [ser("CO₂", d.co2, "#38bdf8", true)], undefined, { legend: { show: false }, dataZoom: dz, grid: gz });
-  const ph = baseOpt(d, c, [ser("pH", d.ph, "#22c55e", true, { markArea: { silent: true, itemStyle: { color: hexA("#22c55e", 0.1) }, data: [[{ yAxis: 5.5 }, { yAxis: 7.5 }]] } })], { min: 5, max: 8 }, { legend: { show: false }, dataZoom: dz, grid: gz });
+  const temp = baseOpt(d, c, [ser("Ar", d.airT, "#22c55e", true), ser("Solo", d.soilT, "#14b8a6", false)], { axisLabel: { color: c.text, fontSize: 11, formatter: "{value}°" } }, { dataZoom: dz, grid: gz }, " °C");
+  const hum = baseOpt(d, c, [ser("Solo", d.soilH, "#22c55e", true), ser("Ar", d.airH, "#38bdf8", false)], { min: 0, max: 100, axisLabel: { color: c.text, fontSize: 11, formatter: "{value}%" } }, { dataZoom: dz, grid: gz }, " %");
+  const co2 = baseOpt(d, c, [ser("CO₂", d.co2, "#38bdf8", true)], undefined, { legend: { show: false }, dataZoom: dz, grid: gz }, " ppm");
+  const ph = baseOpt(d, c, [ser("pH", d.ph, "#22c55e", true, { markArea: { silent: true, itemStyle: { color: hexA("#22c55e", 0.1) }, data: [[{ yAxis: 5.5 }, { yAxis: 7.5 }]] } })], { min: 5, max: 8 }, { legend: { show: false }, dataZoom: dz, grid: gz }, " pH");
 
   const cur = [score("soil", r.soil), score("airT", r.airT), score("airH", r.airH), score("co2", r.co2), score("ph", r.ph), score("lux", r.lux)];
   const radar = {

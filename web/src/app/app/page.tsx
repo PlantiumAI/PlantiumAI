@@ -5,6 +5,7 @@ import { useDemo } from "@/components/app/demo-state";
 import { EChart } from "@/components/app/echart";
 import { buildChartOptions, readThemeColors } from "@/lib/plantium-charts";
 import { buildSensor, buildStats, genData, healthInfo } from "@/lib/plantium-demo";
+import { WeatherCard } from "@/components/app/weather-card";
 
 const ICONS: Record<string, ReactNode> = {
   soil: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"><path d="M12 3c4 4.5 6.5 7.7 6.5 11A6.5 6.5 0 0 1 5.5 14C5.5 10.7 8 7.5 12 3z" /></svg>,
@@ -152,6 +153,8 @@ export default function DashboardPage() {
           </div>
         </div>
       )}
+
+      {view === "geral" && <WeatherCard lat={-16.6869} lon={-49.2648} />}
 
       {/* TÉCNICA */}
       {view === "tecnica" && (

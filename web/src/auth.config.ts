@@ -27,7 +27,8 @@ export const authConfig = {
     jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = (user as { role?: string }).role;
+        // Contas OAuth (Google) chegam sem role/companyId → default seguro.
+        token.role = (user as { role?: string }).role ?? "cliente";
         token.companyId = (user as { companyId?: string | null }).companyId ?? null;
       }
       return token;

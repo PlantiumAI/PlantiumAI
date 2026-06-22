@@ -1,5 +1,6 @@
-import NextAuth from "next-auth";
+import NextAuth, { type NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 import { eq, or } from "drizzle-orm";
 import { z } from "zod";
 import { authConfig } from "./auth.config";
@@ -12,9 +13,24 @@ const credsSchema = z.object({
   password: z.string().min(1),
 });
 
+// Provider Google é adicionado SÓ se as credenciais existirem — assim a app
+// não quebra quando AUTH_GOOGLE_ID/SECRET ainda não foram configurados.
+const providers: NextAuthConfig["providers"] = [];
+if (process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET) {
+  providers.push(
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      // Só confiar no email do Google (que vem verificado) — sem auto-link perigoso.
+      allowDangerousEmailAccountLinking: false,
+    }),
+  );
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
+    ...providers,
     Credentials({
       credentials: { login: {}, password: {} },
       async authorize(raw) {

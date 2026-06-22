@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useActionState, useState } from "react";
 import { Eye, EyeOff, Lock, Mail, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { authenticate, type LoginState } from "./actions";
+import { authenticate, loginWithGoogle, type LoginState } from "./actions";
 
 export default function LoginPage() {
   const [state, formAction, pending] = useActionState<LoginState, FormData>(
@@ -13,7 +13,6 @@ export default function LoginPage() {
     {},
   );
   const [showPassword, setShowPassword] = useState(false);
-  const [googleNote, setGoogleNote] = useState(false);
 
   return (
     <div className="grid min-h-dvh place-items-center px-5 py-10">
@@ -133,19 +132,15 @@ export default function LoginPage() {
           <span className="h-px flex-1 bg-black/10 dark:bg-white/10" />
         </div>
 
-        <button
-          type="button"
-          onClick={() => setGoogleNote(true)}
-          className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-black/10 bg-white/60 py-2.5 font-500 transition hover:bg-white/80 dark:border-white/10 dark:bg-black/20 dark:hover:bg-black/30"
-        >
-          <GoogleIcon />
-          Entrar com Google
-        </button>
-        {googleNote && (
-          <p className="mt-2 text-center text-xs text-muted">
-            Login com Google em breve.
-          </p>
-        )}
+        <form action={loginWithGoogle}>
+          <button
+            type="submit"
+            className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-black/10 bg-white/60 py-2.5 font-500 transition hover:bg-white/80 dark:border-white/10 dark:bg-black/20 dark:hover:bg-black/30"
+          >
+            <GoogleIcon />
+            Entrar com Google
+          </button>
+        </form>
 
         <p className="mt-6 text-center text-sm text-muted">
           Não tem conta?{" "}

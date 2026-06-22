@@ -366,6 +366,10 @@ const HTML = `
           PlantiumAI
         </div>
         <p style="font-size:13.5px; line-height:1.55; color:var(--text-muted); margin:14px 0 0; max-width:340px;">Funcionalidades de nuvem, painel web, app móvel e visão computacional fazem parte da evolução planejada.</p>
+        <a href="https://www.youtube.com/@PlantiumAI" target="_blank" rel="noopener" class="plf-yt" aria-label="Inscreva-se no canal do YouTube" style="display:inline-flex; align-items:center; gap:8px; margin-top:18px; padding:11px 20px; border-radius:999px; background:#FF0000; color:#fff; font-size:14px; font-weight:600; box-shadow:0 6px 18px rgba(255,0,0,0.32); transition:transform .15s, background .2s;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.11-2.12C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.39.58A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.11 2.12C4.5 20.5 12 20.5 12 20.5s7.5 0 9.39-.58A3 3 0 0 0 23.5 17.8 31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+          Inscreva-se no canal
+        </a>
       </div>
       <div>
         <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); margin-bottom:12px;">Navegação</div>

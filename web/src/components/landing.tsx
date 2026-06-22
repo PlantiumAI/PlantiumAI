@@ -353,6 +353,7 @@ const HTML = `
       <div style="position:relative; display:flex; gap:14px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
         <a href="/login" style="padding:14px 30px; border-radius:999px; border:none; background:#06120b; color:#fff; font-family:'Inter',sans-serif; font-size:15px; font-weight:600; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,0.25); transition:transform .15s;">Falar com a equipe</a>
         <a href="https://github.com/ThyagoToledo/PlantiumAI" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; padding:14px 30px; border-radius:999px; background:rgba(6,18,11,0.12); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); border:1px solid rgba(6,18,11,0.2); color:#06120b; font-size:15px; font-weight:600; cursor:pointer;"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.34c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.52.56.83 1.28.83 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Ver no GitHub</a>
+        <a href="https://www.youtube.com/@PlantiumAI" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; padding:14px 30px; border-radius:999px; background:rgba(6,18,11,0.12); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); border:1px solid rgba(6,18,11,0.2); color:#06120b; font-size:15px; font-weight:600; cursor:pointer;"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.11-2.12C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.39.58A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.11 2.12C4.5 20.5 12 20.5 12 20.5s7.5 0 9.39-.58A3 3 0 0 0 23.5 17.8 31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>Inscreva-se no canal</a>
       </div>
     </div>
   </section>
@@ -366,10 +367,6 @@ const HTML = `
           PlantiumAI
         </div>
         <p style="font-size:13.5px; line-height:1.55; color:var(--text-muted); margin:14px 0 0; max-width:340px;">Funcionalidades de nuvem, painel web, app móvel e visão computacional fazem parte da evolução planejada.</p>
-        <a href="https://www.youtube.com/@PlantiumAI" target="_blank" rel="noopener" class="plf-yt" aria-label="Inscreva-se no canal do YouTube" style="display:inline-flex; align-items:center; gap:8px; margin-top:18px; padding:11px 20px; border-radius:999px; background:#FF0000; color:#fff; font-size:14px; font-weight:600; box-shadow:0 6px 18px rgba(255,0,0,0.32); transition:transform .15s, background .2s;">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.11-2.12C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.39.58A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.11 2.12C4.5 20.5 12 20.5 12 20.5s7.5 0 9.39-.58A3 3 0 0 0 23.5 17.8 31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
-          Inscreva-se no canal
-        </a>
       </div>
       <div>
         <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); margin-bottom:12px;">Navegação</div>

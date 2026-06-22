@@ -9,6 +9,7 @@ const ICON: Record<string, LucideIcon> = {
 };
 
 type Weather = {
+  source?: string;
   current: { temp: number; feels: number; humidity: number; precip: number; wind: number; label: string; icon: string };
   daily: { day: string; max: number; min: number; precip: number; label: string; icon: string }[];
 };
@@ -32,7 +33,7 @@ export function WeatherCard({ lat, lon }: { lat?: number; lon?: number }) {
     <div className="pl-card pl-card--solid" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <span className="pl-font-display" style={{ fontSize: 16, fontWeight: 600 }}>Clima · agora</span>
-        <span style={{ fontSize: 12, color: "var(--pl-text-muted)" }}>Open-Meteo · Goiânia/GO</span>
+        <span style={{ fontSize: 12, color: "var(--pl-text-muted)" }}>{data?.source ?? "Goiânia/GO"}</span>
       </div>
 
       {err ? (

@@ -15,6 +15,28 @@ from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
 )
 from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+import base64
+
+# Ícone oficial embutido (base64) — independe do filesystem da Vercel.
+try:
+    from _logo import LOGO_B64
+    _LOGO = ImageReader(BytesIO(base64.b64decode(LOGO_B64)))
+except Exception:
+    _LOGO = None
+
+# Helvetica (WinAnsi) não tem subscritos (₂) → vira quadrado. Normaliza.
+_SUBS = {"₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4", "₅": "5",
+         "₆": "6", "₇": "7", "₈": "8", "₉": "9"}
+
+
+def clean(s):
+    if s is None:
+        return ""
+    s = str(s)
+    for k, v in _SUBS.items():
+        s = s.replace(k, v)
+    return s
 
 GREEN = colors.HexColor("#16a34a")
 GREEN2 = colors.HexColor("#22c55e")
@@ -73,12 +95,15 @@ class NumberedCanvas(canvas.Canvas):
 def _header(canvas_, doc):
     w, h = A4
     canvas_.saveState()
-    # faixa superior verde
-    canvas_.setFillColor(GREEN)
-    canvas_.circle(MARGIN + 4 * mm, h - 14 * mm, 4 * mm, fill=1, stroke=0)
+    # ícone oficial no canto superior esquerdo (antes do nome)
+    if _LOGO is not None:
+        canvas_.drawImage(_LOGO, MARGIN, h - 16.5 * mm, width=9 * mm, height=9 * mm, mask="auto")
+    else:
+        canvas_.setFillColor(GREEN)
+        canvas_.circle(MARGIN + 4.5 * mm, h - 12.5 * mm, 4.5 * mm, fill=1, stroke=0)
     canvas_.setFillColor(INK)
     canvas_.setFont("Helvetica-Bold", 14)
-    canvas_.drawString(MARGIN + 11 * mm, h - 15.5 * mm, "PlantiumAI")
+    canvas_.drawString(MARGIN + 12 * mm, h - 14.6 * mm, "PlantiumAI")
     canvas_.setFillColor(MUTED)
     canvas_.setFont("Helvetica", 9)
     canvas_.drawRightString(w - MARGIN, h - 15.5 * mm, "Relatório de Monitoramento")
@@ -102,14 +127,16 @@ def build_pdf(data):
     meta = ParagraphStyle("meta", parent=ss["Normal"], textColor=MUTED, fontSize=9.5, leading=14)
     body = ParagraphStyle("body", parent=ss["Normal"], textColor=INK, fontSize=10, leading=14)
 
-    location = data.get("location", "—")
-    period = data.get("period", "24h")
-    generated = data.get("generatedAt", "")
-    user = data.get("user", "")
+    location = clean(data.get("location", "—"))
+    period = clean(data.get("period", "24h"))
+    generated = clean(data.get("generatedAt", ""))
+    user = clean(data.get("user", ""))
     health = data.get("health", None)
+    variant = (data.get("variant") or "tecnico").lower()
+    titulo = "Relatório resumido" if variant == "resumo" else "Relatório técnico"
 
     story = []
-    story.append(Paragraph("Relatório de monitoramento", h1))
+    story.append(Paragraph(titulo, h1))
     story.append(Paragraph(
         f"Local: <b>{location}</b> &nbsp;·&nbsp; Período: <b>{period}</b>"
         + (f" &nbsp;·&nbsp; Emitido em: {generated}" if generated else "")
@@ -118,19 +145,21 @@ def build_pdf(data):
     ))
     story.append(Spacer(1, 8))
 
-    # Destaque do índice de saúde
+    # Destaque do índice de saúde (compacto, % proporcional)
     if health is not None:
-        card = Table([[Paragraph("Índice de saúde da estufa", body),
-                       Paragraph(f"<font size=22 color='#16a34a'><b>{health}%</b></font>", body)]],
-                     colWidths=[None, 40 * mm])
+        hstat = "Saúde ótima" if health >= 85 else ("Atenção" if health >= 65 else "Crítico")
+        card = Table([[
+            Paragraph("<b>Índice de saúde da estufa</b>", body),
+            Paragraph(f"<font size=20 color='#16a34a'><b>{health}%</b></font>&nbsp;&nbsp;<font size=9 color='#5b6b61'>{hstat}</font>", body),
+        ]], colWidths=[None, 60 * mm])
         card.setStyle(TableStyle([
             ("BACKGROUND", (0, 0), (-1, -1), GREEN_TINT),
             ("BOX", (0, 0), (-1, -1), 0.5, GREEN2),
             ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
             ("LEFTPADDING", (0, 0), (-1, -1), 12),
             ("RIGHTPADDING", (0, 0), (-1, -1), 12),
-            ("TOPPADDING", (0, 0), (-1, -1), 10),
-            ("BOTTOMPADDING", (0, 0), (-1, -1), 10),
+            ("TOPPADDING", (0, 0), (-1, -1), 9),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 9),
             ("ALIGN", (1, 0), (1, 0), "RIGHT"),
         ]))
         story.append(card)
@@ -141,8 +170,8 @@ def build_pdf(data):
         story.append(Paragraph("Leituras atuais", h2))
         rows = [["Sensor", "Valor", "Estado"]]
         for s in sensors:
-            unit = (" " + s.get("unit", "")) if s.get("unit") else ""
-            rows.append([s.get("label", "—"), f"{s.get('value', '—')}{unit}", s.get("status", "—")])
+            unit = (" " + clean(s.get("unit", ""))) if s.get("unit") else ""
+            rows.append([clean(s.get("label", "—")), f"{clean(s.get('value', '—'))}{unit}", clean(s.get("status", "—"))])
         t = Table(rows, colWidths=[None, 35 * mm, 30 * mm])
         st = [
             ("BACKGROUND", (0, 0), (-1, 0), HEADER_BG),
@@ -164,12 +193,12 @@ def build_pdf(data):
 
     # Estatísticas do período
     stats = data.get("stats") or []
-    if stats:
+    if variant == "tecnico" and stats:
         story.append(Paragraph(f"Estatísticas por sensor — {period}", h2))
         rows = [["Sensor", "Mín", "Máx", "Média", "Desvio", "Estado"]]
         for s in stats:
-            rows.append([s.get("name", "—"), s.get("min", "—"), s.get("max", "—"),
-                         s.get("avg", "—"), s.get("std", "—"), s.get("state", "—")])
+            rows.append([clean(s.get("name", "—")), clean(s.get("min", "—")), clean(s.get("max", "—")),
+                         clean(s.get("avg", "—")), clean(s.get("std", "—")), clean(s.get("state", "—"))])
         t = Table(rows, colWidths=[None, 22 * mm, 22 * mm, 24 * mm, 22 * mm, 26 * mm])
         st = [
             ("BACKGROUND", (0, 0), (-1, 0), HEADER_BG),
@@ -194,8 +223,8 @@ def build_pdf(data):
         for a in alerts:
             hexcol = "#ef4444" if "crít" in (a.get("sev", "").lower()) else "#f59e0b"
             story.append(Paragraph(
-                f"<font color='{hexcol}'><b>{a.get('sev', '')}</b></font> "
-                f"— {a.get('title', '')} <font color='#8a978f'>({a.get('local', '')} · {a.get('time', '')})</font>",
+                f"<font color='{hexcol}'><b>{clean(a.get('sev', ''))}</b></font> "
+                f"— {clean(a.get('title', ''))} <font color='#8a978f'>({clean(a.get('local', ''))} · {clean(a.get('time', ''))})</font>",
                 body,
             ))
             story.append(Spacer(1, 3))

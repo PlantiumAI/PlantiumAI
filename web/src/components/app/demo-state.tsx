@@ -35,7 +35,7 @@ type DemoCtx = {
   alertList: Alert[]; activeAlerts: number; resolveAlert: (id: number) => void;
   settings: Settings; toggleSetting: (k: keyof Settings) => void;
   name: string; fullName: string; email: string; role: string; initials: string; signOut: () => void;
-  exportReport: (format: "pdf" | "csv") => Promise<void>;
+  exportReport: (format: "pdf" | "csv", variant?: "resumo" | "tecnico") => Promise<void>;
 };
 
 const Ctx = createContext<DemoCtx | null>(null);
@@ -140,7 +140,7 @@ export function DemoProvider({
     showToast(apiKey ? `Local “${name2}” conectado via API` : `Local “${name2}” adicionado`);
   }, [showToast]);
 
-  const exportReport = useCallback(async (format: "pdf" | "csv") => {
+  const exportReport = useCallback(async (format: "pdf" | "csv", variant: "resumo" | "tecnico" = "tecnico") => {
     const defs: { key: string; label: string; unit: string; dec: boolean; v: number }[] = [
       { key: "soil", label: "Umidade do solo", unit: "%", dec: false, v: r.soil },
       { key: "airT", label: "Temperatura do ar", unit: "°C", dec: true, v: r.airT },
@@ -174,6 +174,7 @@ export function DemoProvider({
       user: name,
       location: "Estufa Central · SP",
       period,
+      variant,
       generatedAt: new Date().toLocaleString("pt-BR"),
       health: computeHealth(r),
       sensors,

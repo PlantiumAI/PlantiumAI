@@ -72,8 +72,8 @@ export function SidePanel() {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                 <button className="pl-btn pl-btn--secondary" onClick={() => exportReport("csv")} style={{ justifyContent: "flex-start", gap: 9, padding: "13px 16px" }}><span style={{ width: 10, height: 10, borderRadius: 3, background: "#16a34a" }} />Excel/CSV</button>
                 <button className="pl-btn pl-btn--secondary" onClick={() => exportReport("csv")} style={{ justifyContent: "flex-start", gap: 9, padding: "13px 16px" }}><span style={{ width: 10, height: 10, borderRadius: 3, background: "var(--pl-info)" }} />CSV</button>
-                <button className="pl-btn pl-btn--secondary" onClick={() => exportReport("pdf")} style={{ justifyContent: "flex-start", gap: 9, padding: "13px 16px" }}><span style={{ width: 10, height: 10, borderRadius: 3, background: "#ef4444" }} />PDF resumido</button>
-                <button className="pl-btn pl-btn--secondary" onClick={() => exportReport("pdf")} style={{ justifyContent: "flex-start", gap: 9, padding: "13px 16px" }}><span style={{ width: 10, height: 10, borderRadius: 3, background: "#ef4444" }} />PDF técnico</button>
+                <button className="pl-btn pl-btn--secondary" onClick={() => exportReport("pdf", "resumo")} style={{ justifyContent: "flex-start", gap: 9, padding: "13px 16px" }}><span style={{ width: 10, height: 10, borderRadius: 3, background: "#ef4444" }} />PDF resumido</button>
+                <button className="pl-btn pl-btn--secondary" onClick={() => exportReport("pdf", "tecnico")} style={{ justifyContent: "flex-start", gap: 9, padding: "13px 16px" }}><span style={{ width: 10, height: 10, borderRadius: 3, background: "#ef4444" }} />PDF técnico</button>
               </div>
               <p style={{ margin: "8px 0 0", fontSize: 12, color: "var(--pl-text-faint)" }}>PDF profissional com logo, propriedade, data/hora, gráficos, tabelas, indicadores coloridos e recomendações.</p>
             </div>

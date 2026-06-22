@@ -169,7 +169,7 @@ export default function DashboardPage() {
             <button className="pl-btn pl-btn--secondary pl-btn--sm" onClick={() => setPanel("data")} style={{ gap: 7 }}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 16V4M8 8l4-4 4 4" /><path d="M5 20h14" /></svg>Importar</button>
             <button className="pl-btn pl-btn--secondary pl-btn--sm" onClick={() => exportReport("csv")} style={{ gap: 7 }}><span style={{ width: 8, height: 8, borderRadius: 2, background: "#16a34a" }} /> Excel/CSV</button>
             <button className="pl-btn pl-btn--secondary pl-btn--sm" onClick={() => exportReport("csv")} style={{ gap: 7 }}><span style={{ width: 8, height: 8, borderRadius: 2, background: "var(--pl-info)" }} /> CSV</button>
-            <button className="pl-btn pl-btn--secondary pl-btn--sm" onClick={() => exportReport("pdf")} style={{ gap: 7 }}><span style={{ width: 8, height: 8, borderRadius: 2, background: "#ef4444" }} /> PDF</button>
+            <button className="pl-btn pl-btn--secondary pl-btn--sm" onClick={() => exportReport("pdf", "tecnico")} style={{ gap: 7 }}><span style={{ width: 8, height: 8, borderRadius: 2, background: "#ef4444" }} /> PDF</button>
             <button className="pl-btn pl-btn--primary pl-btn--sm" onClick={() => setPanel("data")} style={{ gap: 7 }}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="8" height="8" rx="1" /><rect x="13" y="3" width="8" height="8" rx="1" /><rect x="3" y="13" width="8" height="8" rx="1" /><rect x="13" y="13" width="8" height="8" rx="1" /></svg>Power BI</button>
           </div>
 

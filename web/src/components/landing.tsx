@@ -438,7 +438,12 @@ export function Landing() {
     const video = document.getElementById("plf-video-scrub") as HTMLVideoElement | null;
     const progressBar = document.getElementById("plf-video-progress") as HTMLElement | null;
     const scrollHint = document.getElementById("plf-scroll-hint") as HTMLElement | null;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Mobile/touch travam no "seek" rápido do currentTime (iOS bloqueia seeks
+    // durante o scroll). Nesses casos — e com prefers-reduced-motion — caímos
+    // para autoplay em loop (sem scroll-jacking), garantindo responsividade.
+    const lowPower = window.matchMedia(
+      "(prefers-reduced-motion: reduce), (max-width: 760px), (pointer: coarse)",
+    ).matches;
     let st: ReturnType<typeof ScrollTrigger.create> | null = null;
 
     const initScrub = () => {
@@ -458,7 +463,7 @@ export function Landing() {
     };
 
     if (video) {
-      if (reduceMotion) {
+      if (lowPower) {
         // Acessibilidade: sem scroll-jacking — vídeo vira loop suave em altura normal.
         section?.classList.add("plf-reduced");
         video.loop = true;

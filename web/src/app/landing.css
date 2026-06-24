@@ -107,3 +107,38 @@
   .plf-root .plf-kpis { grid-template-columns: 1fr !important; }
   .plf-root .plf-team { grid-template-columns: 1fr !important; }
 }
+
+/* Video scrub section */
+#plf-video-section {
+  height: 300vh;
+  position: relative;
+}
+#plf-video-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* prefers-reduced-motion: sem scroll-jacking, vídeo em loop em altura normal */
+#plf-video-section.plf-reduced { height: 100vh; }
+#plf-video-section.plf-reduced #plf-video-sticky { position: relative; }
+#plf-video-section.plf-reduced #plf-scroll-hint,
+#plf-video-section.plf-reduced #plf-video-progress { display: none; }
+#plf-scroll-hint {
+  transition: opacity 0.4s ease;
+}
+@keyframes plf-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-8px); }
+}
+#plf-scroll-hint { animation: plf-bounce 2s ease-in-out infinite; }
+
+/* Nav PlantiumAI item hover */
+.plf-root .plf-tab-highlight:hover {
+  background: rgba(52, 217, 119, 0.25) !important;
+  color: var(--brand-green) !important;
+}

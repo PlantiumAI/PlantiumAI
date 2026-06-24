@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../app/landing.css";
 
 /* Landing institucional — design importado do Claude Design
@@ -31,6 +33,7 @@ const HTML = `
         <a href="#mercado" style="padding:8px 13px; border-radius:999px; font-size:14px; font-weight:500; color:var(--text-muted); transition:color .2s,background .2s;">Mercado</a>
         <a href="#equipe" style="padding:8px 13px; border-radius:999px; font-size:14px; font-weight:500; color:var(--text-muted); transition:color .2s,background .2s;">Equipe</a>
         <a href="#contato" style="padding:8px 13px; border-radius:999px; font-size:14px; font-weight:500; color:var(--text-muted); transition:color .2s,background .2s;">Contato</a>
+        <a href="#demo-video" class="plf-tab-highlight" style="display:inline-flex; align-items:center; gap:6px; padding:8px 13px; border-radius:999px; font-size:14px; font-weight:600; color:var(--brand-green); border:1px solid var(--border-glass); background:var(--brand-green-tint); transition:color .2s,background .2s;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>PlantiumAI</a>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
         <a href="https://www.youtube.com/@PlantiumAI" target="_blank" rel="noopener" class="plf-yt" aria-label="Canal no YouTube" title="Canal no YouTube" style="display:inline-flex; align-items:center; gap:7px; height:40px; padding:0 15px; border-radius:999px; background:#FF0000; color:#fff; font-size:14px; font-weight:600; box-shadow:0 4px 14px rgba(255,0,0,0.3); transition:transform .15s, background .2s;">
@@ -158,6 +161,27 @@ const HTML = `
       </div>
     </div>
   </header>
+
+  <!-- VIDEO SCRUB -->
+  <section id="demo-video" style="position:relative; z-index:1;">
+    <div id="plf-video-section">
+      <div id="plf-video-sticky">
+        <video id="plf-video-scrub" src="/videos/PlantiumAI_site_mudo.mp4" muted playsinline preload="auto" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></video>
+        <div style="position:absolute; inset:0; background:linear-gradient(to bottom,rgba(8,15,11,0.55) 0%,rgba(8,15,11,0.18) 25%,rgba(8,15,11,0.18) 75%,rgba(8,15,11,0.7) 100%); pointer-events:none;"></div>
+        <div style="position:relative; z-index:2; text-align:center; padding:0 24px; max-width:720px;">
+          <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:var(--brand-green-tint); border:1px solid var(--border-glass); font-size:12.5px; font-weight:600; color:var(--brand-green); margin-bottom:20px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>PlantiumAI em ação
+          </div>
+          <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(30px,4.5vw,56px); line-height:1.08; letter-spacing:-0.02em; color:#eaf3ee; text-shadow:0 2px 24px rgba(0,0,0,0.55); margin:0 0 18px;">O ecossistema que transforma<br/><span style="color:var(--brand-green);">dados em decisões</span></h2>
+          <p style="font-size:17px; line-height:1.6; color:rgba(234,243,238,0.82); text-shadow:0 1px 8px rgba(0,0,0,0.4); max-width:520px; margin:0 auto;">Acompanhe como a plataforma monitora e automatiza micro estufas em tempo real — do sensor ao atuador.</p>
+        </div>
+        <div id="plf-scroll-hint" style="position:absolute; bottom:36px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; font-size:13px; color:rgba(234,243,238,0.65); z-index:2; pointer-events:none;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>Role para explorar
+        </div>
+        <div id="plf-video-progress" style="position:absolute; bottom:0; left:0; height:3px; width:0%; background:var(--brand-green); z-index:3; transition:width .05s linear;"></div>
+      </div>
+    </div>
+  </section>
 
   <!-- PROBLEMA -->
   <section style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:80px 24px 40px;">
@@ -397,18 +421,59 @@ const HTML = `
 
 export function Landing() {
   useEffect(() => {
+    // Theme toggle
     const btn = document.getElementById("plf-theme");
-    if (!btn) return;
     const toggle = () => {
       const root = document.documentElement;
       const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
       root.setAttribute("data-theme", next);
-      try {
-        localStorage.setItem("plantium-theme", next);
-      } catch {}
+      try { localStorage.setItem("plantium-theme", next); } catch {}
     };
-    btn.addEventListener("click", toggle);
-    return () => btn.removeEventListener("click", toggle);
+    btn?.addEventListener("click", toggle);
+
+    // GSAP ScrollTrigger video scrub
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = document.getElementById("plf-video-section");
+    const video = document.getElementById("plf-video-scrub") as HTMLVideoElement | null;
+    const progressBar = document.getElementById("plf-video-progress") as HTMLElement | null;
+    const scrollHint = document.getElementById("plf-scroll-hint") as HTMLElement | null;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let st: ReturnType<typeof ScrollTrigger.create> | null = null;
+
+    const initScrub = () => {
+      st = ScrollTrigger.create({
+        trigger: "#plf-video-section",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1.5,
+        onUpdate: (self) => {
+          if (video && Number.isFinite(video.duration)) {
+            video.currentTime = video.duration * self.progress;
+          }
+          if (progressBar) progressBar.style.width = `${self.progress * 100}%`;
+          if (scrollHint) scrollHint.style.opacity = self.progress > 0.05 ? "0" : "1";
+        },
+      });
+    };
+
+    if (video) {
+      if (reduceMotion) {
+        // Acessibilidade: sem scroll-jacking — vídeo vira loop suave em altura normal.
+        section?.classList.add("plf-reduced");
+        video.loop = true;
+        video.play().catch(() => {});
+      } else if (video.readyState >= 1) {
+        initScrub();
+      } else {
+        video.addEventListener("loadedmetadata", initScrub, { once: true });
+      }
+    }
+
+    return () => {
+      btn?.removeEventListener("click", toggle);
+      st?.kill();
+    };
   }, []);
 
   return (

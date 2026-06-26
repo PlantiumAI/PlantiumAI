@@ -232,8 +232,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Fallback: nunca um vão preto se o vídeo demorar/não tocar. */
-  background: #080f0b url("/landing/hero.jpg") center / cover no-repeat;
+  /* Fallback: 1º frame do vídeo (mesma imagem do poster) — sem vão preto nem "pulo". */
+  background: #080f0b url("/videos/video-poster.jpg") center / cover no-repeat;
 }
 
 /* Mobile: sem scroll-jacking, altura menor — evita a "tela preta" de 100vh. */

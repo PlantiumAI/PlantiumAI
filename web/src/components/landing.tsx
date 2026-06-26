@@ -178,7 +178,7 @@ const HTML = `
   <section id="demo-video" style="position:relative; z-index:1;">
     <div id="plf-video-section">
       <div id="plf-video-sticky">
-        <video id="plf-video-scrub" src="/videos/PlantiumAI_site_mudo.mp4" poster="/landing/hero.jpg" muted playsinline preload="auto" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></video>
+        <video id="plf-video-scrub" src="/videos/PlantiumAI_site_mudo.mp4" poster="/videos/video-poster.jpg" muted playsinline preload="auto" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></video>
         <div style="position:absolute; inset:0; background:linear-gradient(to bottom,rgba(8,15,11,0.55) 0%,rgba(8,15,11,0.18) 25%,rgba(8,15,11,0.18) 75%,rgba(8,15,11,0.7) 100%); pointer-events:none;"></div>
 
 

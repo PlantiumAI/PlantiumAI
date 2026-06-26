@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
 
+// Em desenvolvimento o Next/webpack avalia módulos via eval() (HMR/source maps),
+// o que exige 'unsafe-eval' no script-src. Em produção isso NÃO é necessário e
+// seria um risco de segurança — por isso liberamos o eval apenas em dev.
+const isDev = process.env.NODE_ENV !== "production";
+const scriptSrc = isDev
+  ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+  : "script-src 'self' 'unsafe-inline'";
+
 // Cabeçalhos de segurança (padrão de indústria) aplicados a todas as rotas.
 // CSP propositalmente restritiva; ajuste se adicionar provedores externos.
 const securityHeaders = [
@@ -19,7 +27,7 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline'",
+      scriptSrc,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob:",

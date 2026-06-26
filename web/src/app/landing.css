@@ -160,7 +160,8 @@
     right: 0;
     padding: 10px;
     border-radius: 22px;
-    background: var(--surface-glass);
+    /* Fundo quase opaco: legível mesmo sem suporte a backdrop-filter (comum no mobile). */
+    background: var(--surface-solid);
     -webkit-backdrop-filter: blur(22px);
     backdrop-filter: blur(22px);
     border: 1px solid var(--border-glass);

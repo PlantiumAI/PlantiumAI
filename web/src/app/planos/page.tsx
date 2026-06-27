@@ -369,66 +369,64 @@ export default function PlanosPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-20">
           
           <PricingCard
-            title="Semente"
-            tag="Essencial"
-            description="Para quem está iniciando com uma única micro estufa ou horta vertical monitorada localmente."
-            monthlyPrice={89}
-            annualPrice={74}
+            title="WhatsApp Grátis"
+            tag="FREEMIUM · A ISCA"
+            description="IA agronômica gratuita para identificar doenças por fotos instantaneamente e indicar tratamentos."
+            monthlyPrice={0}
+            annualPrice={0}
             billingPeriod={billingPeriod}
-            buttonText="Assinar Semente"
-            buttonLink="/login"
+            buttonText="Começar Grátis"
+            buttonLink="https://wa.me/message/PLANTIUMAI"
             features={[
-              "1 unidade de cultivo (até 5 m²)",
-              "1 usuário administrativo",
-              "Sensores de umidade (solo/ar), temp e luz",
-              "Dashboard web em tempo real",
-              "Irrigação por regras (offline / fail-safe)",
-              "Alertas inteligentes básicos (IA Haiku)",
-              "Histórico de dados por 6 meses",
+              "Identificação instantânea de fitopatologias",
+              "Chatbot com IA 24/7 no WhatsApp",
+              "Sem limite de consultas ou fotos",
+              "Recomendações ecológicas e convencionais",
+              "Links para parceiros de defensivos",
+              "Sem necessidade de hardware ou sensores",
+              "100% gratuito, sem cartão de crédito",
             ]}
           />
 
           <PricingCard
-            title="Cultivo"
-            tag="Mais Popular"
-            description="Para produtores em expansão: até 3 estufas com equipe e diagnóstico agronômico ativo por IA."
+            title="Software Assinatura"
+            tag="PREMIUM · O ANZOL"
+            description="Aluguel mensal do software integrado e locação completa das placas ESP32 e sensores. Instalação inclusa."
             monthlyPrice={179}
             annualPrice={149}
             billingPeriod={billingPeriod}
             isPopular={true}
             badgeText="Recomendado"
-            buttonText="Assinar Cultivo"
+            buttonText="Assinar Premium"
             buttonLink="/login"
             features={[
-              "Até 3 unidades de cultivo (até 30 m²)",
-              "Até 3 usuários colaboradores",
-              "Sensores de umidade, temp, luz, CO2 e pH",
-              "Diagnóstico e recomendações por IA (Sonnet)",
-              "Integração com WhatsApp (alertas e consultas)",
-              "Clima integrado local (INMET e Open-Meteo)",
-              "Histórico de dados por 24 meses",
-              "Relatórios semanais em PDF e CSV",
+              "Locação das placas ESP32 e sensores",
+              "Monitoramento completo (Ar, Solo, CO₂ e Luz)",
+              "Painel Web e Desktop (Offline-First em Rust)",
+              "Diagnósticos avançados e alertas via WhatsApp",
+              "Mecanismo de controle fail-safe local",
+              "Instalação física e calibração inclusas",
+              "Suporte e manutenção remota",
             ]}
           />
 
           <PricingCard
-            title="Estufa+"
-            tag="Premium / Visão"
-            description="Para operações que exigem visão computacional, diagnósticos de pragas e conectividade 4G móvel."
-            monthlyPrice={349}
-            annualPrice={291}
+            title="Aquisição Total"
+            tag="PRO · A ESCALA"
+            description="Venda direta do hardware proprietário (kit único de R$ 1.010,08) mais assinatura enxuta do software de gestão."
+            monthlyPrice={59}
+            annualPrice={49}
             billingPeriod={billingPeriod}
-            buttonText="Assinar Estufa+"
+            buttonText="Adquirir Kit Pro"
             buttonLink="/login"
             features={[
-              "Até 10 unidades de cultivo (até 150 m²)",
-              "Usuários colaboradores ilimitados",
-              "Visão computacional (câmera IP67 inclusa)",
-              "Detector de pragas YOLO na borda (Raspberry)",
-              "Conectividade 4G móvel (SIM card incluso)",
-              "Armazenamento de fotos na nuvem (50 GB)",
-              "Histórico de telemetria ilimitado",
-              "Suporte prioritário 24/7 com agrônomo",
+              "Propriedade definitiva do hardware IoT",
+              "Baixo custo recorrente de software",
+              "Emulador de biomas completo integrado",
+              "Suporte a controle dinâmico multi-estufas",
+              "1 ano de manutenção presencial inclusa",
+              "Visão computacional e YOLO na borda (opcional)",
+              "Integração com API aberta e MQTT local",
             ]}
           />
 
@@ -444,95 +442,71 @@ export default function PlanosPage() {
               <thead>
                 <tr className="border-b border-[#78c896]/10 bg-[#12211a]/40">
                   <th className="p-4 font-semibold text-[#9fb4a8]">Especificações</th>
-                  <th className="p-4 font-semibold text-[#eaf3ee]">Semente</th>
-                  <th className="p-4 font-semibold text-[#eaf3ee]">Cultivo</th>
-                  <th className="p-4 font-semibold text-[#eaf3ee]">Estufa+</th>
+                  <th className="p-4 font-semibold text-[#eaf3ee]">WhatsApp Grátis (Freemium)</th>
+                  <th className="p-4 font-semibold text-[#eaf3ee]">Software Assinatura (Premium)</th>
+                  <th className="p-4 font-semibold text-[#eaf3ee]">Aquisição Total (Pro)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#78c896]/10 text-[#eaf3ee]/90">
                 <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Unidades de cultivo</td>
-                  <td className="p-4">1</td>
-                  <td className="p-4">Até 3</td>
-                  <td className="p-4">Até 10</td>
+                  <td className="p-4 font-medium text-[#9fb4a8]">Aquisição de Hardware</td>
+                  <td className="p-4">Não Exige</td>
+                  <td className="p-4">Aluguel (Locação Placas/Sensores)</td>
+                  <td className="p-4">Compra / Propriedade definitiva</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Área de cobertura</td>
-                  <td className="p-4">Até 5 m²</td>
-                  <td className="p-4">Até 30 m²</td>
-                  <td className="p-4">Até 150 m²</td>
+                  <td className="p-4 font-medium text-[#9fb4a8]">Custo do Hardware IoT (CapEx)</td>
+                  <td className="p-4">-</td>
+                  <td className="p-4">Sem Custo Adicional</td>
+                  <td className="p-4">R$ 1.010,08 (Kit Físico)</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Usuários simultâneos</td>
-                  <td className="p-4">1</td>
-                  <td className="p-4">Até 3</td>
-                  <td className="p-4">Ilimitado</td>
+                  <td className="p-4 font-medium text-[#9fb4a8]">Coleta de Dados (Sensores)</td>
+                  <td className="p-4">-</td>
+                  <td className="p-4">Ar, Solo, CO₂ e Luz</td>
+                  <td className="p-4">Ar, Solo, CO₂ e Luz</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Sensores ambientais</td>
-                  <td className="p-4 text-emerald-400 font-medium">✓</td>
-                  <td className="p-4 text-emerald-400 font-medium">✓</td>
-                  <td className="p-4 text-emerald-400 font-medium">✓</td>
+                  <td className="p-4 font-medium text-[#9fb4a8]">Suplementação Luminosa</td>
+                  <td className="p-4">-</td>
+                  <td className="p-4">Sim (Automatizado por LEDs)</td>
+                  <td className="p-4">Sim (Automatizado por LEDs)</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Decisão de irrigação</td>
-                  <td className="p-4">Regras (offline)</td>
-                  <td className="p-4">Regras (offline)</td>
-                  <td className="p-4">Regras (offline)</td>
+                  <td className="p-4 font-medium text-[#9fb4a8]">Operação Offline-First</td>
+                  <td className="p-4">-</td>
+                  <td className="p-4">Sim (Rust local / SQLite)</td>
+                  <td className="p-4">Sim (Rust local / SQLite)</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Alertas por IA</td>
-                  <td className="p-4">Básico (Haiku)</td>
-                  <td className="p-4">Avançado (Sonnet)</td>
-                  <td className="p-4">Avançado (Sonnet)</td>
+                  <td className="p-4 font-medium text-[#9fb4a8]">Interface Conversacional</td>
+                  <td className="p-4">Identificação de Doenças (Fotos)</td>
+                  <td className="p-4">Completa (Diagnósticos por Voz/Texto e PDFs)</td>
+                  <td className="p-4">Completa (Diagnósticos por Voz/Texto e PDFs)</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Histórico de dados</td>
-                  <td className="p-4">6 meses</td>
-                  <td className="p-4">24 meses</td>
-                  <td className="p-4">Ilimitado</td>
-                </tr>
-                <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Relatórios em PDF</td>
-                  <td className="p-4">Mensal</td>
-                  <td className="p-4">Semanal</td>
-                  <td className="p-4">Sob demanda</td>
-                </tr>
-                <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Clima integrado</td>
-                  <td className="p-4 text-red-500 font-semibold">-</td>
-                  <td className="p-4 text-emerald-400 font-medium">✓</td>
-                  <td className="p-4 text-emerald-400 font-medium">✓</td>
-                </tr>
-                <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Integração WhatsApp</td>
-                  <td className="p-4 text-red-500 font-semibold">-</td>
-                  <td className="p-4 text-emerald-400 font-medium">✓</td>
-                  <td className="p-4 text-emerald-400 font-medium">✓</td>
-                </tr>
-                <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Visão computacional</td>
+                  <td className="p-4 font-medium text-[#9fb4a8]">Emulador de Biomas</td>
                   <td className="p-4 text-red-500 font-semibold">-</td>
                   <td className="p-4 text-red-500 font-semibold">-</td>
-                  <td className="p-4 text-emerald-400 font-medium">✓ (YOLO na borda)</td>
+                  <td className="p-4 text-emerald-400 font-medium">✓ (Modulação dinâmica de microclima)</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">SIM 4G Gerenciado</td>
-                  <td className="p-4 text-red-500 font-semibold">-</td>
-                  <td className="p-4 text-red-500 font-semibold">-</td>
-                  <td className="p-4 text-emerald-400 font-medium">✓</td>
+                  <td className="p-4 font-medium text-[#9fb4a8]">Mão de obra e Instalação</td>
+                  <td className="p-4">-</td>
+                  <td className="p-4">Inclusa</td>
+                  <td className="p-4">R$ 590,00</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Suporte técnico</td>
-                  <td className="p-4">E-mail</td>
-                  <td className="p-4">E-mail + WhatsApp</td>
-                  <td className="p-4 text-emerald-400 font-medium">Prioritário</td>
+                  <td className="p-4 font-medium text-[#9fb4a8]">Suporte e Manutenção</td>
+                  <td className="p-4">Comunidade</td>
+                  <td className="p-4">Suporte Remoto</td>
+                  <td className="p-4 text-emerald-400 font-medium">1 Ano de Manutenção Presencial e Garantia</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p className="text-xs text-[#34d977] mt-4 leading-relaxed text-center font-mono font-semibold">
-            * O hardware IoT e a instalação são cobrados uma única vez, à parte da assinatura mensal. Veja os valores abaixo.
+            * O plano de WhatsApp Grátis funciona de forma independente e não requer hardware local de sensoriamento.
           </p>
         </section>
 
@@ -553,50 +527,51 @@ export default function PlanosPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             {/* Kit básico */}
+            {/* Kit básico */}
             <div className="relative rounded-3xl p-7 flex flex-col bg-[#12211a]/30 border border-[#78c896]/10 backdrop-blur-md shadow-black/40 shadow-2xl">
               <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#6c8478]">Equipamento</span>
-              <h3 className="font-display font-extrabold text-2xl mt-1 text-[#eaf3ee]">Kit básico</h3>
+              <h3 className="font-display font-extrabold text-2xl mt-1 text-[#eaf3ee]">Kit Protótipo IoT</h3>
               <div className="mt-4 mb-5 flex items-baseline gap-1">
                 <span className="text-[#9fb4a8] text-lg font-medium">R$</span>
-                <span className="text-4xl font-extrabold tracking-tight text-[#eaf3ee]">1.290</span>
-                <span className="text-[#9fb4a8] text-sm">/único</span>
+                <span className="text-4xl font-extrabold tracking-tight text-[#eaf3ee]">1.010</span>
+                <span className="text-[#9fb4a8] text-sm">,08/único</span>
               </div>
               <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">ESP32, sensores de solo e ar, atuadores e válvula</span></li>
-                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Estrutura, fonte, cabeamento e roteador 4G</span></li>
-                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#9fb4a8]">Kit do protótipo funcional</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Placa ESP32 central configurada localmente</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Sensores de umidade (solo/ar), temp, luz e CO₂</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#9fb4a8]">CapEx real homologado no slide deck 2026</span></li>
               </ul>
             </div>
 
             {/* Kit completo */}
             <div className="relative rounded-3xl p-7 flex flex-col bg-[#12211a]/30 border border-[#78c896]/10 backdrop-blur-md shadow-black/40 shadow-2xl">
               <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#6c8478]">Equipamento</span>
-              <h3 className="font-display font-extrabold text-2xl mt-1 text-[#eaf3ee]">Kit completo</h3>
+              <h3 className="font-display font-extrabold text-2xl mt-1 text-[#eaf3ee]">Kit Expansão Pro</h3>
               <div className="mt-4 mb-5 flex items-baseline gap-1">
                 <span className="text-[#9fb4a8] text-lg font-medium">R$</span>
-                <span className="text-4xl font-extrabold tracking-tight text-[#eaf3ee]">2.190</span>
+                <span className="text-4xl font-extrabold tracking-tight text-[#eaf3ee]">2.490</span>
                 <span className="text-[#9fb4a8] text-sm">/único</span>
               </div>
               <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Tudo do kit básico</span></li>
-                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Câmera IP67 para visão computacional</span></li>
-                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#9fb4a8]">Recomendado para o plano Estufa+</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Sensores industriais com calibração avançada</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Câmera com suporte a IA de Visão Computacional</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#9fb4a8]">Indicado para cultivos comerciais de larga escala</span></li>
               </ul>
             </div>
 
             {/* Instalação */}
             <div className="relative rounded-3xl p-7 flex flex-col bg-[#14291e]/50 border border-[#34d977]/40 backdrop-blur-md shadow-[0_0_40px_rgba(52,217,119,0.12)]">
               <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-400">Mão de obra</span>
-              <h3 className="font-display font-extrabold text-2xl mt-1 text-[#eaf3ee]">Instalação</h3>
+              <h3 className="font-display font-extrabold text-2xl mt-1 text-[#eaf3ee]">Instalação Física</h3>
               <div className="mt-4 mb-5 flex items-baseline gap-1">
                 <span className="text-[#9fb4a8] text-lg font-medium">R$</span>
                 <span className="text-4xl font-extrabold tracking-tight text-[#eaf3ee]">590</span>
                 <span className="text-[#9fb4a8] text-sm">/único</span>
               </div>
               <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-emerald-500/10 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">8 horas de serviço (8 × R$ 55,00/h)</span></li>
-                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-emerald-500/10 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Montagem, calibração, configuração do app e teste</span></li>
-                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-emerald-500/10 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#9fb4a8]">Goiânia e região metropolitana</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-emerald-500/10 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">8 horas de serviço em campo (8 × R$ 55,00/h)</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-emerald-500/10 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Montagem, calibração local e testes operacionais</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-emerald-500/10 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#9fb4a8]">Área de cobertura: Goiânia e região metropolitana</span></li>
               </ul>
             </div>
           </div>
@@ -630,7 +605,7 @@ export default function PlanosPage() {
                 O kit de hardware e a instalação já estão inclusos na assinatura?
               </h4>
               <p className="text-sm text-[#9fb4a8] leading-relaxed">
-                Não. São pagamentos únicos, separados da mensalidade: o kit de hardware básico custa R$ 1.290,00 e a versão completa com câmera custa R$ 2.190,00; a instalação e configuração em campo custam R$ 590,00 (Goiânia e região metropolitana, com acréscimo de deslocamento para outras cidades). A assinatura cobre o uso do software, do dashboard na nuvem, dos alertas de IA e do suporte.
+                Não. São pagamentos únicos, separados da mensalidade: o kit protótipo IoT custa R$ 1.010,08 e a versão de expansão Pro custa R$ 2.490,00; a instalação física em campo custa R$ 590,00 (Goiânia e região metropolitana, com acréscimo de deslocamento para outras cidades). No plano Premium (Software Assinatura), a locação do hardware já está inclusa na assinatura mensal.
               </p>
             </div>
             <div className="p-6 rounded-2xl border border-emerald-500/10 bg-[#12211a]/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300">

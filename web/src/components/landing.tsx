@@ -71,16 +71,17 @@ const HTML = `
     <div style="position:relative; max-width:1180px; margin:0 auto; padding:106px 24px 48px; display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:center;" class="plf-hero">
       <div id="solucao">
         <div style="display:flex; flex-wrap:wrap; gap:8px;">
-          <span style="display:inline-flex; align-items:center; gap:7px; padding:6px 13px; border-radius:999px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); font-size:12.5px; font-weight:600; color:var(--text-base);"><span style="width:7px; height:7px; border-radius:50%; background:var(--brand-green);"></span>Desafio AgroStartup 2026</span>
-          <span style="display:inline-flex; align-items:center; gap:7px; padding:6px 13px; border-radius:999px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); font-size:12.5px; font-weight:600; color:var(--text-base);">Goiás</span>
-          <span style="display:inline-flex; align-items:center; gap:7px; padding:6px 13px; border-radius:999px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); font-size:12.5px; font-weight:600; color:var(--text-base);"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.34c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.52.56.83 1.28.83 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Open-source no GitHub</span>
+          <span style="display:inline-flex; align-items:center; gap:7px; padding:6px 13px; border-radius:999px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); font-size:12.5px; font-weight:600; color:var(--text-base);"><span style="width:7px; height:7px; border-radius:50%; background:var(--brand-green);"></span>Desafio AgroStartup — 10 Anos (SENAR, SEBRAE, FAPEG, Goiás 2026)</span>
         </div>
         <h1 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(38px,4.8vw,60px); line-height:1.06; letter-spacing:-0.02em; margin:22px 0 0;">
-          O equilíbrio entre a <span style="color:var(--brand-green);">biocenose</span> e a inteligência artificial
+          PlantiumAI
         </h1>
         <p style="font-size:18px; line-height:1.62; color:var(--text-muted); max-width:520px; margin:20px 0 0;">
-          Sistema inteligente de monitoramento para micro estufas e hortas verticais, integrando sensores IoT, visão computacional e IA para apoiar a decisão do pequeno produtor.
+          Inteligência Conversacional e IoT Offline-First para Horticultura Controlada
         </p>
+        <div style="font-family:'Sora',sans-serif; font-size:22px; font-weight:700; color:var(--brand-green); margin-top:20px; letter-spacing:-0.01em;">
+          "A planta nunca fica no escuro."
+        </div>
         <div style="display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;">
           <a href="#tecnologia" class="plf-btn-primary" style="display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:999px; border:none; background:var(--brand-green); color:#06120b; font-family:'Inter',sans-serif; font-size:15px; font-weight:600; cursor:pointer; box-shadow:0 8px 22px rgba(52,217,119,0.3); transition:transform .15s, background .2s;">
             Conhecer o protótipo
@@ -175,6 +176,14 @@ const HTML = `
         </div>
       </div>
     </div>
+    <!-- Elementos Institucionais no Rodapé da Dobra -->
+    <div style="position:relative; z-index:2; border-top:1px solid var(--border-glass); background:rgba(6,18,11,0.5); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); padding:16px 24px; margin-top:40px;">
+      <div style="max-width:1180px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; font-size:12.5px; color:var(--text-muted);">
+        <div><span style="color:var(--brand-green); font-weight:600;">Institucional:</span> 1ª Turma de Engenharia de Software | SENAI Fatesg</div>
+        <div><span style="color:var(--brand-green); font-weight:600;">Integrantes:</span> Thyago Henrique, João Felipe, Gabriel Augusto, Marco Antonio</div>
+        <div style="display:flex; align-items:center; gap:6px;"><span style="width:7px; height:7px; border-radius:50%; background:var(--brand-green);"></span>Desafio AgroStartup — 10 Anos (SENAR, SEBRAE, FAPEG, Goiás 2026)</div>
+      </div>
+    </div>
   </header>
 
   <!-- VIDEO SCRUB -->
@@ -192,32 +201,41 @@ const HTML = `
 
   <!-- PROBLEMA -->
   <section style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:80px 24px 40px;">
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;" class="plf-2col">
-      <div>
-        <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">O problema</div>
-        <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 16px;">Sem ler o equilíbrio biológico, a decisão fica no escuro</h2>
-        <p style="font-size:16.5px; line-height:1.65; color:var(--text-muted); margin:0;">A carência de leitura da <strong style="color:var(--text-base); font-weight:600;">biocenose</strong> — o equilíbrio biológico do ambiente — dificulta o ajuste da irrigação, gerando desperdício de água, risco de doenças e necessidade de acompanhamento constante.</p>
-        <p style="font-size:14px; line-height:1.6; color:var(--text-faint); margin:16px 0 0;">Fonte: levantamento IFAG (2026) junto a produtores goianos.</p>
+    <div style="text-align:center; max-width:760px; margin:0 auto 48px;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">01 // O PROBLEMA</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 16px;">O agricultor familiar decide no escuro — e paga caro por isso.</h2>
+      <p style="font-size:16.5px; line-height:1.65; color:var(--text-muted); margin:0;">A ausência de sensoriamento de precisão e a interpretação empírica da biocenose geram desperdício crítico e perda de safras em micro estufas e hortas verticais. Sem dados, não há gestão — apenas intuição.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;" class="plf-pillars">
+      <!-- Card 1 -->
+      <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:12px; height:100%;">
+        <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:52px; color:var(--brand-green); line-height:1;">40%</div>
+        <p style="font-size:14px; line-height:1.55; color:var(--text-muted); margin:0;">Desperdício hídrico devido a ajustes inadequados na irrigação.</p>
+        <span style="font-size:11px; color:var(--text-faint); margin-top:auto;">Fonte: EMBRAPA Horticultura/CNA 2023</span>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
-        ${["Desperdício de água", "Falta de automação", "Monitoramento remoto difícil", "Sem histórico ou rastreabilidade", "Ausência de alertas inteligentes", "Baixa previsibilidade"]
-          .map(
-            (p) => `<div style="padding:18px; border-radius:18px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft);">
-            <span style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:11px; background:var(--danger-tint); color:var(--danger); margin-bottom:10px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span>
-            <div style="font-size:14.5px; font-weight:600; line-height:1.4;">${p}</div>
-          </div>`,
-          )
-          .join("")}
+      <!-- Card 2 -->
+      <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:12px; height:100%;">
+        <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:52px; color:var(--brand-green); line-height:1;">30%</div>
+        <p style="font-size:14px; line-height:1.55; color:var(--text-muted); margin:0;">Perda de produtividade por identificação tardia de pragas e doenças.</p>
+        <span style="font-size:11px; color:var(--text-faint); margin-top:auto;">Fonte: EMBRAPA Horticultura/CNA 2023</span>
+      </div>
+      <!-- Card 3 -->
+      <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:12px; height:100%;">
+        <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:36px; color:var(--brand-green); line-height:1.2;">Score 526,9</div>
+        <p style="font-size:14px; line-height:1.55; color:var(--text-muted); margin:0;">O ajuste inadequado da irrigação é o gargalo nº 1 da cadeia produtiva em Goiás.</p>
+        <span style="font-size:11px; color:var(--text-faint); margin-top:auto;">Fonte: IFAG 2026</span>
       </div>
     </div>
   </section>
 
   <!-- SOLUÇÃO / COMO FUNCIONA -->
   <section id="tecnologia" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
-    <div style="text-align:center; max-width:680px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Como funciona · protótipo funcional</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Arquitetura em camadas, do sensor ao atuador</h2>
-      <p style="font-size:16.5px; line-height:1.6; color:var(--text-muted);">Um fluxo de dados resiliente: mesmo sem internet ou IA, a estufa permanece protegida por regras locais — tudo registrado para auditoria.</p>
+    <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">02 // A SOLUÇÃO</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Um ecossistema de malha fechada que mantém a planta viva — mesmo sem internet.</h2>
+      <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:var(--brand-green-tint); border:1px solid rgba(52,217,119,0.2); font-size:13.5px; font-weight:600; color:var(--brand-green); margin-top:8px;">
+        CapEx Total do Protótipo: R$ 1.010,08
+      </div>
     </div>
     <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; align-items:stretch;" class="plf-flow">
       ${[
@@ -251,75 +269,123 @@ const HTML = `
   <!-- SEÇÃO DE DIFERENCIAIS (3 NOVOS PILARES) -->
   <section style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="text-align:center; max-width:640px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Diferenciais do Ecossistema</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Inovação para o Agronegócio Tecnológico</h2>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Pilares da Engenharia</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Tecnologia voltada para Resiliência e Baixo Custo</h2>
     </div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;" class="plf-pillars">
       
       <!-- Card 1 -->
-      <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid rgba(52,217,119,0.15); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:16px;">
+      <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid rgba(52,217,119,0.15); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:16px; height:100%;">
         <div style="display:flex; align-items:center; gap:12px;">
           <span style="display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:14px; background:var(--brand-green-tint); color:var(--brand-green);">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <path d="M12 8v4"/>
-              <path d="M12 16h.01"/>
+              <rect x="2" y="2" width="20" height="20" rx="2" ry="2"/>
+              <rect x="6" y="6" width="12" height="12" rx="2" ry="2"/>
             </svg>
           </span>
           <div>
-            <div style="font-family:'Sora',sans-serif; font-weight:600; font-size:18px; line-height:1.25;">IA Agêntica & Offline-First</div>
+            <div style="font-family:'Sora',sans-serif; font-weight:600; font-size:17px; line-height:1.25;">Hardware IoT de Baixo Custo</div>
           </div>
         </div>
         <p style="font-size:14px; line-height:1.6; color:var(--text-muted); margin:0;">
-          A inteligência artificial gerencia dados, gera diagnósticos avançados e avisa você diretamente pelo WhatsApp. No entanto, o controle de curto prazo roda de forma local e segura em Rust, operando perfeitamente sem internet e livre de alucinações.
+          Nós distribuídos baseados em ESP32 monitorando continuamente a umidade e temperatura do solo e do ar, além da concentração de CO₂ e qualidade da exposição à luz.
         </p>
       </div>
 
       <!-- Card 2 -->
-      <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid rgba(52,217,119,0.15); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:16px;">
+      <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid rgba(52,217,119,0.15); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:16px; height:100%;">
         <div style="display:flex; align-items:center; gap:12px;">
           <span style="display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:14px; background:var(--brand-green-tint); color:var(--brand-green);">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
             </svg>
           </span>
           <div>
-            <div style="font-family:'Sora',sans-serif; font-weight:600; font-size:18px; line-height:1.25;">Automação Atmosférica</div>
+            <div style="font-family:'Sora',sans-serif; font-weight:600; font-size:17px; line-height:1.25;">Suplementação Luminosa Inteligente</div>
           </div>
         </div>
         <p style="font-size:14px; line-height:1.6; color:var(--text-muted); margin:0;">
-          Monitoramento integrado e de baixo custo de CO₂, temperatura, umidade do ar e luminosidade. O sistema aciona automaticamente ventilação, exaustão e iluminação artificial utilizando hardware extremamente acessível e resiliente.
+          LEDs automatizados que compensam a ausência de luz solar em ambientes fechados, emulando biomas e ciclos de crescimento ideais para cada cultura.
         </p>
       </div>
 
       <!-- Card 3 -->
-      <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid rgba(52,217,119,0.15); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:16px;">
+      <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid rgba(52,217,119,0.15); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:16px; height:100%;">
         <div style="display:flex; align-items:center; gap:12px;">
           <span style="display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:14px; background:var(--brand-green-tint); color:var(--brand-green);">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-              <path d="M2 12h20"/>
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             </svg>
           </span>
           <div>
-            <div style="font-family:'Sora',sans-serif; font-weight:600; font-size:18px; line-height:1.25;">Simulador de Biomas</div>
+            <div style="font-family:'Sora',sans-serif; font-weight:600; font-size:17px; line-height:1.25;">Engenharia Rust/Tauri 2 (Offline-First)</div>
           </div>
         </div>
         <p style="font-size:14px; line-height:1.6; color:var(--text-muted); margin:0;">
-          Motor nativo capaz de adaptar ciclos e simular climas estrangeiros (mediterrâneo, europeu) para culturas especiais dentro de Goiás. Crie o microclima ideal para plantas exóticas ou de alto valor agregado sem sair do estado.
+          Processamento nativo com banco SQLite local e mecanismo de Circuit Breaker: se a rede cair, o sistema continua operando e irrigando de forma autônoma.
         </p>
       </div>
 
     </div>
   </section>
 
+  <!-- INTERFACE CONVERSACIONAL (WhatsApp) -->
+  <section id="interface-conversacional" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;" class="plf-2col">
+      <div>
+        <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">03 // INTERFACE CONVERSACIONAL</div>
+        <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 16px;">O produtor gerencia toda a estufa pelo WhatsApp — em linguagem natural.</h2>
+        <p style="font-size:16px; line-height:1.65; color:var(--text-muted); margin:0;">
+          A IA atua como um agrônomo digital acessível 24/7 via WhatsApp, respondendo perguntas, emitindo relatórios e disparando alertas críticos sem necessidade de aplicativos ou treinamento técnico.
+        </p>
+        
+        <div style="margin-top:24px; display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.15); font-size:13.5px; font-weight:600; color:var(--brand-green);">
+          Agrônomo Digital via WhatsApp
+        </div>
+      </div>
+      
+      <div style="display:grid; grid-template-rows:repeat(3,auto); gap:16px;">
+        <!-- Feature 1 -->
+        <div class="plf-card-hover" style="padding:22px; border-radius:20px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; gap:16px;">
+          <span style="flex:none; display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:12px; background:rgba(34,197,94,0.08); color:var(--brand-green);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </span>
+          <div>
+            <h4 style="font-family:'Sora',sans-serif; font-weight:700; font-size:15px; margin:0 0 4px; color:var(--text-base);">Diagnóstico Instantâneo por Voz ou Texto</h4>
+            <p style="font-size:13px; line-height:1.5; color:var(--text-muted); margin:0;">O produtor pergunta: "Como está meu cultivo?" ou "Quanto de água economizei essa semana?" e recebe o diagnóstico completo com métricas em segundos.</p>
+          </div>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="plf-card-hover" style="padding:22px; border-radius:20px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; gap:16px;">
+          <span style="flex:none; display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:12px; background:rgba(34,197,94,0.08); color:var(--brand-green);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </span>
+          <div>
+            <h4 style="font-family:'Sora',sans-serif; font-weight:700; font-size:15px; margin:0 0 4px; color:var(--text-base);">Relatórios Automáticos em PDF</h4>
+            <p style="font-size:13px; line-height:1.5; color:var(--text-muted); margin:0;">Emissão automática de documentações e relatórios de métricas consolidadas diretamente no chat, sem necessidade de acessar painéis complexos.</p>
+          </div>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="plf-card-hover" style="padding:22px; border-radius:20px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; gap:16px;">
+          <span style="flex:none; display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:12px; background:rgba(34,197,94,0.08); color:var(--brand-green);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </span>
+          <div>
+            <h4 style="font-family:'Sora',sans-serif; font-weight:700; font-size:15px; margin:0 0 4px; color:var(--text-base);">Alertas Críticos Ativos</h4>
+            <p style="font-size:13px; line-height:1.5; color:var(--text-muted); margin:0;">Notificações imediatas ao smartphone do produtor sobre anomalias fitossanitárias detectadas por sensores ou quedas abruptas de energia/temperatura.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- MATRIZ DE COMPARAÇÃO DE MERCADO -->
   <section id="comparacao" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
-    <div style="text-align:center; max-width:640px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Comparativo de Mercado</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Como nos posicionamos frente às alternativas</h2>
-      <p style="font-size:16.5px; line-height:1.6; color:var(--text-muted);">Unimos o melhor do hardware acessível local com inteligência de ponta na nuvem.</p>
+    <div style="text-align:center; max-width:720px; margin:0 auto 44px;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">04 // MATRIZ DE COMPETITIVIDADE</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Mais inteligente, mais acessível, mais resiliente.</h2>
     </div>
 
     <div style="background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); border-radius:24px; padding:24px; overflow-x:auto; box-shadow:var(--shadow-soft);">
@@ -329,152 +395,171 @@ const HTML = `
             <th style="padding:16px; font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:var(--text-faint); width:30%;">Recurso / Critério</th>
             <th style="padding:16px; font-family:'Sora',sans-serif; font-size:15px; font-weight:700; color:var(--brand-green); background:rgba(34,197,94,0.08); border-left:1px solid rgba(34,197,94,0.2); border-right:1px solid rgba(34,197,94,0.2); text-align:center;">PlantiumAI</th>
             <th style="padding:16px; font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:var(--text-muted); text-align:center;">Sistemas Industriais (Agrosmart)</th>
-            <th style="padding:16px; font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:var(--text-muted); text-align:center;">Projetos de Prateleira (Pink Farms)</th>
-            <th style="padding:16px; font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:var(--text-muted); text-align:center;">Projetos Estáticos (Acadêmicos)</th>
+            <th style="padding:16px; font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:var(--text-muted); text-align:center;">Automações Simples (Acadêmico)</th>
+            <th style="padding:16px; font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:var(--text-muted); text-align:center;">Estufas de Prateleira (Pink Farms)</th>
           </tr>
         </thead>
         <tbody>
           <!-- Linha 1 -->
           <tr style="border-bottom:1px solid rgba(255,255,255,0.05); transition:background-color .2s;">
-            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Custo de Implantação (Baixo CapEx)</td>
+            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Custo CapEx (Implantação)</td>
             <td style="padding:18px 16px; text-align:center; background:rgba(34,197,94,0.04); border-left:1px solid rgba(34,197,94,0.15); border-right:1px solid rgba(34,197,94,0.15); font-weight:600; color:var(--brand-green);">
-              <svg style="width:20px; height:20px; display:inline; vertical-align:middle; margin-right:4px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg> Baixo (SaaS)
+              Muito Baixo (R$ 1.010)
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Altíssimo (CapEx)
+              Altíssimo (> R$ 15k)
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Alto (Fechado)
+              Baixo (~ R$ 300)
             </td>
-            <td style="padding:18px 16px; text-align:center; color:var(--brand-green); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg> Baixo
+            <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
+              Elevado (Engessado)
             </td>
           </tr>
           <!-- Linha 2 -->
           <tr style="border-bottom:1px solid rgba(255,255,255,0.05); transition:background-color .2s;">
-            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Operação Independente (Offline-First)</td>
+            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Coleta de Dados</td>
             <td style="padding:18px 16px; text-align:center; background:rgba(34,197,94,0.04); border-left:1px solid rgba(34,197,94,0.15); border-right:1px solid rgba(34,197,94,0.15); font-weight:600; color:var(--brand-green);">
-              <svg style="width:20px; height:20px; display:inline; vertical-align:middle; margin-right:4px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg> Sim (Rust local)
+              Completa (Ar, Solo, Luz e CO₂)
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Depende de Nuvem
+              Apenas Solo / Clima
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Depende de Nuvem
+              Apenas Solo Estático
             </td>
-            <td style="padding:18px 16px; text-align:center; color:var(--brand-green); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg> Sim (Local simples)
+            <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
+              Proprietário Fechado
             </td>
           </tr>
           <!-- Linha 3 -->
           <tr style="border-bottom:1px solid rgba(255,255,255,0.05); transition:background-color .2s;">
-            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Inteligência Agêntica & Alertas</td>
+            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Autonomia sem Internet</td>
             <td style="padding:18px 16px; text-align:center; background:rgba(34,197,94,0.04); border-left:1px solid rgba(34,197,94,0.15); border-right:1px solid rgba(34,197,94,0.15); font-weight:600; color:var(--brand-green);">
-              <svg style="width:20px; height:20px; display:inline; vertical-align:middle; margin-right:4px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg> Sim (Diagnósticos/WhatsApp)
+              Sim (Fail-Safe Local)
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Não (Apenas gráficos)
+              Não (Refém da Nuvem)
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Não (Painéis fixos)
+              Sim (Sem IA)
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Não
+              Parcial
             </td>
           </tr>
           <!-- Linha 4 -->
           <tr style="border-bottom:1px solid rgba(255,255,255,0.05); transition:background-color .2s;">
-            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Integração Híbrida Aberta (API/MQTT)</td>
+            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Interface Conversacional</td>
             <td style="padding:18px 16px; text-align:center; background:rgba(34,197,94,0.04); border-left:1px solid rgba(34,197,94,0.15); border-right:1px solid rgba(34,197,94,0.15); font-weight:600; color:var(--brand-green);">
-              <svg style="width:20px; height:20px; display:inline; vertical-align:middle; margin-right:4px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg> Sim (Aberto)
+              Sim (WhatsApp / IA)
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Fechado (Silo)
+              Não (Gráficos Complexos)
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Proprietário Fechado
+              Não
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Limitado
+              Não
             </td>
           </tr>
           <!-- Linha 5 -->
           <tr style="transition:background-color .2s;">
-            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Simulação de Biomas Internacionais</td>
+            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Emulador de Biomas</td>
             <td style="padding:18px 16px; text-align:center; background:rgba(34,197,94,0.04); border-left:1px solid rgba(34,197,94,0.15); border-right:1px solid rgba(34,197,94,0.15); border-bottom:1px solid rgba(34,197,94,0.15); font-weight:600; color:var(--brand-green);">
-              <svg style="width:20px; height:20px; display:inline; vertical-align:middle; margin-right:4px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg> Sim (Motor Nativo)
+              Sim (Modula Luz / Água)
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Não (Apenas leitura)
+              Não
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Não (Receitas estáticas)
+              Não
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
-              <svg style="width:18px; height:18px; display:inline; vertical-align:middle; margin-right:4px; opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg> Não Suportado
+              Não
             </td>
           </tr>
         </tbody>
       </table>
+      
+      <div style="margin-top:20px; font-size:14px; color:var(--text-muted); text-align:center; font-weight:500;">
+        "O PlantiumAI é o único sistema que combina baixo custo, autonomia offline, interface acessível e emulação de biomas."
+      </div>
     </div>
   </section>
 
-  <!-- MERCADO -->
+  <!-- MODELO DE NEGÓCIO -->
   <section id="mercado" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
-    <div style="padding:48px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px); border:1px solid var(--border-glass); box-shadow:var(--shadow-float); position:relative; overflow:hidden;">
-      <div style="position:absolute; bottom:-120px; right:-60px; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle,rgba(52,217,119,0.16),transparent 70%);"></div>
-      <div style="position:relative; max-width:620px;">
-        <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Mercado e viabilidade</div>
-        <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Números reais do piloto, sem promessas absolutas</h2>
-      </div>
-      <div style="position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:38px;" class="plf-kpis">
+    <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">05 // MODELO DE NEGÓCIO TRIPARTITE</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Estratégia Freemium (Isca e Anzol) focada em escala e tração.</h2>
+    </div>
+    
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;" class="plf-pillars">
+      <!-- Coluna Freemium -->
+      <div class="plf-card-hover" style="padding:32px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; min-height:400px; justify-content:between; height:100%;">
         <div>
-          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(30px,3.6vw,44px); line-height:1; color:var(--brand-green);">~15<span style="font-size:22px;">% a.a.</span></div>
-          <div style="font-size:13.5px; color:var(--text-muted); margin-top:8px;">crescimento da agricultura protegida + vertical farming</div>
+          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">FREEMIUM · A ISCA</div>
+          <h3 style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; margin:14px 0 8px; color:var(--text-base);">WhatsApp Grátis</h3>
+          <p style="font-size:14px; line-height:1.6; color:var(--text-muted); margin:0 0 20px;">
+            Uso de IA totalmente gratuito no WhatsApp. O cliente envia foto da planta e a IA identifica doenças instantaneamente. Foco em máxima penetração de mercado sem barreiras de entrada.
+          </p>
         </div>
-        <div>
-          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(30px,3.6vw,44px); line-height:1;">R$ 460</div>
-          <div style="font-size:13.5px; color:var(--text-muted); margin-top:8px;">OpEx mensal do piloto (a partir do 4º mês)</div>
-        </div>
-        <div>
-          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(30px,3.6vw,44px); line-height:1;">R$ 43.048</div>
-          <div style="font-size:13.5px; color:var(--text-muted); margin-top:8px;">implantação do piloto — abaixo da meta (R$ 52.940)</div>
-        </div>
-        <div>
-          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(30px,3.6vw,44px); line-height:1;">R$ 1.010</div>
-          <div style="font-size:13.5px; color:var(--text-muted); margin-top:8px;">kit do protótipo funcional / unidade</div>
+        <div style="margin-top:auto;">
+          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; color:var(--text-base); margin-bottom:16px;">R$ 0<span style="font-size:14px; color:var(--text-muted);">/mês</span></div>
+          <div style="font-size:12px; color:var(--text-faint); margin-bottom:16px;">Monetização: Comissão via parceiros de defensivos convencionais ou biológicos.</div>
+          <a href="/login" class="plf-btn-ghost" style="display:block; text-align:center; padding:12px 24px; border-radius:999px; border:1px solid var(--border-glass); background:var(--surface-raised); color:var(--text-base); font-size:14px; font-weight:600; text-decoration:none;">Começar Agora</a>
         </div>
       </div>
-      <div style="position:relative; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:36px;" class="plf-tam">
-        <div style="padding:20px; border-radius:18px; background:var(--surface-solid); box-shadow:var(--shadow-soft);">
-          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:15px; color:var(--brand-green);">TAM <span style="font-weight:500; font-size:12px; color:var(--text-faint);">· total addressable market</span></div>
-          <p style="font-size:13.5px; line-height:1.55; color:var(--text-muted); margin:8px 0 0;">Mercado global de agricultura protegida e vertical farming, em crescimento de ~15% a.a. (Vertical Field, 2024).</p>
+      
+      <!-- Coluna Premium -->
+      <div class="plf-card-hover" style="padding:32px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:2px solid var(--brand-green); box-shadow:0 8px 32px rgba(52,217,119,0.1); display:flex; flex-direction:column; min-height:400px; justify-content:between; position:relative; height:100%;">
+        <span style="position:absolute; top:-12px; right:20px; background:var(--brand-green); color:#06120b; font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px; text-transform:uppercase; letter-spacing:0.04em;">Recomendado</span>
+        <div>
+          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">PREMIUM · O ANZOL</div>
+          <h3 style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; margin:14px 0 8px; color:var(--text-base);">Software Assinatura</h3>
+          <p style="font-size:14px; line-height:1.6; color:var(--text-muted); margin:0 0 20px;">
+            Aluguel mensal acessível do software integrado. Inclui a locação completa das placas ESP32 e sensores. Instalação e configuração em campo inclusas.
+          </p>
         </div>
-        <div style="padding:20px; border-radius:18px; background:var(--surface-solid); box-shadow:var(--shadow-soft);">
-          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:15px; color:var(--brand-green);">SAM <span style="font-weight:500; font-size:12px; color:var(--text-faint);">· serviceable available market</span></div>
-          <p style="font-size:13.5px; line-height:1.55; color:var(--text-muted); margin:8px 0 0;">Horticultura protegida e pequenos produtores no Brasil — público que o produto atende hoje.</p>
-        </div>
-        <div style="padding:20px; border-radius:18px; background:var(--surface-solid); box-shadow:var(--shadow-soft);">
-          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:15px; color:var(--brand-green);">SOM <span style="font-weight:500; font-size:12px; color:var(--text-faint);">· serviceable obtainable market</span></div>
-          <p style="font-size:13.5px; line-height:1.55; color:var(--text-muted); margin:8px 0 0;">Goiás e Centro-Oeste no curto prazo — estimativas a refinar com os pilotos.</p>
+        <div style="margin-top:auto;">
+          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; color:var(--brand-green); margin-bottom:16px;">Assinatura Recorrente</div>
+          <div style="font-size:12px; color:var(--text-faint); margin-bottom:16px;">Monetização: Receita recorrente (MRR) com baixo churn por dependência operacional.</div>
+          <a href="/login" class="plf-btn-primary" style="display:block; text-align:center; padding:12px 24px; border-radius:999px; background:var(--brand-green); color:#06120b; font-size:14px; font-weight:600; text-decoration:none; box-shadow:0 4px 14px rgba(52,217,119,0.3);">Assinar Premium</a>
         </div>
       </div>
-      <p style="position:relative; font-size:13px; color:var(--text-faint); margin:22px 0 0;">* Conectividade alternativa via Starlink onde não há 4G: antena R$ 2.800,00 (única) + R$ 275,00/mês. Valores apresentados como estimativas a refinar com os pilotos.</p>
+      
+      <!-- Coluna Pro -->
+      <div class="plf-card-hover" style="padding:32px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; min-height:400px; justify-content:between; height:100%;">
+        <div>
+          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">PRO · A ESCALA</div>
+          <h3 style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; margin:14px 0 8px; color:var(--text-base);">Aquisição Total</h3>
+          <p style="font-size:14px; line-height:1.6; color:var(--text-muted); margin:0 0 20px;">
+            Venda direta do hardware proprietário por um valor único. Assinatura enxuta do software de gestão. 1 ano de manutenção e suporte totalmente gratuitos.
+          </p>
+        </div>
+        <div style="margin-top:auto;">
+          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; color:var(--text-base); margin-bottom:16px;">Venda Direta + SaaS</div>
+          <div style="font-size:12px; color:var(--text-faint); margin-bottom:16px;">Monetização: Alto ticket médio (CapEx) + assinatura (SaaS).</div>
+          <a href="/login" class="plf-btn-ghost" style="display:block; text-align:center; padding:12px 24px; border-radius:999px; border:1px solid var(--border-glass); background:var(--surface-raised); color:var(--text-base); font-size:14px; font-weight:600; text-decoration:none;">Adquirir Kit</a>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- EQUIPE -->
   <section id="equipe" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
-    <div style="text-align:center; max-width:620px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Equipe · fundadores</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Quem constrói a PlantiumAI</h2>
+    <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">06 // EQUIPE PLANTIUMAI</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Quem constrói o equilíbrio entre a biocenose e a IA.</h2>
     </div>
     <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;" class="plf-team">
       ${[
-        { photo: "/landing/thyago.jpeg", name: "Thyago Henrique Toledo de Assis", role: "Owner · Full-Stack & Financeiro", badge: "Software", bio: "Lidera o ecossistema de software (Rust/Tauri 2) e o repositório oficial; conduz custos, análise econômica e viabilidade do piloto." },
-        { photo: "/landing/joao.jpeg", name: "João Felipe Antunes Ribeiro", role: "Owner · Hardware & Negócio", badge: "Hardware", bio: "Planeja, valida e especifica componentes físicos, sensores e atuadores; articula inserção comercial e modelagem de mercado (VarejoIN/FPM)." },
-        { photo: "/landing/gabriel.jpeg", name: "Gabriel Augusto de Sousa", role: "Owner · Arquitetura ESP32/IoT", badge: "Firmware", bio: "Desenha a arquitetura IoT distribuída e o firmware dos nós ESP32; ponte de cooperação tecnológica com a SiriNEO Technologies." },
-        { photo: "/landing/marco.jpeg", name: "Marco Antônio Moreira de Freitas", role: "CEO & Agrônomo", badge: "Agronomia", bio: "Lidera a visão estratégica e a validação agronômica (faixas ideais, limiares de estresse), alinhando o sistema às dores mapeadas pelo IFAG." },
+        { photo: "/landing/thyago.jpeg", name: "Thyago Henrique Toledo de Assis", role: "Owner Full-Stack & Financeiro", badge: "SOFTWARE", bio: "Lidera o ecossistema de software (Rust/Tauri 2) e o repositório oficial; conduz custos, análise econômica e viabilidade do piloto." },
+        { photo: "/landing/joao.jpeg", name: "João Felipe Antunes Ribeiro", role: "Owner Hardware & Negócio", badge: "HARDWARE", bio: "Planeja, valida e especifica componentes físicos, sensores e atuadores; articula inserção comercial e modelagem de mercado." },
+        { photo: "/landing/gabriel.jpeg", name: "Gabriel Augusto de Sousa", role: "Owner Arquitetura ESP32/IoT", badge: "FIRMWARE", bio: "Desenha a arquitetura IoT distribuída e o firmware dos nós ESP32; ponte de cooperação tecnológica com a SiriNEO Technologies." },
+        { photo: "/landing/marco.jpeg", name: "Marco Antônio Moreira de Freitas", role: "CEO & Agrônomo", badge: "AGRONOMIA", bio: "Lidera a visão estratégica e a validação agronômica (faixas ideais, limiares de estresse), alinhando o sistema às dores mapeadas." },
       ]
         .map(
           (m) => `<div class="plf-team-card" style="border-radius:24px; overflow:hidden; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft);">
@@ -497,9 +582,9 @@ const HTML = `
 
   <!-- PARCEIROS -->
   <section id="parceiros" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:48px 24px 40px;">
-    <div style="text-align:center; max-width:620px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Parcerias Estratégicas</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Parceiros e Apoiadores</h2>
+    <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">07 // PARCEIROS E IMPACTO</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Validado no ecossistema de Goiás. Pronto para escalar.</h2>
     </div>
 
     <!-- Integrantes Parceiros -->
@@ -528,12 +613,12 @@ const HTML = `
     </div>
 
     <!-- Empresas e Instituições Parceiras -->
-    <div style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin-bottom:28px; text-align:center;">Empresas & Instituicoes</div>
+    <div style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin-bottom:28px; text-align:center;">Parceiros de Negócios</div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px; align-items:center;" class="plf-pillars">
       ${[
-        { logo: "/landing/logo-sirineo.png", name: "SiriNEO Technologies", desc: "Empresa de tecnologia avançada focada em desenvolvimento de hardware robusto e sistemas inteligentes.", link: "https://sirineotechnologies.com/" },
-        { logo: "/landing/logo-fpm.png", name: "FPM · Faculdade de Principios Militares", desc: "Instituicao de ensino superior dedicada à formacao de liderancas com base em principios de disciplina, gestao e rigor cientifico." },
-        { logo: "/landing/logo-varejoin.png", name: "VarejoIN", desc: "Empresa focada em tecnologia de dados, inteligencia comercial e integracao de negocios digitais aplicada ao setor de distribuicao." }
+        { logo: "/landing/logo-sirineo.png", name: "SiriNEO Technologies", desc: "Apoio na fabricação e escala industrial do hardware IoT.", link: "https://sirineotechnologies.com/" },
+        { logo: "/landing/logo-fpm.png", name: "Faculdade de Princípios Militares (FPM)", desc: "Validação científica e inserção institucional." },
+        { logo: "/landing/logo-varejoin.png", name: "VarejoIN", desc: "Estratégia comercial e canais de distribuição." }
       ]
         .map(
           (c) => {
@@ -555,54 +640,13 @@ const HTML = `
     </div>
   </section>
 
-  <!-- COMECE DE GRAÇA OU SEJA UM PARCEIRO -->
-  <section id="conversao" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;" class="plf-2col">
-      
-      <!-- Coluna 1: Produtores / Freemium -->
-      <div style="padding:40px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; justify-content:between; min-height:360px;">
-        <div>
-          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Para Produtores</div>
-          <h3 style="font-family:'Sora',sans-serif; font-weight:700; font-size:26px; line-height:1.2; margin:14px 0 16px;">Cultive com Inteligência Sem Custos Iniciais</h3>
-          <p style="font-size:15px; line-height:1.65; color:var(--text-muted); margin:0 0 24px;">
-            Experimente o ecossistema PlantiumAI gratuitamente. Comece monitorando seus primeiros canteiros com nosso software e sensores básicos. Conforme sua produção escalar e a demanda por diagnósticos de IA crescer, faça o upgrade para planos avançados através do nosso Paywall inteligente.
-          </p>
-        </div>
-        <div style="margin-top:auto;">
-          <a href="/login" class="plf-btn-primary" style="display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:999px; border:none; background:var(--brand-green); color:#06120b; font-family:'Inter',sans-serif; font-size:15px; font-weight:600; cursor:pointer; box-shadow:0 8px 22px rgba(52,217,119,0.3); transition:transform .15s, background .2s;">
-            Iniciar Teste Gratuito
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Coluna 2: Técnicos e Instaladores / Parceiros -->
-      <div style="padding:40px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; justify-content:between; min-height:360px;">
-        <div>
-          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Para Técnicos & Integradores</div>
-          <h3 style="font-family:'Sora',sans-serif; font-weight:700; font-size:26px; line-height:1.2; margin:14px 0 16px;">Ganhe com a Rede de Parceiros PlantiumAI</h3>
-          <p style="font-size:15px; line-height:1.65; color:var(--text-muted); margin:0 0 24px;">
-            Quer levar tecnologia de ponta para sua região? Técnicos rurais, agrônomos, eletricistas e instaladores podem vender nossos kits físicos e sensores proprietários. Oferecemos treinamento completo, esquemas técnicos de instalação gratuitos e divulgação do seu contato profissional em nosso portal para atendimento local.
-          </p>
-        </div>
-        <div style="margin-top:auto;">
-          <a href="/login" class="plf-btn-ghost" style="display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:999px; background:var(--surface-raised); border:1px solid var(--border-glass); color:var(--text-base); font-size:15px; font-weight:600; cursor:pointer; box-shadow:var(--shadow-soft); transition:transform .15s;">
-            Seja um Integrador
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- CTA FINAL -->
   <section id="contato" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:40px 24px 72px;">
     <div style="padding:56px 40px; border-radius:28px; text-align:center; background:linear-gradient(135deg,var(--brand-green),var(--brand-green-deep)); box-shadow:0 24px 56px rgba(22,163,74,0.4); position:relative; overflow:hidden;">
       <div style="position:absolute; top:-80px; left:-40px; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,0.18),transparent 70%);"></div>
       <div style="position:absolute; bottom:-100px; right:-40px; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,0.12),transparent 70%);"></div>
-      <h2 style="position:relative; font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; color:#06120b; margin:0;">Vamos cultivar o futuro juntos</h2>
-      <p style="position:relative; font-size:17px; line-height:1.6; color:rgba(6,18,11,0.78); max-width:540px; margin:16px auto 0;">Estamos abrindo conversas com investidores e parceiros que acreditam em alimento inteligente e sustentável.</p>
+      <h2 style="position:relative; font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(24px,3.2vw,36px); line-height:1.2; letter-spacing:-0.01em; color:#06120b; margin:0; text-transform:uppercase;">MAIS PRODUTIVIDADE, MENOS DESPERDÍCIO.</h2>
+      <p style="position:relative; font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(20px,2.6vw,30px); line-height:1.2; color:#06120b; max-width:640px; margin:12px auto 0; text-transform:uppercase;">O FUTURO DO AGRO CHEGOU!</p>
       <div style="position:relative; display:flex; gap:14px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
         <a href="/planos" style="padding:14px 30px; border-radius:999px; border:none; background:#06120b; color:#fff; font-family:'Inter',sans-serif; font-size:15px; font-weight:600; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,0.25); transition:transform .15s;">Planos</a>
         <a href="https://github.com/PlantiumAI/PlantiumAI" target="_blank" rel="noopener" class="plf-cta-git" style="display:inline-flex; align-items:center; gap:8px; padding:14px 30px; border-radius:999px; background:#181717; border:none; color:#ffffff; font-size:15px; font-weight:600; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,0.15); transition:transform .15s;"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.34c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.52.56.83 1.28.83 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Ver no GitHub</a>
@@ -624,10 +668,13 @@ const HTML = `
       <div>
         <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); margin-bottom:12px;">Navegação</div>
         <div style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:var(--text-muted);">
-          <a href="#solucao">Solução</a>
-          <a href="#tecnologia">Tecnologia</a>
-          <a href="#mercado">Mercado</a>
+          <a href="#solucao">O Problema</a>
+          <a href="#tecnologia">A Solução</a>
+          <a href="#interface-conversacional">Interface Conversacional</a>
+          <a href="#comparacao">Matriz de Competitividade</a>
+          <a href="#mercado">Modelo de Negócio</a>
           <a href="#equipe">Equipe</a>
+          <a href="#parceiros">Parceiros</a>
         </div>
       </div>
       <div>
@@ -642,7 +689,10 @@ const HTML = `
     </div>
     <div style="max-width:1180px; margin:0 auto; padding:18px 24px 0; border-top:1px solid var(--border-subtle); font-size:13px; color:var(--text-faint); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;">
       <span>© 2026 PlantiumAI · Micro estufas e hortas verticais inteligentes</span>
-      <span>Goiânia/GO · Desafio AgroStartup 2026</span>
+      <span style="display:inline-flex; align-items:center; gap:6px;">
+        <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--brand-green);"></span>
+        Acelerado pelo Desafio AgroStartup 2026 (10 Anos)
+      </span>
     </div>
   </footer>
 

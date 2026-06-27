@@ -506,8 +506,8 @@ const HTML = `
     <div style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin-bottom:24px; text-align:center;">Membros & Cargos</div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-bottom:56px;" class="plf-team">
       ${[
-        { photo: "/landing/cirineu.jpg", name: "Cirineu C. Fernandes", role: "CEO · SiriNEO Technologies", badge: "Mestrando ITA", bio: "Engenheiro pelo ITA e Mestrando. Atua na cooperacao tecnologica de hardware e integracao de sistemas aeroespaciais/defesa aplicados ao projeto." },
-        { photo: "/landing/juliana.jpg", name: "Juliana C. V. Fernandes", role: "Co-fundadora · SiriNEO Technologies", badge: "Gestão de Recursos", bio: "Engenheira egressa do ITA. Apoia o desenvolvimento de sistemas distribuidos e arquitetura de instrumentacao eletronica para micro estufas." },
+        { photo: "/landing/cirineu.jpg", name: "Cirineu C. Fernandes", role: "CEO · SiriNEO Technologies", badge: "Mestrando ITA", bio: "Engenheiro Mecatrônico, Especialista em Telecomunicações e Segurança Pública, Mestrando no PPGAO pelo ITA no Departamento de Guerra Eletrônica e Sensoriamento Remoto, em domínios críticos de defesa, com pesquisa em Sistemas Embarcados para o setor aeroespacial." },
+        { photo: "/landing/juliana.jpg", name: "Juliana C. V. Fernandes", role: "Co-fundadora · SiriNEO Technologies", badge: "Gestão de Recursos", bio: "Fisioterapeuta e Administradora. Apoia o desenvolvimento de sistemas distribuídos e arquitetura de instrumentação eletrônica para micro estufas." },
         { photo: "/landing/renato.png", name: "Prof. Renato Ribeiro dos Santos", role: "Orientador · Diretor FPM & Fundador VarejoIN", badge: "FPM / VarejoIN", bio: "Diretor da Faculdade de Principios Militares (FPM) e fundador da empresa VarejoIN. Orientador cientifico do projeto PlantiumAI." }
       ]
         .map(
@@ -529,23 +529,27 @@ const HTML = `
 
     <!-- Empresas e Instituições Parceiras -->
     <div style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin-bottom:28px; text-align:center;">Empresas & Instituicoes</div>
-    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; align-items:center;" class="plf-pillars">
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px; align-items:center;" class="plf-pillars">
       ${[
-        { logo: "/landing/logo-sirineo.png", name: "SiriNEO Technologies", desc: "Empresa de tecnologia avancada fundada por engenheiros do ITA, focada em desenvolvimento de hardware robusto e sistemas inteligentes." },
-        { logo: "/landing/logo-ita.png", name: "ITA · Instituto Tecnologico de Aeronautica", desc: "Centro de excelencia em engenharia aeroespacial e de defesa de onde provem a formacao dos engenheiros parceiros do projeto." },
+        { logo: "/landing/logo-sirineo.png", name: "SiriNEO Technologies", desc: "Empresa de tecnologia avançada focada em desenvolvimento de hardware robusto e sistemas inteligentes.", link: "https://sirineotechnologies.com/" },
         { logo: "/landing/logo-fpm.png", name: "FPM · Faculdade de Principios Militares", desc: "Instituicao de ensino superior dedicada à formacao de liderancas com base em principios de disciplina, gestao e rigor cientifico." },
         { logo: "/landing/logo-varejoin.png", name: "VarejoIN", desc: "Empresa focada em tecnologia de dados, inteligencia comercial e integracao de negocios digitais aplicada ao setor de distribuicao." }
       ]
         .map(
-          (c) => `<div style="padding:28px; border-radius:24px; background:var(--surface-solid); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px;">
-          <div style="width:72px; height:72px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(255,255,255,0.02); overflow:hidden;">
-            <img src="${c.logo}" alt="${c.name}" style="max-width:100%; max-height:100%; object-fit:contain;"/>
-          </div>
-          <div>
-            <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:15px; color:var(--text-base);">${c.name}</div>
-            <p style="font-size:13px; line-height:1.55; color:var(--text-muted); margin:8px 0 0;">${c.desc}</p>
-          </div>
-        </div>`,
+          (c) => {
+            const cardContent = `<div style="padding:28px; border-radius:24px; background:var(--surface-solid); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; height:100%;">
+            <div style="width:72px; height:72px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(255,255,255,0.02); overflow:hidden;">
+              <img src="${c.logo}" alt="${c.name}" style="max-width:100%; max-height:100%; object-fit:contain;"/>
+            </div>
+            <div>
+              <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:15px; color:var(--text-base);">${c.name}</div>
+              <p style="font-size:13px; line-height:1.55; color:var(--text-muted); margin:8px 0 0;">${c.desc}</p>
+            </div>
+          </div>`;
+            return c.link
+              ? `<a href="${c.link}" target="_blank" rel="noopener noreferrer" style="display:block; text-decoration:none; color:inherit; height:100%;" class="plf-card-hover">${cardContent}</a>`
+              : `<div style="height:100%;">${cardContent}</div>`;
+          }
         )
         .join("")}
     </div>
@@ -630,6 +634,7 @@ const HTML = `
         <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); margin-bottom:12px;">Canais oficiais</div>
         <div style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:var(--text-muted);">
           <a href="mailto:plantiumai@gmail.com" style="display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>plantiumai@gmail.com</a>
+          <a href="https://www.instagram.com/plantiumai" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@plantiumai</a>
           <a href="https://youtube.com/@PlantiumAI" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C5 19 12 19 12 19s7 0 8.9-.4a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.4 12 31 31 0 0 0 23 7.5zM9.8 15.3V8.7l5.7 3.3z"/></svg>@PlantiumAI</a>
           <a href="https://github.com/PlantiumAI/PlantiumAI" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:8px;"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.34c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.52.56.83 1.28.83 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>PlantiumAI/PlantiumAI</a>
         </div>

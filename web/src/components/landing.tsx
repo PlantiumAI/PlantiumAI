@@ -385,8 +385,8 @@ const HTML = `
     <div style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin-bottom:24px; text-align:center;">Membros & Cargos</div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-bottom:56px;" class="plf-team">
       ${[
-        { photo: "/landing/cirineu.jpg", name: "Cirineu C. Fernandes", role: "Co-fundador · SiriNEO Technologies", badge: "ITA Egresso", bio: "Engenheiro egresso do ITA. Atua na cooperacao tecnologica de hardware e integracao de sistemas aeroespaciais/defesa aplicados ao projeto." },
-        { photo: "/landing/juliana.jpg", name: "Juliana C. V. Fernandes", role: "Co-fundadora · SiriNEO Technologies", badge: "ITA Egressa", bio: "Engenheira egressa do ITA. Apoia o desenvolvimento de sistemas distribuidos e arquitetura de instrumentacao eletronica para micro estufas." },
+        { photo: "/landing/cirineu.jpg", name: "Cirineu C. Fernandes", role: "CEO · SiriNEO Technologies", badge: "Mestrando ITA", bio: "Engenheiro egresso do ITA. Atua na cooperacao tecnologica de hardware e integracao de sistemas aeroespaciais/defesa aplicados ao projeto." },
+        { photo: "/landing/juliana.jpg", name: "Juliana C. V. Fernandes", role: "Co-fundadora · SiriNEO Technologies", badge: "Gestão de Recursos", bio: "Engenheira egressa do ITA. Apoia o desenvolvimento de sistemas distribuidos e arquitetura de instrumentacao eletronica para micro estufas." },
         { photo: "/landing/renato.png", name: "Prof. Renato Ribeiro dos Santos", role: "Orientador · Diretor FPM & Fundador VarejoIN", badge: "FPM / VarejoIN", bio: "Diretor da Faculdade de Principios Militares (FPM) e fundador da empresa VarejoIN. Orientador cientifico do projeto PlantiumAI." }
       ]
         .map(

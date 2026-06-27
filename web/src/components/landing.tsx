@@ -202,8 +202,8 @@ const HTML = `
   <!-- PROBLEMA -->
   <section style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:80px 24px 40px;">
     <div style="text-align:center; max-width:760px; margin:0 auto 48px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">O PROBLEMA</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 16px;">O agricultor familiar decide no escuro — e paga caro por isso.</h2>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Gargalos de Cultivo</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 16px;">O Custo da Intuição na Horticultura</h2>
       <p style="font-size:16.5px; line-height:1.65; color:var(--text-muted); margin:0;">A ausência de sensoriamento de precisão e a interpretação empírica da biocenose geram desperdício crítico e perda de safras em micro estufas e hortas verticais. Sem dados, não há gestão — apenas intuição.</p>
     </div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;" class="plf-pillars">
@@ -231,8 +231,8 @@ const HTML = `
   <!-- SOLUÇÃO / COMO FUNCIONA -->
   <section id="tecnologia" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">A SOLUÇÃO</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Um ecossistema de malha fechada que mantém a planta viva — mesmo sem internet.</h2>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Tecnologia e Automação</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Monitoramento Resiliente e Decisão Local</h2>
       <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:var(--brand-green-tint); border:1px solid rgba(52,217,119,0.2); font-size:13.5px; font-weight:600; color:var(--brand-green); margin-top:8px;">
         CapEx Total do Protótipo: R$ 1.010,08
       </div>
@@ -333,8 +333,8 @@ const HTML = `
   <section id="interface-conversacional" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;" class="plf-2col">
       <div>
-        <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">INTERFACE CONVERSACIONAL</div>
-        <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 16px;">O produtor gerencia toda a estufa pelo WhatsApp — em linguagem natural.</h2>
+        <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Interação Simplificada</div>
+        <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 16px;">O Agrônomo Digital ao Alcance do seu WhatsApp</h2>
         <p style="font-size:16px; line-height:1.65; color:var(--text-muted); margin:0;">
           A IA atua como um agrônomo digital acessível 24/7 via WhatsApp, respondendo perguntas, emitindo relatórios e disparando alertas críticos sem necessidade de aplicativos ou treinamento técnico.
         </p>
@@ -384,8 +384,8 @@ const HTML = `
   <!-- MATRIZ DE COMPARAÇÃO DE MERCADO -->
   <section id="comparacao" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="text-align:center; max-width:720px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">MATRIZ DE COMPETITIVIDADE</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Mais inteligente, mais acessível, mais resiliente.</h2>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Por que a PlantiumAI?</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Vantagens Competitivas no Campo</h2>
     </div>
 
     <div style="background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); border-radius:24px; padding:24px; overflow-x:auto; box-shadow:var(--shadow-soft);">
@@ -492,8 +492,8 @@ const HTML = `
   <!-- MODELO DE NEGÓCIO -->
   <section id="mercado" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">MODELO DE NEGÓCIO TRIPARTITE</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Estratégia Freemium (Isca e Anzol) focada em escala e tração.</h2>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Modelos de Contratação</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Planos Flexíveis Desenvolvidos para o Produtor</h2>
     </div>
     
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;" class="plf-pillars">
@@ -551,13 +551,13 @@ const HTML = `
   <!-- EQUIPE -->
   <section id="equipe" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">EQUIPE PLANTIUMAI</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Quem constrói o equilíbrio entre a biocenose e a IA.</h2>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Quem Somos</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Liderança Acadêmica e Engenharia Agrícola</h2>
     </div>
     <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;" class="plf-team">
       ${[
         { photo: "/landing/thyago.jpeg", name: "Thyago Henrique Toledo de Assis", role: "Owner Full-Stack & Financeiro", badge: "SOFTWARE", bio: "Lidera o ecossistema de software (Rust/Tauri 2) e o repositório oficial; conduz custos, análise econômica e viabilidade do piloto." },
-        { photo: "/landing/joao.jpeg", name: "João Felipe Antunes Ribeiro", role: "Owner Hardware & Negócio", badge: "HARDWARE", bio: "Planeja, valida e especifica componentes físicos, sensores e atuadores; articula inserção comercial e modelagem de mercado." },
+        { photo: "/landing/joao.jpeg", name: "João Felipe Antunes Ribeiro", role: "Owner Hardware & Negócio", badge: "HARDWARE", bio: "Planeja, valida e especifica componentes físicos, sensores and atuadores; articula inserção comercial e modelagem de mercado." },
         { photo: "/landing/gabriel.jpeg", name: "Gabriel Augusto de Sousa", role: "Owner Arquitetura ESP32/IoT", badge: "FIRMWARE", bio: "Desenha a arquitetura IoT distribuída e o firmware dos nós ESP32; ponte de cooperação tecnológica com a SiriNEO Technologies." },
         { photo: "/landing/marco.jpeg", name: "Marco Antônio Moreira de Freitas", role: "CEO & Agrônomo", badge: "AGRONOMIA", bio: "Lidera a visão estratégica e a validação agronômica (faixas ideais, limiares de estresse), alinhando o sistema às dores mapeadas." },
       ]
@@ -583,8 +583,8 @@ const HTML = `
   <!-- PARCEIROS -->
   <section id="parceiros" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:48px 24px 40px;">
     <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">PARCEIROS E IMPACTO</div>
-      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Validado no ecossistema de Goiás. Pronto para escalar.</h2>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Ecossistema e Parcerias</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Cooperação Tecnológica e Inovação Regional</h2>
     </div>
 
     <!-- Integrantes Parceiros -->

@@ -202,7 +202,7 @@ const HTML = `
   <!-- PROBLEMA -->
   <section style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:80px 24px 40px;">
     <div style="text-align:center; max-width:760px; margin:0 auto 48px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">01 // O PROBLEMA</div>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">O PROBLEMA</div>
       <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 16px;">O agricultor familiar decide no escuro — e paga caro por isso.</h2>
       <p style="font-size:16.5px; line-height:1.65; color:var(--text-muted); margin:0;">A ausência de sensoriamento de precisão e a interpretação empírica da biocenose geram desperdício crítico e perda de safras em micro estufas e hortas verticais. Sem dados, não há gestão — apenas intuição.</p>
     </div>
@@ -231,7 +231,7 @@ const HTML = `
   <!-- SOLUÇÃO / COMO FUNCIONA -->
   <section id="tecnologia" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">02 // A SOLUÇÃO</div>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">A SOLUÇÃO</div>
       <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Um ecossistema de malha fechada que mantém a planta viva — mesmo sem internet.</h2>
       <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:var(--brand-green-tint); border:1px solid rgba(52,217,119,0.2); font-size:13.5px; font-weight:600; color:var(--brand-green); margin-top:8px;">
         CapEx Total do Protótipo: R$ 1.010,08
@@ -333,7 +333,7 @@ const HTML = `
   <section id="interface-conversacional" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;" class="plf-2col">
       <div>
-        <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">03 // INTERFACE CONVERSACIONAL</div>
+        <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">INTERFACE CONVERSACIONAL</div>
         <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 16px;">O produtor gerencia toda a estufa pelo WhatsApp — em linguagem natural.</h2>
         <p style="font-size:16px; line-height:1.65; color:var(--text-muted); margin:0;">
           A IA atua como um agrônomo digital acessível 24/7 via WhatsApp, respondendo perguntas, emitindo relatórios e disparando alertas críticos sem necessidade de aplicativos ou treinamento técnico.
@@ -384,7 +384,7 @@ const HTML = `
   <!-- MATRIZ DE COMPARAÇÃO DE MERCADO -->
   <section id="comparacao" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="text-align:center; max-width:720px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">04 // MATRIZ DE COMPETITIVIDADE</div>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">MATRIZ DE COMPETITIVIDADE</div>
       <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Mais inteligente, mais acessível, mais resiliente.</h2>
     </div>
 
@@ -404,7 +404,7 @@ const HTML = `
           <tr style="border-bottom:1px solid rgba(255,255,255,0.05); transition:background-color .2s;">
             <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Custo CapEx (Implantação)</td>
             <td style="padding:18px 16px; text-align:center; background:rgba(34,197,94,0.04); border-left:1px solid rgba(34,197,94,0.15); border-right:1px solid rgba(34,197,94,0.15); font-weight:600; color:var(--brand-green);">
-              Muito Baixo (R$ 1.010)
+              Muito Baixo (R$ 1.010,08)
             </td>
             <td style="padding:18px 16px; text-align:center; color:var(--text-faint); font-size:13.5px;">
               Altíssimo (> R$ 15k)
@@ -492,7 +492,7 @@ const HTML = `
   <!-- MODELO DE NEGÓCIO -->
   <section id="mercado" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">05 // MODELO DE NEGÓCIO TRIPARTITE</div>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">MODELO DE NEGÓCIO TRIPARTITE</div>
       <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Estratégia Freemium (Isca e Anzol) focada em escala e tração.</h2>
     </div>
     
@@ -551,7 +551,7 @@ const HTML = `
   <!-- EQUIPE -->
   <section id="equipe" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:64px 24px 40px;">
     <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">06 // EQUIPE PLANTIUMAI</div>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">EQUIPE PLANTIUMAI</div>
       <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Quem constrói o equilíbrio entre a biocenose e a IA.</h2>
     </div>
     <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;" class="plf-team">
@@ -583,7 +583,7 @@ const HTML = `
   <!-- PARCEIROS -->
   <section id="parceiros" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:48px 24px 40px;">
     <div style="text-align:center; max-width:760px; margin:0 auto 44px;">
-      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">07 // PARCEIROS E IMPACTO</div>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">PARCEIROS E IMPACTO</div>
       <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 0;">Validado no ecossistema de Goiás. Pronto para escalar.</h2>
     </div>
 

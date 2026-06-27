@@ -458,7 +458,7 @@ export default function PlanosPage() {
                   <td className="p-4 font-medium text-[#9fb4a8]">Custo do Hardware IoT (CapEx)</td>
                   <td className="p-4">-</td>
                   <td className="p-4">Sem Custo Adicional</td>
-                  <td className="p-4">R$ 1.010,08 (Kit Físico)</td>
+                  <td className="p-4">R$ 1.010,08 (Protótipo) / R$ 1.705,22 (Pro)</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
                   <td className="p-4 font-medium text-[#9fb4a8]">Coleta de Dados (Sensores)</td>

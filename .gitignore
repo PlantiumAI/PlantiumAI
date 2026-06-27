@@ -26,9 +26,11 @@ SistemaLegado/backend/data/uploads/
 Thumbs.db
 .DS_Store
 
-# Design sync — generated/machine state (not committed)
+# Design sync — tooling do Claude Design (removido do repo)
 .ds-sync/
 ds-bundle/
-.design-sync/.cache/
-.design-sync/learnings/
-.design-sync/node_modules
+.design-sync/
+
+# Documentos de planejamento/negócio — apenas locais, fora do repo (manter só o README)
+/*.md
+!/README.md

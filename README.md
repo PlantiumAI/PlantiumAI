@@ -27,7 +27,6 @@ clima. Hoje em duas frentes: uma **plataforma web multiusuário** (nuvem) e um
 PlantiumAI/
 ├── 📁 web/         # Plataforma web (Next.js + Auth.js + Drizzle/Neon) → Vercel
 ├── 📁 desktop/     # App desktop (Tauri 2 + React + TS, núcleo Rust)
-├── 📁 packages/ui/ # Design system React (@plantium/ui)
 ├── 📁 firmware/    # Firmware ESP32 (NDJSON @ 115200 baud)
 ├── 📁 design/      # Design system e prompts de UI
 ├── 📁 HomePage/    # Landing institucional (referência de design)

@@ -378,7 +378,7 @@ export default function PlanosPage() {
             buttonText="Assinar Semente"
             buttonLink="/login"
             features={[
-              "1 unidade de cultivo",
+              "1 unidade de cultivo (até 5 m²)",
               "1 usuário administrativo",
               "Sensores de umidade (solo/ar), temp e luz",
               "Dashboard web em tempo real",
@@ -400,7 +400,7 @@ export default function PlanosPage() {
             buttonText="Assinar Cultivo"
             buttonLink="/login"
             features={[
-              "Até 3 unidades de cultivo simultâneas",
+              "Até 3 unidades de cultivo (até 30 m²)",
               "Até 3 usuários colaboradores",
               "Sensores de umidade, temp, luz, CO2 e pH",
               "Diagnóstico e recomendações por IA (Sonnet)",
@@ -421,7 +421,7 @@ export default function PlanosPage() {
             buttonText="Assinar Estufa+"
             buttonLink="/login"
             features={[
-              "Até 10 unidades de cultivo",
+              "Até 10 unidades de cultivo (até 150 m²)",
               "Usuários colaboradores ilimitados",
               "Visão computacional (câmera IP67 inclusa)",
               "Detector de pragas YOLO na borda (Raspberry)",
@@ -455,6 +455,12 @@ export default function PlanosPage() {
                   <td className="p-4">1</td>
                   <td className="p-4">Até 3</td>
                   <td className="p-4">Até 10</td>
+                </tr>
+                <tr className="hover:bg-emerald-500/5 transition-colors">
+                  <td className="p-4 font-medium text-[#9fb4a8]">Área de cobertura</td>
+                  <td className="p-4">Até 5 m²</td>
+                  <td className="p-4">Até 30 m²</td>
+                  <td className="p-4">Até 150 m²</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
                   <td className="p-4 font-medium text-[#9fb4a8]">Usuários simultâneos</td>

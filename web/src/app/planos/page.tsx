@@ -277,6 +277,7 @@ export default function PlanosPage() {
             <Link href="/#equipe" className="px-3 py-2 rounded-full text-xs font-semibold text-[#9fb4a8] hover:text-[#eaf3ee] hover:bg-[#16281e]/60 transition-colors">Equipe</Link>
             <Link href="/#contato" className="px-3 py-2 rounded-full text-xs font-semibold text-[#9fb4a8] hover:text-[#eaf3ee] hover:bg-[#16281e]/60 transition-colors">Contato</Link>
             <Link href="/planos" className="px-3 py-2 rounded-full text-xs font-semibold text-[#eaf3ee] bg-[#16281e]/80 border border-emerald-500/10 transition-colors">Planos</Link>
+            <Link href="/documentos" className="px-3 py-2 rounded-full text-xs font-semibold text-[#9fb4a8] hover:text-[#eaf3ee] hover:bg-[#16281e]/60 transition-colors">Documentos</Link>
           </div>
 
           <div className="plf-nav-right flex items-center gap-4">
@@ -311,6 +312,7 @@ export default function PlanosPage() {
             <Link href="/#equipe">Equipe</Link>
             <Link href="/#contato">Contato</Link>
             <Link href="/planos">Planos</Link>
+            <Link href="/documentos">Documentos</Link>
             <Link href="/login" className="plf-mm-login">Entrar no painel</Link>
           </div>
         </nav>
@@ -523,8 +525,90 @@ export default function PlanosPage() {
             </table>
           </div>
           <p className="text-xs text-[#34d977] mt-4 leading-relaxed text-center font-mono font-semibold">
-            * O hardware IoT do protótipo (kit a partir de R$ 1.010,08) ou versão completa (R$ 1.705,22) é vendido separadamente para utilização dos planos SaaS.
+            * O hardware IoT e a instalação são cobrados uma única vez, à parte da assinatura mensal. Veja os valores abaixo.
           </p>
+        </section>
+
+        {/* Investimento inicial: equipamento e instalação (pagamento único) */}
+        <section className="mb-20">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold uppercase tracking-wider text-emerald-400">
+              Investimento inicial · pagamento único
+            </span>
+            <h2 className="font-display font-extrabold text-3xl sm:text-4xl mt-6 tracking-tight leading-tight text-[#eaf3ee]">
+              Equipamento e instalação
+            </h2>
+            <p className="text-[#9fb4a8] text-base mt-4 leading-relaxed">
+              O kit de hardware e a instalação em campo são pagos uma única vez, separados da assinatura recorrente.
+              A mão de obra segue a taxa da equipe, de R$ 55,00 por hora.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {/* Kit básico */}
+            <div className="relative rounded-3xl p-7 flex flex-col bg-[#12211a]/30 border border-[#78c896]/10 backdrop-blur-md shadow-black/40 shadow-2xl">
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#6c8478]">Equipamento</span>
+              <h3 className="font-display font-extrabold text-2xl mt-1 text-[#eaf3ee]">Kit básico</h3>
+              <div className="mt-4 mb-5 flex items-baseline gap-1">
+                <span className="text-[#9fb4a8] text-lg font-medium">R$</span>
+                <span className="text-4xl font-extrabold tracking-tight text-[#eaf3ee]">1.290</span>
+                <span className="text-[#9fb4a8] text-sm">/único</span>
+              </div>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">ESP32, sensores de solo e ar, atuadores e válvula</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Estrutura, fonte, cabeamento e roteador 4G</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#9fb4a8]">Kit do protótipo funcional</span></li>
+              </ul>
+            </div>
+
+            {/* Kit completo */}
+            <div className="relative rounded-3xl p-7 flex flex-col bg-[#12211a]/30 border border-[#78c896]/10 backdrop-blur-md shadow-black/40 shadow-2xl">
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#6c8478]">Equipamento</span>
+              <h3 className="font-display font-extrabold text-2xl mt-1 text-[#eaf3ee]">Kit completo</h3>
+              <div className="mt-4 mb-5 flex items-baseline gap-1">
+                <span className="text-[#9fb4a8] text-lg font-medium">R$</span>
+                <span className="text-4xl font-extrabold tracking-tight text-[#eaf3ee]">2.190</span>
+                <span className="text-[#9fb4a8] text-sm">/único</span>
+              </div>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Tudo do kit básico</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Câmera IP67 para visão computacional</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#9fb4a8]">Recomendado para o plano Estufa+</span></li>
+              </ul>
+            </div>
+
+            {/* Instalação */}
+            <div className="relative rounded-3xl p-7 flex flex-col bg-[#14291e]/50 border border-[#34d977]/40 backdrop-blur-md shadow-[0_0_40px_rgba(52,217,119,0.12)]">
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-400">Mão de obra</span>
+              <h3 className="font-display font-extrabold text-2xl mt-1 text-[#eaf3ee]">Instalação</h3>
+              <div className="mt-4 mb-5 flex items-baseline gap-1">
+                <span className="text-[#9fb4a8] text-lg font-medium">R$</span>
+                <span className="text-4xl font-extrabold tracking-tight text-[#eaf3ee]">590</span>
+                <span className="text-[#9fb4a8] text-sm">/único</span>
+              </div>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-emerald-500/10 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">8 horas de serviço (8 × R$ 55,00/h)</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-emerald-500/10 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Montagem, calibração, configuração do app e teste</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-emerald-500/10 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#9fb4a8]">Goiânia e região metropolitana</span></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Adendo de deslocamento */}
+          <div className="mt-6 p-6 rounded-2xl border border-emerald-500/10 bg-[#12211a]/20 backdrop-blur-sm">
+            <h4 className="font-semibold text-base mb-2 text-[#eaf3ee] flex items-center gap-2">
+              <HelpCircle className="w-4 h-4 text-emerald-400" />
+              Instalação fora de Goiânia — deslocamento
+            </h4>
+            <p className="text-sm text-[#9fb4a8] leading-relaxed">
+              Para municípios fora de Goiânia, aplica-se um acréscimo de deslocamento calculado por{" "}
+              <span className="font-mono text-[#34d977]">D = 2 × d × c + p</span>, onde{" "}
+              <span className="font-mono text-[#d8e6df]">d</span> é a distância rodoviária (km) até o destino;{" "}
+              <span className="font-mono text-[#d8e6df]">c</span> = R$ 1,30/km (combustível, desgaste e tempo); o fator 2 cobre ida e volta; e{" "}
+              <span className="font-mono text-[#d8e6df]">p</span> é a diária de R$ 180,00 (alimentação e hospedagem), apenas quando houver pernoite.
+              Exemplos: 120 km sem pernoite → <span className="text-[#d8e6df] font-semibold">+R$ 312,00</span>; 250 km com pernoite → <span className="text-[#d8e6df] font-semibold">+R$ 830,00</span>.
+            </p>
+          </div>
         </section>
 
         {/* FAQs */}
@@ -536,10 +620,10 @@ export default function PlanosPage() {
             <div className="p-6 rounded-2xl border border-emerald-500/10 bg-[#12211a]/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300">
               <h4 className="font-semibold text-base mb-2 text-[#eaf3ee] flex items-center gap-2">
                 <HelpCircle className="w-4 h-4 text-emerald-400" />
-                O kit de hardware já está incluso na assinatura?
+                O kit de hardware e a instalação já estão inclusos na assinatura?
               </h4>
               <p className="text-sm text-[#9fb4a8] leading-relaxed">
-                Não. O hardware é adquirido separadamente. O valor do protótipo de hardware básico custa a partir de R$ 1.010,08 e a versão completa com suporte a câmera custa R$ 1.705,22. A assinatura cobre o uso do software, do dashboard na nuvem, alertas inteligentes de IA e suporte.
+                Não. São pagamentos únicos, separados da mensalidade: o kit de hardware básico custa R$ 1.290,00 e a versão completa com câmera custa R$ 2.190,00; a instalação e configuração em campo custam R$ 590,00 (Goiânia e região metropolitana, com acréscimo de deslocamento para outras cidades). A assinatura cobre o uso do software, do dashboard na nuvem, dos alertas de IA e do suporte.
               </p>
             </div>
             <div className="p-6 rounded-2xl border border-emerald-500/10 bg-[#12211a]/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300">

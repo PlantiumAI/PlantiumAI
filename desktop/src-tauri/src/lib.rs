@@ -452,12 +452,72 @@ pub fn run() {
                 .unwrap_or_default();
 
             app.manage(AppState {
-                db,
+                db: db.clone(),
                 profile: Mutex::new(active_profile),
                 active_stop: Mutex::new(None),
                 last_reading: Mutex::new(None),
                 serial_tx: Mutex::new(None),
             });
+
+            let app_handle = app.handle().clone();
+            tauri::async_runtime::spawn(async move {
+                let state: State<AppState> = app_handle.state();
+                if let Ok(Some(mode)) = state.db.load_setting("startup_source") {
+                    if mode == "serial" {
+                        if let Ok(Some(port)) = state.db.load_setting("default_serial_port") {
+                            let stop = Arc::new(AtomicBool::new(false));
+                            state.swap_source(stop.clone());
+
+                            let (tx, rx) = std::sync::mpsc::channel::<Vec<u8>>();
+                            *state.serial_tx.lock().unwrap() = Some(tx);
+
+                            let app_line = app_handle.clone();
+                            let app_status = app_handle.clone();
+                            serial::spawn_reader(
+                                port,
+                                stop,
+                                rx,
+                                move |line| match serde_json::from_str::<SensorReading>(&line) {
+                                    Ok(mut r) => {
+                                        if r.source.is_empty() {
+                                            r.source = "esp32".into();
+                                        }
+                                        ingest(&app_line, r);
+                                    }
+                                    Err(e) => {
+                                        let _ = app_line.emit("sensor:parse_error", format!("{e}: {line}"));
+                                    }
+                                },
+                                move |status| {
+                                    let _ = app_status.emit("conn:status", &status);
+                                },
+                            );
+                        }
+                    } else if mode == "simulator" {
+                        let stop = Arc::new(AtomicBool::new(false));
+                        state.swap_source(stop.clone());
+                        let app2 = app_handle.clone();
+                        std::thread::spawn(move || {
+                            let mut last: Option<SensorReading> = None;
+                            while !stop.load(Ordering::Relaxed) {
+                                let reading = sim::next_reading(last.as_ref());
+                                last = Some(reading.clone());
+                                ingest(&app2, reading);
+                                std::thread::sleep(std::time::Duration::from_millis(2000));
+                            }
+                        });
+                        let _ = app_handle.emit(
+                            "conn:status",
+                            serial::ConnStatus {
+                                state: "connected".into(),
+                                port: "simulador".into(),
+                                detail: "demo automatica".into(),
+                            },
+                        );
+                    }
+                }
+            });
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

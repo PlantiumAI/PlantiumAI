@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Cable, Play, RefreshCw, Square, Usb } from "lucide-react";
+import { Cable, Play, RefreshCw, Square, Usb, Settings, Save } from "lucide-react";
 import { invoke, isTauri } from "../lib/bridge";
 import type { ConnStatus, PortInfo } from "../lib/types";
 
@@ -12,6 +12,11 @@ export default function ConnectionPage({ conn }: Props) {
   const [selected, setSelected] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+
+  // Configuracoes de inicializacao
+  const [startupSource, setStartupSource] = useState("none");
+  const [defaultPort, setDefaultPort] = useState("");
+  const [savedStartup, setSavedStartup] = useState(false);
 
   async function refreshPorts() {
     setBusy(true);
@@ -27,8 +32,21 @@ export default function ConnectionPage({ conn }: Props) {
     }
   }
 
+  async function loadStartupSettings() {
+    try {
+      const mode = await invoke<string | null>("load_setting", { key: "startup_source" });
+      if (mode) setStartupSource(mode);
+
+      const port = await invoke<string | null>("load_setting", { key: "default_serial_port" });
+      if (port) setDefaultPort(port);
+    } catch (e) {
+      console.error("Erro ao carregar configuracoes de inicializacao:", e);
+    }
+  }
+
   useEffect(() => {
     refreshPorts();
+    loadStartupSettings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -50,6 +68,17 @@ export default function ConnectionPage({ conn }: Props) {
     await invoke("stop_source");
   }
 
+  async function saveStartupConfig() {
+    try {
+      await invoke("save_setting", { key: "startup_source", value: startupSource });
+      await invoke("save_setting", { key: "default_serial_port", value: defaultPort });
+      setSavedStartup(true);
+      setTimeout(() => setSavedStartup(false), 2000);
+    } catch (e) {
+      setError(String(e));
+    }
+  }
+
   const stateColor =
     conn.state === "connected"
       ? "text-leaf-400"
@@ -59,6 +88,7 @@ export default function ConnectionPage({ conn }: Props) {
 
   return (
     <div className="max-w-3xl space-y-4">
+      {/* Status da conexao */}
       <div className="card">
         <h3 className="mb-1 flex items-center gap-2 text-sm font-medium text-gray-400">
           <Cable size={16} /> Status da conexão
@@ -71,6 +101,57 @@ export default function ConnectionPage({ conn }: Props) {
               : "Desconectado"}
         </p>
         {conn.detail && <p className="text-xs text-gray-500">{conn.detail}</p>}
+      </div>
+
+      {/* Parametros de Inicializacao */}
+      <div className="card space-y-4">
+        <h3 className="flex items-center gap-2 text-sm font-medium text-gray-400">
+          <Settings size={16} /> Configurações de Inicialização
+        </h3>
+        <p className="text-xs text-gray-500">
+          Defina se o aplicativo deve conectar automaticamente a um dispositivo real ou simular leituras ao ser iniciado.
+        </p>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <label className="block text-sm">
+            <span className="mb-1 block text-xs text-gray-500">Modo de Inicialização</span>
+            <select
+              className="input w-full text-xs"
+              value={startupSource}
+              onChange={(e) => setStartupSource(e.target.value)}
+            >
+              <option value="none">Desconectado (Aguardar ação)</option>
+              <option value="simulator">Simulador (Modo Demo)</option>
+              <option value="serial">Dispositivo Real (Serial USB)</option>
+            </select>
+          </label>
+
+          {startupSource === "serial" && (
+            <label className="block text-sm">
+              <span className="mb-1 block text-xs text-gray-500">Porta Serial Padrão</span>
+              <select
+                className="input w-full text-xs"
+                value={defaultPort}
+                onChange={(e) => setDefaultPort(e.target.value)}
+              >
+                <option value="">Selecione uma porta...</option>
+                {ports.map((p) => (
+                  <option key={p.name} value={p.name}>
+                    {p.name} ({p.chip})
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+        </div>
+
+        <button
+          className="btn-primary py-1.5 text-xs"
+          onClick={saveStartupConfig}
+          disabled={startupSource === "serial" && !defaultPort}
+        >
+          <Save size={14} /> {savedStartup ? "Salvo!" : "Salvar Configuração"}
+        </button>
       </div>
 
       <div className="card space-y-3">

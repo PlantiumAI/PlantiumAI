@@ -407,6 +407,7 @@ export default function PlanosPage() {
             buttonLink="/login"
             features={[
               "Locação das placas ESP32 e sensores inclusa",
+              "Cobertura de até 15 m² de estufa por kit",
               "Conectividade 4G redundante ativa (SIM card)",
               "Monitoramento completo (Ar, Solo, CO₂ e Luz)",
               "Painel Web e Desktop (Offline-First em Rust)",
@@ -427,6 +428,7 @@ export default function PlanosPage() {
             buttonLink="/login"
             features={[
               "Propriedade definitiva do hardware IoT",
+              "Cobertura de até 30 m² de estufa por kit",
               "Taxa recorrente de software altamente reduzida",
               "Emulador de biomas completo integrado",
               "Suporte a controle dinâmico multi-estufas",
@@ -467,6 +469,12 @@ export default function PlanosPage() {
                   <td className="p-4">R$ 1.010,08 (Básico) / R$ 1.705,22 (Pro)<br /><span className="text-xs text-[#9fb4a8]">(com LED: +R$ 850,00 ou +R$ 1.150,00)</span></td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
+                  <td className="p-4 font-medium text-[#9fb4a8]">Área de Cobertura</td>
+                  <td className="p-4">Sem limite (Baseado em fotos de plantas)</td>
+                  <td className="p-4">Até 15 m² <br /><span className="text-xs text-[#9fb4a8]">(+R$ 12,00/mês por m² adicional)</span></td>
+                  <td className="p-4">Até 30 m² por kit <br /><span className="text-xs text-[#9fb4a8]">(+R$ 45,00 único por m² adicional)</span></td>
+                </tr>
+                <tr className="hover:bg-emerald-500/5 transition-colors">
                   <td className="p-4 font-medium text-[#9fb4a8]">Coleta de Dados (Sensores)</td>
                   <td className="p-4">-</td>
                   <td className="p-4">Ar, Solo, CO₂ e Luz</td>
@@ -499,8 +507,8 @@ export default function PlanosPage() {
                 <tr className="hover:bg-emerald-500/5 transition-colors">
                   <td className="p-4 font-medium text-[#9fb4a8]">Mão de obra e Instalação</td>
                   <td className="p-4">-</td>
-                  <td className="p-4">Inclusa (Básica) / +R$ 200,00 (LED)</td>
-                  <td className="p-4">R$ 590,00 (Sem LED) / R$ 790,00 (Com LED)</td>
+                  <td className="p-4">Inclusa (Básica) <br /><span className="text-xs text-[#9fb4a8]">(+R$ 25,00 por m² adicional)</span></td>
+                  <td className="p-4">R$ 590,00 (Sem LED) / R$ 790,00 (Com LED) <br /><span className="text-xs text-[#9fb4a8]">(+R$ 25,00 por m² adicional)</span></td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
                   <td className="p-4 font-medium text-[#9fb4a8]">Suporte e Manutenção</td>
@@ -547,6 +555,7 @@ export default function PlanosPage() {
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Placa ESP32 central configurada localmente</span></li>
                 <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Sensores de umidade (solo/ar), temp, luz e CO₂</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Cobertura de área recomendada: até 15 m²</span></li>
                 <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Opcional: Painel LED Grow Light Full Spectrum 100W (+R$ 850,00)</span></li>
               </ul>
             </div>
@@ -565,6 +574,7 @@ export default function PlanosPage() {
               </div>
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Sensores de precisão + Câmera IP67 (IA YOLO)</span></li>
+                <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Cobertura de área recomendada: até 30 m² por kit</span></li>
                 <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Indicado para estufas comerciais e containers</span></li>
                 <li className="flex items-start gap-3"><div className="p-0.5 rounded-full shrink-0 mt-0.5 bg-[#14291e]/50 text-emerald-400"><Check className="w-3.5 h-3.5" /></div><span className="text-[#d8e6df]">Opcional: Painel LED Profissional Multicor (+R$ 1.150,00)</span></li>
               </ul>

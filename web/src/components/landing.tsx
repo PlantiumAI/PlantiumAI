@@ -37,6 +37,7 @@ const HTML = `
         <a href="#equipe" style="padding:8px 13px; border-radius:999px; font-size:14px; font-weight:500; color:var(--text-muted); transition:color .2s,background .2s;">Equipe</a>
         <a href="#contato" style="padding:8px 13px; border-radius:999px; font-size:14px; font-weight:500; color:var(--text-muted); transition:color .2s,background .2s;">Contato</a>
         <a href="/planos" style="padding:8px 13px; border-radius:999px; font-size:14px; font-weight:500; color:var(--text-muted); transition:color .2s,background .2s;">Planos</a>
+        <a href="/documentos" style="padding:8px 13px; border-radius:999px; font-size:14px; font-weight:500; color:var(--text-muted); transition:color .2s,background .2s;">Documentos</a>
       </div>
       <div class="plf-nav-right" style="display:flex; align-items:center; gap:8px;">
         <a href="/login" class="plf-btn-primary plf-login-btn" style="padding:10px 18px; border-radius:999px; border:none; background:var(--brand-green); color:#06120b; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 4px 14px rgba(52,217,119,0.3); transition:transform .15s, background .2s;">Login</a>
@@ -56,6 +57,7 @@ const HTML = `
         <a href="#equipe">Equipe</a>
         <a href="#contato">Contato</a>
         <a href="/planos">Planos</a>
+        <a href="/documentos">Documentos</a>
         <a href="/login" class="plf-mm-login">Entrar no painel</a>
       </div>
     </nav>

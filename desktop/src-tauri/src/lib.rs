@@ -15,7 +15,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 use tauri::{AppHandle, Emitter, Manager, State};
 use tauri_plugin_notification::NotificationExt;
-use tauri_plugin_dialog::DialogExt;
+use tauri_plugin_dialog::{DialogExt, FilePath};
 
 /// Perfil da planta monitorada (defaults do legado).
 #[derive(Debug, Clone, Serialize)]
@@ -346,8 +346,7 @@ async fn export_history_csv(
         .set_file_name("historico_plantium.csv")
         .blocking_save_file();
 
-    if let Some(path) = file_path {
-        let path_buf = path.to_path_buf().map_err(|e| e.to_string())?;
+    if let Some(FilePath::Path(path_buf)) = file_path {
         std::fs::write(&path_buf, csv_bytes).map_err(|e| e.to_string())?;
         Ok(path_buf.to_string_lossy().into_owned())
     } else {

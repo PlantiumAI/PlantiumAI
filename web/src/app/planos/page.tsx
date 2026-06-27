@@ -275,6 +275,7 @@ export default function PlanosPage() {
             <Link href="/#tecnologia" className="px-3 py-2 rounded-full text-xs font-semibold text-[#9fb4a8] hover:text-[#eaf3ee] hover:bg-[#16281e]/60 transition-colors">Tecnologia</Link>
             <Link href="/#mercado" className="px-3 py-2 rounded-full text-xs font-semibold text-[#9fb4a8] hover:text-[#eaf3ee] hover:bg-[#16281e]/60 transition-colors">Mercado</Link>
             <Link href="/#equipe" className="px-3 py-2 rounded-full text-xs font-semibold text-[#9fb4a8] hover:text-[#eaf3ee] hover:bg-[#16281e]/60 transition-colors">Equipe</Link>
+            <Link href="/#parceiros" className="px-3 py-2 rounded-full text-xs font-semibold text-[#9fb4a8] hover:text-[#eaf3ee] hover:bg-[#16281e]/60 transition-colors">Parceiros</Link>
             <Link href="/#contato" className="px-3 py-2 rounded-full text-xs font-semibold text-[#9fb4a8] hover:text-[#eaf3ee] hover:bg-[#16281e]/60 transition-colors">Contato</Link>
             <Link href="/planos" className="px-3 py-2 rounded-full text-xs font-semibold text-[#eaf3ee] bg-[#16281e]/80 border border-emerald-500/10 transition-colors">Planos</Link>
             <Link href="/documentos" className="px-3 py-2 rounded-full text-xs font-semibold text-[#9fb4a8] hover:text-[#eaf3ee] hover:bg-[#16281e]/60 transition-colors">Documentos</Link>

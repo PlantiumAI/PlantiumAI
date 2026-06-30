@@ -71,7 +71,7 @@ const HTML = `
     <div style="position:relative; max-width:1180px; margin:0 auto; padding:106px 24px 48px; display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:center;" class="plf-hero">
       <div id="solucao">
         <div style="display:flex; flex-wrap:wrap; gap:8px;">
-          <span style="display:inline-flex; align-items:center; gap:7px; padding:6px 13px; border-radius:999px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); font-size:12.5px; font-weight:600; color:var(--text-base);"><span style="width:7px; height:7px; border-radius:50%; background:var(--brand-green);"></span>Desafio AgroStartup — 10 Anos (SENAR, SEBRAE, FAPEG, Goiás 2026)</span>
+          <span style="display:inline-flex; align-items:center; gap:7px; padding:6px 13px; border-radius:999px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); font-size:12.5px; font-weight:600; color:var(--text-base);"><span style="width:7px; height:7px; border-radius:50%; background:var(--brand-green);"></span>Micro estufas e hortas verticais inteligentes</span>
         </div>
         <h1 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(38px,4.8vw,60px); line-height:1.06; letter-spacing:-0.02em; margin:22px 0 0;">
           PlantiumAI
@@ -94,7 +94,7 @@ const HTML = `
           <div style="width:1px; background:var(--border-subtle);"></div>
           <div><div style="font-family:'Sora',sans-serif; font-weight:700; font-size:28px;">offline<span style="font-size:16px; color:var(--text-muted);">-first</span></div><div style="font-size:13px; color:var(--text-muted);">decisão local sem nuvem</div></div>
           <div style="width:1px; background:var(--border-subtle);"></div>
-          <div><div style="font-family:'Sora',sans-serif; font-weight:700; font-size:28px;">~15<span style="font-size:16px; color:var(--text-muted);">% a.a.</span></div><div style="font-size:13px; color:var(--text-muted);">crescimento do setor*</div></div>
+          <div><div style="font-family:'Sora',sans-serif; font-weight:700; font-size:28px;">~15<span style="font-size:16px; color:var(--text-muted);">% a.a.</span></div><div style="font-size:13px; color:var(--text-muted);">crescimento do setor</div></div>
         </div>
       </div>
 
@@ -176,14 +176,6 @@ const HTML = `
         </div>
       </div>
     </div>
-    <!-- Elementos Institucionais no Rodapé da Dobra -->
-    <div style="position:relative; z-index:2; border-top:1px solid var(--border-glass); background:rgba(6,18,11,0.5); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); padding:16px 24px; margin-top:40px;">
-      <div style="max-width:1180px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; font-size:12.5px; color:var(--text-muted);">
-        <div><span style="color:var(--brand-green); font-weight:600;">Institucional:</span> 1ª Turma de Engenharia de Software | SENAI Fatesg</div>
-        <div><span style="color:var(--brand-green); font-weight:600;">Integrantes:</span> Thyago Henrique, João Felipe, Gabriel Augusto, Marco Antonio</div>
-        <div style="display:flex; align-items:center; gap:6px;"><span style="width:7px; height:7px; border-radius:50%; background:var(--brand-green);"></span>Desafio AgroStartup — 10 Anos (SENAR, SEBRAE, FAPEG, Goiás 2026)</div>
-      </div>
-    </div>
   </header>
 
   <!-- VIDEO SCRUB -->
@@ -211,17 +203,17 @@ const HTML = `
       <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:12px; height:100%;">
         <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:52px; color:var(--brand-green); line-height:1;">40%</div>
         <p style="font-size:14px; line-height:1.55; color:var(--text-muted); margin:0;">Desperdício hídrico devido a ajustes inadequados na irrigação.</p>
-        <span style="font-size:11px; color:var(--text-faint); margin-top:auto;">Fonte: EMBRAPA Horticultura/CNA 2023</span>
+        <span style="font-size:11px; color:var(--text-faint); margin-top:auto;">Fonte: Embrapa Hortaliças/CNA 2023</span>
       </div>
       <!-- Card 2 -->
       <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:12px; height:100%;">
         <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:52px; color:var(--brand-green); line-height:1;">30%</div>
         <p style="font-size:14px; line-height:1.55; color:var(--text-muted); margin:0;">Perda de produtividade por identificação tardia de pragas e doenças.</p>
-        <span style="font-size:11px; color:var(--text-faint); margin-top:auto;">Fonte: EMBRAPA Horticultura/CNA 2023</span>
+        <span style="font-size:11px; color:var(--text-faint); margin-top:auto;">Fonte: Embrapa Hortaliças/CNA 2023</span>
       </div>
       <!-- Card 3 -->
       <div class="plf-card-hover" style="padding:28px; border-radius:24px; background:var(--surface-glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; gap:12px; height:100%;">
-        <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:36px; color:var(--brand-green); line-height:1.2;">Score 526,9</div>
+        <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:52px; color:var(--brand-green); line-height:1;">Nº 1</div>
         <p style="font-size:14px; line-height:1.55; color:var(--text-muted); margin:0;">O ajuste inadequado da irrigação é o gargalo nº 1 da cadeia produtiva em Goiás.</p>
         <span style="font-size:11px; color:var(--text-faint); margin-top:auto;">Fonte: IFAG 2026</span>
       </div>
@@ -234,7 +226,7 @@ const HTML = `
       <div style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">Tecnologia e Automação</div>
       <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,40px); line-height:1.15; letter-spacing:-0.01em; margin:14px 0 12px;">Monitoramento Resiliente e Decisão Local</h2>
       <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:var(--brand-green-tint); border:1px solid rgba(52,217,119,0.2); font-size:13.5px; font-weight:600; color:var(--brand-green); margin-top:8px;">
-        CapEx Total do Protótipo: R$ 1.010,08
+        Investimento do kit a partir de R$ 1.010,08
       </div>
     </div>
     <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; align-items:stretch;" class="plf-flow">
@@ -402,7 +394,7 @@ const HTML = `
         <tbody>
           <!-- Linha 1 -->
           <tr style="border-bottom:1px solid rgba(255,255,255,0.05); transition:background-color .2s;">
-            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Custo CapEx (Implantação)</td>
+            <td style="padding:18px 16px; font-size:14px; font-weight:600; color:var(--text-base);">Custo de Implantação</td>
             <td style="padding:18px 16px; text-align:center; background:rgba(34,197,94,0.04); border-left:1px solid rgba(34,197,94,0.15); border-right:1px solid rgba(34,197,94,0.15); font-weight:600; color:var(--brand-green);">
               Muito Baixo (R$ 1.010,08)
             </td>
@@ -498,50 +490,50 @@ const HTML = `
     
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;" class="plf-pillars">
       <!-- Coluna Freemium -->
-      <div class="plf-card-hover" style="padding:32px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; min-height:400px; justify-content:between; height:100%;">
+      <div class="plf-card-hover" style="padding:32px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; min-height:400px; justify-content:space-between; height:100%;">
         <div>
-          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">FREEMIUM · A ISCA</div>
+          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">FREEMIUM</div>
           <h3 style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; margin:14px 0 8px; color:var(--text-base);">WhatsApp Grátis</h3>
           <p style="font-size:14px; line-height:1.6; color:var(--text-muted); margin:0 0 20px;">
-            Uso de IA totalmente gratuito no WhatsApp. O cliente envia foto da planta e a IA identifica doenças instantaneamente. Foco em máxima penetração de mercado sem barreiras de entrada.
+            Uso de IA totalmente gratuito no WhatsApp: basta enviar uma foto da planta e a IA identifica doenças instantaneamente — sem instalação, cadastro ou custo.
           </p>
         </div>
         <div style="margin-top:auto;">
           <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; color:var(--text-base); margin-bottom:16px;">R$ 0<span style="font-size:14px; color:var(--text-muted);">/mês</span></div>
-          <div style="font-size:12px; color:var(--text-faint); margin-bottom:16px;">Monetização: Comissão via parceiros de defensivos convencionais ou biológicos.</div>
+          <div style="font-size:12px; color:var(--text-faint); margin-bottom:16px;">Indicações de tratamento com parceiros credenciados, convencionais ou biológicos.</div>
           <a href="/login" class="plf-btn-ghost" style="display:block; text-align:center; padding:12px 24px; border-radius:999px; border:1px solid var(--border-glass); background:var(--surface-raised); color:var(--text-base); font-size:14px; font-weight:600; text-decoration:none;">Começar Agora</a>
         </div>
       </div>
       
       <!-- Coluna Premium -->
-      <div class="plf-card-hover" style="padding:32px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:2px solid var(--brand-green); box-shadow:0 8px 32px rgba(52,217,119,0.1); display:flex; flex-direction:column; min-height:400px; justify-content:between; position:relative; height:100%;">
+      <div class="plf-card-hover" style="padding:32px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:2px solid var(--brand-green); box-shadow:0 8px 32px rgba(52,217,119,0.1); display:flex; flex-direction:column; min-height:400px; justify-content:space-between; position:relative; height:100%;">
         <span style="position:absolute; top:-12px; right:20px; background:var(--brand-green); color:#06120b; font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px; text-transform:uppercase; letter-spacing:0.04em;">Recomendado</span>
         <div>
-          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">PREMIUM · O ANZOL</div>
+          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">PREMIUM</div>
           <h3 style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; margin:14px 0 8px; color:var(--text-base);">Software Assinatura</h3>
           <p style="font-size:14px; line-height:1.6; color:var(--text-muted); margin:0 0 20px;">
             Aluguel mensal acessível do software integrado. Inclui a locação completa das placas ESP32 e sensores. Instalação e configuração em campo inclusas.
           </p>
         </div>
         <div style="margin-top:auto;">
-          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; color:var(--brand-green); margin-bottom:16px;">Assinatura Recorrente</div>
-          <div style="font-size:12px; color:var(--text-faint); margin-bottom:16px;">Monetização: Receita recorrente (MRR) com baixo churn por dependência operacional.</div>
+          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; color:var(--brand-green); margin-bottom:16px;">A partir de R$ 249<span style="font-size:14px; color:var(--text-muted);">/mês</span></div>
+          <div style="font-size:12px; color:var(--text-faint); margin-bottom:16px;">Placas ESP32, sensores e instalação inclusos na mensalidade, sem custo inicial.</div>
           <a href="/login" class="plf-btn-primary" style="display:block; text-align:center; padding:12px 24px; border-radius:999px; background:var(--brand-green); color:#06120b; font-size:14px; font-weight:600; text-decoration:none; box-shadow:0 4px 14px rgba(52,217,119,0.3);">Assinar Premium</a>
         </div>
       </div>
       
       <!-- Coluna Pro -->
-      <div class="plf-card-hover" style="padding:32px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; min-height:400px; justify-content:between; height:100%;">
+      <div class="plf-card-hover" style="padding:32px; border-radius:28px; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; min-height:400px; justify-content:space-between; height:100%;">
         <div>
-          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">PRO · A ESCALA</div>
+          <div style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--brand-green);">PRO</div>
           <h3 style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; margin:14px 0 8px; color:var(--text-base);">Aquisição Total</h3>
           <p style="font-size:14px; line-height:1.6; color:var(--text-muted); margin:0 0 20px;">
             Venda direta do hardware proprietário por um valor único. Assinatura enxuta do software de gestão. 1 ano de manutenção e suporte totalmente gratuitos.
           </p>
         </div>
         <div style="margin-top:auto;">
-          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; color:var(--text-base); margin-bottom:16px;">Venda Direta + SaaS</div>
-          <div style="font-size:12px; color:var(--text-faint); margin-bottom:16px;">Monetização: Alto ticket médio (CapEx) + assinatura (SaaS).</div>
+          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:24px; color:var(--text-base); margin-bottom:16px;">A partir de R$ 66<span style="font-size:14px; color:var(--text-muted);">/mês + hardware</span></div>
+          <div style="font-size:12px; color:var(--text-faint); margin-bottom:16px;">Hardware próprio pago uma vez, com assinatura de software enxuta.</div>
           <a href="/login" class="plf-btn-ghost" style="display:block; text-align:center; padding:12px 24px; border-radius:999px; border:1px solid var(--border-glass); background:var(--surface-raised); color:var(--text-base); font-size:14px; font-weight:600; text-decoration:none;">Adquirir Kit</a>
         </div>
       </div>
@@ -557,7 +549,7 @@ const HTML = `
     <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;" class="plf-team">
       ${[
         { photo: "/landing/thyago.jpeg", name: "Thyago Henrique Toledo de Assis", role: "Owner Full-Stack & Financeiro", badge: "SOFTWARE", bio: "Lidera o ecossistema de software (Rust/Tauri 2) e o repositório oficial; conduz custos, análise econômica e viabilidade do piloto." },
-        { photo: "/landing/joao.jpeg", name: "João Felipe Antunes Ribeiro", role: "Owner Hardware & Negócio", badge: "HARDWARE", bio: "Planeja, valida e especifica componentes físicos, sensores and atuadores; articula inserção comercial e modelagem de mercado." },
+        { photo: "/landing/joao.jpeg", name: "João Felipe Antunes Ribeiro", role: "Owner Hardware & Negócio", badge: "HARDWARE", bio: "Planeja, valida e especifica componentes físicos, sensores e atuadores; articula inserção comercial e modelagem de mercado." },
         { photo: "/landing/gabriel.jpeg", name: "Gabriel Augusto de Sousa", role: "Owner Arquitetura ESP32/IoT", badge: "FIRMWARE", bio: "Desenha a arquitetura IoT distribuída e o firmware dos nós ESP32; ponte de cooperação tecnológica com a SiriNEO Technologies." },
         { photo: "/landing/marco.jpeg", name: "Marco Antônio Moreira de Freitas", role: "CEO & Agrônomo", badge: "AGRONOMIA", bio: "Lidera a visão estratégica e a validação agronômica (faixas ideais, limiares de estresse), alinhando o sistema às dores mapeadas." },
       ]
@@ -577,7 +569,7 @@ const HTML = `
         )
         .join("")}
     </div>
-    <p style="text-align:center; font-size:13px; color:var(--text-faint); margin:30px auto 0; max-width:720px;">Crédito acadêmico — Trabalho Científico, Engenharia de Software, Faculdade SENAI FATESG, Goiânia/GO, 2026. Orientador: Prof. Renato Ribeiro dos Santos.</p>
+    <p style="text-align:center; font-size:13px; color:var(--text-faint); margin:30px auto 0; max-width:720px;">Crédito acadêmico — Trabalho Científico, Engenharia de Software, Faculdade SENAI FATESG, Goiânia/GO, 2026.</p>
   </section>
 
   <!-- PARCEIROS -->
@@ -593,7 +585,7 @@ const HTML = `
       ${[
         { photo: "/landing/cirineu.jpg", name: "Cirineu C. Fernandes", role: "CEO · SiriNEO Technologies", badge: "Mestrando ITA", bio: "Engenheiro Mecatrônico, Especialista em Telecomunicações e Segurança Pública, Mestrando no PPGAO pelo ITA no Departamento de Guerra Eletrônica e Sensoriamento Remoto, em domínios críticos de defesa, com pesquisa em Sistemas Embarcados para o setor aeroespacial." },
         { photo: "/landing/juliana.jpg", name: "Juliana C. V. Fernandes", role: "Co-fundadora · SiriNEO Technologies", badge: "Gestão de Recursos", bio: "Fisioterapeuta e Administradora. Apoia o desenvolvimento de sistemas distribuídos e arquitetura de instrumentação eletrônica para micro estufas." },
-        { photo: "/landing/renato.png", name: "Prof. Renato Ribeiro dos Santos", role: "Orientador · Diretor FPM & Fundador VarejoIN", badge: "FPM / VarejoIN", bio: "Diretor da Faculdade de Principios Militares (FPM) e fundador da empresa VarejoIN. Orientador cientifico do projeto PlantiumAI." }
+        { photo: "/landing/renato.png", name: "Prof. Renato Ribeiro dos Santos", role: "Orientador · Diretor FPM & Fundador VarejoIN", badge: "FPM / VarejoIN", bio: "Diretor da Faculdade de Princípios Militares (FPM) e fundador da empresa VarejoIN. Orientador científico do projeto PlantiumAI." }
       ]
         .map(
           (m) => `<div class="plf-team-card" style="border-radius:24px; overflow:hidden; background:var(--surface-glass); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border:1px solid var(--border-glass); box-shadow:var(--shadow-soft);">

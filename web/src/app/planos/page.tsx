@@ -376,7 +376,7 @@ export default function PlanosPage() {
           
           <PricingCard
             title="WhatsApp Grátis"
-            tag="FREEMIUM · A ISCA"
+            tag="FREEMIUM"
             description="IA agronômica gratuita para identificar doenças por fotos instantaneamente e indicar tratamentos."
             monthlyPrice={0}
             annualPrice={0}
@@ -396,7 +396,7 @@ export default function PlanosPage() {
 
           <PricingCard
             title="Software Assinatura"
-            tag="PREMIUM · O ANZOL"
+            tag="PREMIUM"
             description="Aluguel mensal completo: locação das placas ESP32, sensores, conectividade 4G LTE ativa, suporte remoto e alertas (sem painel LED)."
             monthlyPrice={299}
             annualPrice={249}
@@ -419,10 +419,10 @@ export default function PlanosPage() {
 
           <PricingCard
             title="Aquisição Total"
-            tag="PRO · A ESCALA"
+            tag="PRO"
             description="O cliente adquire a propriedade do hardware próprio (a partir de R$ 1.010,08) e paga uma assinatura enxuta apenas pelo software e alertas."
             monthlyPrice={79}
-            annualPrice={59}
+            annualPrice={66}
             billingPeriod={billingPeriod}
             buttonText="Adquirir Kit Pro"
             buttonLink="/login"
@@ -463,7 +463,7 @@ export default function PlanosPage() {
                   <td className="p-4">Compra / Propriedade definitiva</td>
                 </tr>
                 <tr className="hover:bg-emerald-500/5 transition-colors">
-                  <td className="p-4 font-medium text-[#9fb4a8]">Custo do Hardware IoT (CapEx)</td>
+                  <td className="p-4 font-medium text-[#9fb4a8]">Custo do Hardware IoT</td>
                   <td className="p-4">-</td>
                   <td className="p-4">Sem Custo Inicial</td>
                   <td className="p-4">R$ 1.010,08 (Básico) / R$ 1.705,22 (Pro)<br /><span className="text-xs text-[#9fb4a8]">(com LED: +R$ 850,00 ou +R$ 1.150,00)</span></td>
@@ -535,7 +535,7 @@ export default function PlanosPage() {
             </h2>
             <p className="text-[#9fb4a8] text-base mt-4 leading-relaxed">
               O kit de hardware e a instalação em campo são pagos uma única vez, separados da assinatura recorrente.
-              A mão de obra segue a taxa da equipe, de R$ 55,00 por hora.
+              A instalação tem valor fechado, que já inclui deslocamento na região metropolitana e calibração (base de mão de obra de R$ 55,00 por hora).
             </p>
           </div>
 
@@ -621,7 +621,7 @@ export default function PlanosPage() {
         <section className="mb-20">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold uppercase tracking-wider text-emerald-400">
-              Viabilidade e ROI · Embasamento Real
+              Retorno para o produtor · ROI
             </span>
             <h2 className="font-display font-extrabold text-3xl sm:text-4xl mt-6 tracking-tight leading-tight text-[#eaf3ee]">
               Retorno financeiro e mitigação
@@ -637,17 +637,17 @@ export default function PlanosPage() {
               <div>
                 <h3 className="font-display font-extrabold text-xl text-[#eaf3ee] mb-4 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#34d977] inline-block animate-pulse" />
-                  Modelagem Financeira HaaS e Viabilidade
+                  Hardware incluso, sem investimento inicial
                 </h3>
                 <p className="text-sm text-[#9fb4a8] leading-relaxed mb-4">
-                  No plano **Premium (Software Assinatura)**, a PlantiumAI subsidia 100% do investimento inicial em hardware (ESP32 central, fiação, sensores radiculares e atuadores) no modelo de locação (HaaS). 
+                  No plano <strong className="text-[#eaf3ee]">Premium (Software Assinatura)</strong>, todo o equipamento (ESP32 central, fiação, sensores radiculares e atuadores) vem incluso na mensalidade — sem custo inicial de compra.
                 </p>
                 <p className="text-sm text-[#9fb4a8] leading-relaxed">
-                  O valor de **R$ 299,00/mês** (ou **R$ 249,00/mês** no anual) foi desenhado para viabilizar essa amortização dos dispositivos (CapEx aproximado de R$ 1.010,08) juntamente com a sustentabilidade do chip de telemetria 4G LTE dedicado (**R$ 60,00/mês**), infraestrutura do banco de dados na nuvem e processamento dos prompts agronômicos via API.
+                  A mensalidade de <strong className="text-[#eaf3ee]">R$ 299,00</strong> (ou <strong className="text-[#eaf3ee]">R$ 249,00</strong> no plano anual) já cobre o uso do equipamento, o chip de telemetria 4G LTE dedicado, a infraestrutura na nuvem e o processamento da IA agronômica.
                 </p>
               </div>
               <div className="mt-6 pt-6 border-t border-emerald-500/10 text-xs text-[#34d977] font-mono">
-                PAYBACK ESTIMADO DO HARDWARE EM COBERTURA: ~10 MESES
+                ZERO INVESTIMENTO INICIAL EM HARDWARE — TUDO INCLUSO NA ASSINATURA
               </div>
             </div>
 
@@ -680,7 +680,7 @@ export default function PlanosPage() {
                 </ul>
               </div>
               <div className="mt-6 pt-6 border-t border-emerald-500/10 text-xs text-[#34d977] font-mono">
-                Fontes: EMBRAPA Hortaliças · CNA 2026 · FAO · VarejoIN
+                Fontes: Embrapa Hortaliças · CNA 2026 · FAO
               </div>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { db } from "@/db";
 import { devices } from "@/db/schema";
 import { authenticateDevice, touchDevice } from "@/lib/device-auth";
 import { rateLimit } from "@/lib/rate-limit";
+import { evaluateScheduleRules } from "@/lib/automation";
 
 export const runtime = "nodejs";
 
@@ -49,6 +50,13 @@ export async function POST(req: Request) {
       .where(eq(devices.id, device.id));
   }
   await touchDevice(token, device);
+
+  // Heartbeat também dispara regras de horário vencidas (sem cron pago).
+  try {
+    await evaluateScheduleRules(device.companyId);
+  } catch (err) {
+    console.error("automation: falha nas regras de horário", err);
+  }
 
   return NextResponse.json({ ok: true, config: device.config ?? null });
 }

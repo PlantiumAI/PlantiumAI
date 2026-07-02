@@ -6,6 +6,7 @@ import { alerts, deviceCommands, readings, sensors } from "@/db/schema";
 import { authenticateDevice, touchDevice } from "@/lib/device-auth";
 import { classifyMetric, isInRange, type Metric } from "@/lib/sensor-rules";
 import { rateLimit } from "@/lib/rate-limit";
+import { evaluateScheduleRules, evaluateSensorRules } from "@/lib/automation";
 
 // Runtime Node (crypto/HMAC + driver Neon).
 export const runtime = "nodejs";
@@ -155,6 +156,31 @@ export async function POST(req: Request) {
   }
 
   await touchDevice(token, device);
+
+  // Motor de automação: gatilhos de sensor (por local) + horários da empresa.
+  // Nunca derruba a ingestão — falha vira log.
+  try {
+    // Última leitura válida de cada métrica por local (snake_case p/ o motor).
+    const byLocation = new Map<string | null, Record<string, number>>();
+    for (const r of parsed.data.readings) {
+      const sensorId = r.sensor_id ?? defaultSensor?.id;
+      const sensor = deviceSensors.find((s) => s.id === sensorId);
+      if (!sensor) continue;
+      const loc = sensor.locationId ?? device.locationId ?? null;
+      const acc = byLocation.get(loc) ?? {};
+      for (const [field, metric] of METRICS) {
+        const v = r[field];
+        if (typeof v === "number" && isInRange(metric, v)) acc[field] = v;
+      }
+      byLocation.set(loc, acc);
+    }
+    for (const [loc, metrics] of byLocation) {
+      await evaluateSensorRules(device.companyId, loc, metrics);
+    }
+    await evaluateScheduleRules(device.companyId);
+  } catch (err) {
+    console.error("automation: falha na avaliação de regras", err);
+  }
 
   // Expira comandos não coletados e informa quantos aguardam o device.
   const now = new Date();

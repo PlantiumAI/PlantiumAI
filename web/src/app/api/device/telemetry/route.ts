@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { and, count, eq, lt } from "drizzle-orm";
+import { and, count, eq, lt, or } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
 import { alerts, deviceCommands, readings, sensors } from "@/db/schema";
@@ -69,14 +69,18 @@ export async function POST(req: Request) {
   }
 
   // Sensores válidos deste device (escopo de segurança: mesma empresa).
+  // Vínculo por device_id (novo) OU pelo token usado (CRUD legado de sensores).
   const deviceSensors = await db
     .select({ id: sensors.id, locationId: sensors.locationId })
     .from(sensors)
     .where(
       and(
         eq(sensors.companyId, device.companyId),
-        eq(sensors.deviceId, device.id),
         eq(sensors.active, true),
+        or(
+          eq(sensors.deviceId, device.id),
+          eq(sensors.deviceTokenId, token.id),
+        ),
       ),
     );
   const sensorIds = new Set(deviceSensors.map((s) => s.id));

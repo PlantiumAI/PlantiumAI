@@ -11,6 +11,7 @@ import {
   primaryKey,
   index,
   uniqueIndex,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -42,6 +43,43 @@ export const sensorType = pgEnum("sensor_type", [
   "co2_level",
   "ph_level",
 ]);
+
+/** Status de conectividade do dispositivo (derivado do último heartbeat). */
+export const deviceStatus = pgEnum("device_status", [
+  "never_seen",
+  "online",
+  "offline",
+]);
+
+/** Tipo de atuador controlável pela plataforma. */
+export const actuatorType = pgEnum("actuator_type", [
+  "pump", // bomba d'água
+  "valve", // válvula solenoide
+  "fan", // ventilação
+  "exhaust", // exaustão
+  "led_panel", // painel de LED (fotoperíodo)
+  "relay", // relé genérico
+  "heater", // aquecedor
+]);
+
+/** Ciclo de vida de um comando cloud → device. */
+export const commandStatus = pgEnum("command_status", [
+  "pending", // criado, aguardando o device buscar
+  "sent", // entregue ao device (aguardando ack)
+  "acked", // executado com sucesso
+  "failed", // device reportou falha
+  "expired", // não coletado dentro do prazo
+]);
+
+/** Severidade de alerta persistido. */
+export const alertSeverity = pgEnum("alert_severity", [
+  "info",
+  "atencao",
+  "critico",
+]);
+
+/** Origem de um comando (auditoria). */
+export const commandIssuer = pgEnum("command_issuer", ["user", "automation"]);
 
 // ─────────────────────────────────────────────────────────────
 // Empresas
@@ -149,6 +187,40 @@ export const locations = pgTable(
 );
 
 // ─────────────────────────────────────────────────────────────
+// Dispositivos (ESP32 / gateway físico em uma estufa)
+// ─────────────────────────────────────────────────────────────
+
+/**
+ * Dispositivo físico (ESP32, ESP32-CAM ou gateway) instalado em um local.
+ * Sensores e atuadores pendem dele; o token de firmware o autentica.
+ * `status` é derivado de `lastSeenAt` (heartbeat/telemetria).
+ */
+export const devices = pgTable(
+  "devices",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    companyId: uuid("company_id")
+      .notNull()
+      .references(() => companies.id, { onDelete: "cascade" }),
+    locationId: uuid("location_id").references(() => locations.id, {
+      onDelete: "set null",
+    }),
+    name: varchar("name", { length: 120 }).notNull(),
+    model: varchar("model", { length: 40 }).notNull().default("esp32"),
+    firmwareVersion: varchar("firmware_version", { length: 40 }),
+    status: deviceStatus("status").notNull().default("never_seen"),
+    lastSeenAt: timestamp("last_seen_at", { withTimezone: true }),
+    // configuração enviada ao device (intervalo de leitura, limites locais…)
+    config: jsonb("config"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => ({
+    companyIdx: index("devices_company_idx").on(t.companyId),
+    locationIdx: index("devices_location_idx").on(t.locationId),
+  }),
+);
+
+// ─────────────────────────────────────────────────────────────
 // Tokens de dispositivo (firmware ↔ plataforma)
 // ─────────────────────────────────────────────────────────────
 
@@ -164,6 +236,10 @@ export const deviceTokens = pgTable(
     companyId: uuid("company_id")
       .notNull()
       .references(() => companies.id, { onDelete: "cascade" }),
+    // device que este token autentica (null = token legado pré-devices)
+    deviceId: uuid("device_id").references(() => devices.id, {
+      onDelete: "cascade",
+    }),
     // prefixo público (8 chars) p/ identificar o token sem revelar o segredo
     prefix: varchar("prefix", { length: 12 }).notNull(),
     tokenHash: text("token_hash").notNull(),
@@ -193,6 +269,10 @@ export const sensors = pgTable(
       onDelete: "set null",
     }),
     deviceTokenId: uuid("device_token_id").references(() => deviceTokens.id, {
+      onDelete: "set null",
+    }),
+    // device físico ao qual o sensor está ligado (null = legado/desktop)
+    deviceId: uuid("device_id").references(() => devices.id, {
       onDelete: "set null",
     }),
     name: varchar("name", { length: 120 }).notNull(),
@@ -233,6 +313,141 @@ export const readings = pgTable(
 );
 
 // ─────────────────────────────────────────────────────────────
+// Atuadores (bombas, válvulas, ventilação, LED…)
+// ─────────────────────────────────────────────────────────────
+
+export const actuators = pgTable(
+  "actuators",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    companyId: uuid("company_id")
+      .notNull()
+      .references(() => companies.id, { onDelete: "cascade" }),
+    locationId: uuid("location_id").references(() => locations.id, {
+      onDelete: "set null",
+    }),
+    deviceId: uuid("device_id")
+      .notNull()
+      .references(() => devices.id, { onDelete: "cascade" }),
+    name: varchar("name", { length: 120 }).notNull(),
+    type: actuatorType("type").notNull(),
+    // canal físico no device (pino GPIO / índice de relé / canal PWM)
+    channel: integer("channel").notNull().default(0),
+    // estado desejado/reportado: on/off + nível 0–100 (PWM, LED dimming)
+    isOn: boolean("is_on").notNull().default(false),
+    level: integer("level"),
+    stateUpdatedAt: timestamp("state_updated_at", { withTimezone: true }),
+    active: boolean("active").notNull().default(true),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => ({
+    companyIdx: index("actuators_company_idx").on(t.companyId),
+    deviceIdx: index("actuators_device_idx").on(t.deviceId),
+  }),
+);
+
+// ─────────────────────────────────────────────────────────────
+// Regras de automação (sensor/condição ou horário → ação)
+// ─────────────────────────────────────────────────────────────
+
+/**
+ * Regra configurável pelo usuário. `trigger` e `action` são jsonb para
+ * evoluir sem migração:
+ *  trigger sensor:  { kind:"sensor", metric:"soil_moisture", op:"lt", value:30 }
+ *  trigger horário: { kind:"schedule", cron:"0 6 * * *" }
+ *  action:          { actuatorId, command:"on"|"off"|"set_level", level?, durationS? }
+ */
+export const automationRules = pgTable(
+  "automation_rules",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    companyId: uuid("company_id")
+      .notNull()
+      .references(() => companies.id, { onDelete: "cascade" }),
+    locationId: uuid("location_id").references(() => locations.id, {
+      onDelete: "cascade",
+    }),
+    name: varchar("name", { length: 120 }).notNull(),
+    enabled: boolean("enabled").notNull().default(true),
+    trigger: jsonb("trigger").notNull(),
+    action: jsonb("action").notNull(),
+    // intervalo mínimo entre disparos (anti-oscilação)
+    cooldownS: integer("cooldown_s").notNull().default(300),
+    lastFiredAt: timestamp("last_fired_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => ({
+    companyIdx: index("automation_rules_company_idx").on(t.companyId),
+    locationIdx: index("automation_rules_location_idx").on(t.locationId),
+  }),
+);
+
+// ─────────────────────────────────────────────────────────────
+// Comandos (fila cloud → device, coletada por polling/MQTT)
+// ─────────────────────────────────────────────────────────────
+
+export const deviceCommands = pgTable(
+  "device_commands",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    deviceId: uuid("device_id")
+      .notNull()
+      .references(() => devices.id, { onDelete: "cascade" }),
+    actuatorId: uuid("actuator_id").references(() => actuators.id, {
+      onDelete: "cascade",
+    }),
+    // payload entregue ao firmware: { command:"on"|"off"|"set_level", level?, durationS? }
+    command: jsonb("command").notNull(),
+    status: commandStatus("status").notNull().default("pending"),
+    issuedBy: commandIssuer("issued_by").notNull().default("user"),
+    ruleId: uuid("rule_id").references(() => automationRules.id, {
+      onDelete: "set null",
+    }),
+    detail: text("detail"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    sentAt: timestamp("sent_at", { withTimezone: true }),
+    ackedAt: timestamp("acked_at", { withTimezone: true }),
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+  },
+  (t) => ({
+    deviceStatusIdx: index("device_commands_device_status_idx").on(
+      t.deviceId,
+      t.status,
+    ),
+  }),
+);
+
+// ─────────────────────────────────────────────────────────────
+// Alertas persistidos (gerados na ingestão / automação)
+// ─────────────────────────────────────────────────────────────
+
+export const alerts = pgTable(
+  "alerts",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    companyId: uuid("company_id")
+      .notNull()
+      .references(() => companies.id, { onDelete: "cascade" }),
+    locationId: uuid("location_id").references(() => locations.id, {
+      onDelete: "cascade",
+    }),
+    sensorId: uuid("sensor_id").references(() => sensors.id, {
+      onDelete: "set null",
+    }),
+    severity: alertSeverity("severity").notNull().default("info"),
+    metric: varchar("metric", { length: 40 }),
+    value: real("value"),
+    message: text("message").notNull(),
+    resolved: boolean("resolved").notNull().default(false),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    resolvedAt: timestamp("resolved_at", { withTimezone: true }),
+  },
+  (t) => ({
+    companyIdx: index("alerts_company_idx").on(t.companyId, t.resolved),
+  }),
+);
+
+// ─────────────────────────────────────────────────────────────
 // Relations
 // ─────────────────────────────────────────────────────────────
 
@@ -241,6 +456,74 @@ export const companiesRelations = relations(companies, ({ many }) => ({
   locations: many(locations),
   sensors: many(sensors),
   deviceTokens: many(deviceTokens),
+  devices: many(devices),
+  actuators: many(actuators),
+  automationRules: many(automationRules),
+  alerts: many(alerts),
+}));
+
+export const devicesRelations = relations(devices, ({ one, many }) => ({
+  company: one(companies, {
+    fields: [devices.companyId],
+    references: [companies.id],
+  }),
+  location: one(locations, {
+    fields: [devices.locationId],
+    references: [locations.id],
+  }),
+  sensors: many(sensors),
+  actuators: many(actuators),
+  commands: many(deviceCommands),
+  tokens: many(deviceTokens),
+}));
+
+export const actuatorsRelations = relations(actuators, ({ one, many }) => ({
+  device: one(devices, {
+    fields: [actuators.deviceId],
+    references: [devices.id],
+  }),
+  location: one(locations, {
+    fields: [actuators.locationId],
+    references: [locations.id],
+  }),
+  commands: many(deviceCommands),
+}));
+
+export const deviceCommandsRelations = relations(deviceCommands, ({ one }) => ({
+  device: one(devices, {
+    fields: [deviceCommands.deviceId],
+    references: [devices.id],
+  }),
+  actuator: one(actuators, {
+    fields: [deviceCommands.actuatorId],
+    references: [actuators.id],
+  }),
+  rule: one(automationRules, {
+    fields: [deviceCommands.ruleId],
+    references: [automationRules.id],
+  }),
+}));
+
+export const automationRulesRelations = relations(automationRules, ({ one }) => ({
+  company: one(companies, {
+    fields: [automationRules.companyId],
+    references: [companies.id],
+  }),
+  location: one(locations, {
+    fields: [automationRules.locationId],
+    references: [locations.id],
+  }),
+}));
+
+export const alertsRelations = relations(alerts, ({ one }) => ({
+  company: one(companies, {
+    fields: [alerts.companyId],
+    references: [companies.id],
+  }),
+  sensor: one(sensors, {
+    fields: [alerts.sensorId],
+    references: [sensors.id],
+  }),
 }));
 
 export const usersRelations = relations(users, ({ one }) => ({
@@ -271,6 +554,10 @@ export const sensorsRelations = relations(sensors, ({ one, many }) => ({
     fields: [sensors.deviceTokenId],
     references: [deviceTokens.id],
   }),
+  device: one(devices, {
+    fields: [sensors.deviceId],
+    references: [devices.id],
+  }),
   readings: many(readings),
 }));
 
@@ -288,3 +575,8 @@ export type Location = typeof locations.$inferSelect;
 export type Sensor = typeof sensors.$inferSelect;
 export type DeviceToken = typeof deviceTokens.$inferSelect;
 export type Reading = typeof readings.$inferSelect;
+export type Device = typeof devices.$inferSelect;
+export type Actuator = typeof actuators.$inferSelect;
+export type AutomationRule = typeof automationRules.$inferSelect;
+export type DeviceCommand = typeof deviceCommands.$inferSelect;
+export type AlertRow = typeof alerts.$inferSelect;
